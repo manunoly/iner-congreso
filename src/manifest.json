@@ -1,6 +1,6 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
+  "name": "INER-Congreso",
+  "short_name": "INER",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{

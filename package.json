@@ -2,7 +2,7 @@
   "name": "iner-congreso",
   "version": "0.0.1",
   "author": "Manuel Almaguer",
-  "homepage": "http://github.com/manunoly",
+  "homepage": "https://github.com/manunoly/iner-congreso",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",

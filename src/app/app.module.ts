@@ -12,6 +12,24 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+//firebase 
+// import { HttpModule } from '@angular/http';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+// import { FirebaseProvider } from 'providers/firebase/firebase';
+
+
+  // Initialize Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyCoXxPbY1k929LjgLeVIir3tk4TkXV3eeI",
+    authDomain: "congreso-iner.firebaseapp.com",
+    databaseURL: "https://congreso-iner.firebaseio.com",
+    projectId: "congreso-iner",
+    storageBucket: "congreso-iner.appspot.com",
+    messagingSenderId: "615072989154"
+  };
+
 @NgModule({
   declarations: [
     MyApp,
@@ -23,7 +41,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+//firebase Module import
+    // HttpModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(firebaseConfig),
   ],
   bootstrap: [IonicApp],
   entryComponents: [

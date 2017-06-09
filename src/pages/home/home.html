@@ -1,8 +1,15 @@
 <ion-content>
   <h2 ion-text color="primary" text-center text-center>Bienvenidos</h2>
   <hr>
-
   <div offset-md-2 col-md-8 padding>
-    Contenido Aqui
+    <button ion-button outline (click)="signInWithGoogle()">Login</button>
+    <button ion-button outline (click)="signOut()">Logout</button>
+    <br>
+     <h1>Hello {{displayName}}</h1>  
+    <ion-list>
+      <ion-item class="text" *ngFor="let item of items | async">
+        {{item.$value}}
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>

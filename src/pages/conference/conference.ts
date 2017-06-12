@@ -1,31 +1,41 @@
-import { AboutPage } from './../about/about';
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { AboutPage } from "./../about/about";
+import { Component } from "@angular/core";
+import { NavController, NavParams } from "ionic-angular";
+
+import { AngularFireAuth } from "angularfire2/auth";
+import {
+  AngularFireDatabase,
+  FirebaseListObservable
+} from "angularfire2/database";
+import * as firebase from "firebase/app";
 
 @Component({
-  selector: 'page-conference',
-  templateUrl: 'conference.html'
+  selector: "page-conference",
+  templateUrl: "conference.html"
 })
 export class ConferencePage {
-  selectedItem: any;
-  icons: string[];
-  items: Array<{ title: string, note: string, icon: string }>;
+  speakers = [];
+  conferences = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {  
-
-this.selectedItem = navParams.get('item');
-
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-      'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private afDB: AngularFireDatabase,
+    private afAuth: AngularFireAuth
+  ) {
+    this.afDB.list("/data").subscribe((data: Object) => {
+      let conferences = data[0];
+      this.conferences = [];
+      for (let i in conferences) {
+        console.log(conferences[i]);
+        console.log(i);
+        this.conferences.push(conferences[i]);
+      }
+      let speakers = data[1];
+      for (let i in speakers) {
+        this.speakers.push(speakers[i]);
+      }
+    });
   }
 
   itemTapped(event, item) {

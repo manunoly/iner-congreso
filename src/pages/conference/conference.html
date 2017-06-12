@@ -3,6 +3,14 @@
   <hr>
 
   <div offset-md-2 col-md-8 padding>
-    Contenido Aqui
+    <ion-list>
+      <ion-item class="text" *ngFor="let conference of conferences">
+        <ion-avatar item-start>
+          <img src="img/avatar-cher.png">
+        </ion-avatar>
+        <h2>{{ conference.title }}</h2>
+        <p>{{ conference.shortDescription }}</p>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>

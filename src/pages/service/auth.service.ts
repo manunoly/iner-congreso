@@ -9,9 +9,17 @@ import * as firebase from 'firebase/app';
 @Injectable()
 export class AuthService {
   user: Observable<firebase.User>;
+  name: string;
 
-  constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
+  constructor(private afAuth: AngularFireAuth) {
     this.user = afAuth.authState;
+    this.user.subscribe((data: Object)=>{
+        if (data != null) {
+          this.name = data['email'].split('@')[0];
+        // this.name = user['displayName'];
+        }else
+            this.name = "Visitante"
+        })
   }
 
   loginGoogle() {
@@ -27,6 +35,10 @@ export class AuthService {
 
   getUser() {
     return this.user;
+  }
+
+  getUserName(){
+      return this.name;
   }
 
   isAuthenticated() {

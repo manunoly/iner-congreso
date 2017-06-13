@@ -18,8 +18,6 @@ export class DataService{
       let conferences = data[0];
       this.conferences = [];
       for (let i in conferences) {
-        console.log(conferences[i]);
-        console.log(i);
         this.conferences.push(conferences[i]);
       }
       this.speakers = [];

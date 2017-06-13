@@ -2,12 +2,7 @@ import { AboutPage } from "./../about/about";
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 
-import { AngularFireAuth } from "angularfire2/auth";
-import {
-  AngularFireDatabase,
-  FirebaseListObservable
-} from "angularfire2/database";
-import * as firebase from "firebase/app";
+import { DataService } from "./../service/data.service";
 
 @Component({
   selector: "page-conference",
@@ -15,27 +10,23 @@ import * as firebase from "firebase/app";
 })
 export class ConferencePage {
   speakers = [];
-  conferences = [];
+  conferences: any;
+  conferencesData: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private afDB: AngularFireDatabase,
-    private afAuth: AngularFireAuth
+    private dataS: DataService
   ) {
-    this.afDB.list("/data").subscribe((data: Object) => {
-      let conferences = data[0];
-      this.conferences = [];
-      for (let i in conferences) {
-        console.log(conferences[i]);
-        console.log(i);
-        this.conferences.push(conferences[i]);
-      }
-      let speakers = data[1];
-      for (let i in speakers) {
-        this.speakers.push(speakers[i]);
-      }
-    });
+    this.conferences = this.dataS.getConferences();
+  }
+
+  addConf() {
+    this.dataS.addConference();
+  }
+
+  addSpeaker(){
+    this.dataS.addSpeaker();
   }
 
   itemTapped(event, item) {

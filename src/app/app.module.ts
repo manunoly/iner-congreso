@@ -3,6 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
+import { HttpModule } from '@angular/http';
+
+import { AuthService } from '../pages/service/auth.service';
+import { DataService } from '../pages/service/data.service';
+
 import { AboutPage } from '../pages/about/about';
 import { SpeakerPage } from '../pages/speaker/speaker';
 import { ConferencePage } from '../pages/conference/conference';
@@ -41,6 +46,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
 //firebase Module import
     // HttpModule,
@@ -60,6 +66,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
   providers: [
     StatusBar,
     SplashScreen,
+    AuthService,
+    DataService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

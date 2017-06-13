@@ -17,7 +17,7 @@ export class HomePage {
   items: FirebaseListObservable<any>;
   displayName: string;
 
-  constructor(public navCtrl: NavController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth) {
+  constructor(public navCtrl: NavController) {
     // afDB.list('/').push({'aaa1': 1})
     this.items = this.afDB.list('/');
     console.log('OK');

@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 
 import { AuthService } from "./../service/auth.service";
+import { DataService } from './../service/data.service';
 
 @Component({
   selector: "page-home",
@@ -14,9 +15,11 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private authS: AuthService
+    private authS: AuthService,
+    private dataS: DataService
   ) {
     this.user = authS.getUser();
+    // this.dataS.loadData();
     this.user.subscribe((data: Object) => {
       if (data != null) {
         this.displayName = data["email"].split("@")[0];

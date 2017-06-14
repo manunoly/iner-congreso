@@ -5,9 +5,13 @@
   <div offset-md-2 col-md-8 padding>
     <button ion-button outline (click)="addConf()">addConference</button>
     <button ion-button outline (click)="addSpeaker()">addSpeker</button>
+    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
 
+    <div *ngIf="searching" class="spinner-container">
+      <ion-spinner></ion-spinner>
+    </div>
     <ion-list>
-      <ion-item class="text" *ngFor="let conference of conferences | async">
+      <ion-item class="text" *ngFor="let conference of conferences">
         <ion-avatar item-start>
           <img src="img/avatar-cher.png">
         </ion-avatar>
@@ -15,10 +19,10 @@
         <p>{{ conference.shortDescription }}</p>
       </ion-item>
     </ion-list>
-    <ion-item-group>
+    <!--    <ion-item-group>
       <ion-item-divider color="light">A</ion-item-divider>
       <ion-item>Angola</ion-item>
       <ion-item>Argentina</ion-item>
-    </ion-item-group>
+    </ion-item-group>-->
   </div>
 </ion-content>

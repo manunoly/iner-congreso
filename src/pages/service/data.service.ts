@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
+import "rxjs/add/observable/of";
 
 import "rxjs/Operator";
 import {
@@ -12,27 +13,40 @@ import { AuthService } from "./auth.service";
 
 @Injectable()
 export class DataService {
-  conferences = [];
+  // conferences: Observable<any>;
+  conferences: any;
   speakers = [];
-  constructor(private afDB: AngularFireDatabase, private authS: AuthService) {}
-  loadData() {
-    this.afDB.list("/data").subscribe((data: Object) => {
+  getData: any;
+  
+  constructor(private afDB: AngularFireDatabase, private authS: AuthService) {
+    /*this.afDB.list("/data/conferences").subscribe(data => {
+      this.conferences = data;
+      console.log(this.conferences);
+    });*/
+    this.getData = this.afDB.list('/data');
+    /* this.afDB.list("/data").subscribe((data: Object) => {
       let conferences = data[0];
-      this.conferences = [];
+      let tmpData = [];
       for (let i in conferences) {
-        this.conferences.push(conferences[i]);
+        tmpData.push(conferences[i]);
       }
+      this.conferences = Observable.create(observer => {
+        observer.next(tmpData);
+      });
+
       this.speakers = [];
       let speakers = data[1];
       for (let i in speakers) {
         this.speakers.push(speakers[i]);
       }
-      console.log(this.conferences);
-    });
+    });*/
   }
+
   getConferences() {
-    return this.afDB.list("/data/conferences");
+    return Observable.of(this.conferences);
+    // return this.conferences;
   }
+  getConferences1(this: this) {}
 
   updateConference() {
     if (this.authS.isAuthenticated()) {
@@ -71,6 +85,26 @@ export class DataService {
         topic: ["Services", "Data Manipulation"]
       });
     }
+  }
+
+  filterConferences(searchTerm) {
+    this.getData.subscribe((data: Object) => {
+      let conferences = data[0];
+        let tmpData = [];
+        for (let i in conferences) {
+          tmpData.push(conferences[i]);
+        }
+        this.conferences = tmpData;
+        return this.conferences;
+    });
+    
+    
+    // return this.conferences.filter((data)=>{
+    //   return data.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    // });
+    //   this.conferences.filter((item) => {
+    //           return item.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    // }
   }
 
   getSpeakers() {

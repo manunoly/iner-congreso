@@ -18,16 +18,12 @@ export class DataService {
   conferences: any;
   speakers = [];
   getData: any;
-  
+
   constructor(private afDB: AngularFireDatabase, private authS: AuthService) {
     /*this.afDB.list("/data/conferences").subscribe(data => {
       this.conferences = data;
       console.log(this.conferences);
     });*/
-    this.getData = this.afDB.list('/data').map(data=>{
-      this.conferences = data[0];
-      this.speakers = data[1];
-    });
     /* this.afDB.list("/data").subscribe((data: Object) => {
       let conferences = data[0];
       let tmpData = [];
@@ -45,14 +41,9 @@ export class DataService {
       }
     });*/
   }
-
-  getConferences() {
-    return this.getData.subscribe(data => {return this.conferences});
-  
-    // return this.conferences;
+  loadData() {
+    this.getData = this.afDB.list("/data").subscribe();
   }
-  getConferences1(this: this) {}
-
   updateConference() {
     if (this.authS.isAuthenticated()) {
       this.afDB.list("/data/conferences").update("123", {
@@ -93,7 +84,24 @@ export class DataService {
   }
 
   filterConferences(searchTerm) {
-    return this.afDB.list("/data/conferences").map(data => data.filter(dato => dato.title.toLowerCase().includes(searchTerm.toLowerCase())));
+    if (searchTerm === "")
+      return this.afDB.list("/data/conferences", {
+        query: {
+          orderByChild: "day"
+        }
+      });
+    return this.afDB
+      .list("/data/conferences", {
+        query: {
+          orderByChild: "day"
+        }
+      })
+      .map(data =>
+        data.filter(dato =>
+          dato.title.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    // return this.afDB.list("/data").map(data => data[0]).filter(dato=> {return true});
     // return this.afDB.list("/data/conferences").map(data=>{data.filter(data.title.toLowerCase().indexOf(searchTerm.toLowerCase()))});
 
     // return this.getData.subscribe((data) => {
@@ -103,11 +111,10 @@ export class DataService {
     //     }
     //     // this.conferences = tmpData;
     //   console.log(tmpData);
-    //   console.log(this.conferences);      
+    //   console.log(this.conferences);
     //     return tmpData;
     // });
-    
-    
+
     // return this.conferences.filter((data)=>{
     //   return data.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     // });
@@ -116,14 +123,30 @@ export class DataService {
     // }
   }
 
-  getSpeakers() {
-    return this.afDB.list("/data/speakers");
+  filterSpeakers(searchTerm) {
+    if (searchTerm === "")
+      return this.afDB.list("/data/speakers", {
+        query: {
+          orderByChild: "name"
+        }
+      });
+    return this.afDB
+      .list("/data/speakers", {
+        query: {
+          orderByChild: "name"
+        }
+      })
+      .map(data =>
+        data.filter(dato =>
+          dato.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
   }
 
   addSpeaker() {
     if (this.authS.isAuthenticated()) {
       this.afDB.list("/data/speakers").push({
-        name: "The Ionic package service",
+        name: "Massimo Palem",
         profilePic: "assets/img/speakers/bear.jpg",
         shortAbout: "Mobile devices and browsers",
         about:

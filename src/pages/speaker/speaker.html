@@ -3,6 +3,33 @@
   <hr>
 
   <div offset-md-2 col-md-8 padding>
-    Contenido Aqui
+    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+
+    <div *ngIf="searching" class="spinner-container">
+      <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-card *ngFor="let speaker of speakers | async">
+      <ion-item text-center>
+        <ion-card-header>
+          <ion-avatar>
+            <img [src]="speaker.profilePic">
+          </ion-avatar>
+          <h2><a>{{ speaker.name }}</a></h2>
+          <p>{{ speaker.name }}</p>
+        </ion-card-header>
+        <ion-card-content>
+          <p>{{ speaker.shortAbout }}.</p>
+        </ion-card-content>
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-left clear small>
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div>Detalles</div>
+         </button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-card>
   </div>
 </ion-content>

@@ -1,3 +1,9 @@
 page-speaker {
-
+    ion-avatar {
+        display: flex;
+        flex-direction: column;    /* align flex items vertically */
+        justify-content: center;   /* center items vertically, in this case */
+        align-items: center;       /* center single-line items horizontally, in this case */
+        align-content: center;     /* center multi-line items horizontally, in this case */
+    }
 }

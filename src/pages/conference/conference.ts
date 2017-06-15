@@ -11,9 +11,7 @@ import "rxjs/add/operator/debounceTime";
   templateUrl: "conference.html"
 })
 export class ConferencePage {
-  speakers = [];
   conferences: any;
-  conferencesData: any;
   searchTerm: string = "";
   searchControl: FormControl;
   searching: any = false;
@@ -26,10 +24,6 @@ export class ConferencePage {
     this.searchControl = new FormControl();
   }
   ionViewDidLoad() {
-    // this.conferences = this.dataS.getConferences();
-    /*  this.dataS.getConferences().subscribe((data: Object)=>{
-      this.conferences = data;
-    })*/
     this.setFilteredConferences();
     this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
       this.searching = false;

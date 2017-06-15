@@ -11,7 +11,7 @@
       <ion-spinner></ion-spinner>
     </div>
     <ion-list>
-      <ion-item class="text" *ngFor="let conference of conferences">
+      <ion-item class="text" *ngFor="let conference of conferences | async">
         <ion-avatar item-start>
           <img src="img/avatar-cher.png">
         </ion-avatar>

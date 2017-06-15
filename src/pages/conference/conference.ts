@@ -43,7 +43,6 @@ export class ConferencePage {
 
   setFilteredConferences() {
     this.conferences = this.dataS.filterConferences(this.searchTerm);
-    console.log(this.conferences);
   }
 
   addConf() {

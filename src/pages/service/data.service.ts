@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
+import "rxjs/add/operator/filter";
 import "rxjs/add/observable/of";
 
 import "rxjs/Operator";
@@ -23,7 +24,10 @@ export class DataService {
       this.conferences = data;
       console.log(this.conferences);
     });*/
-    this.getData = this.afDB.list('/data');
+    this.getData = this.afDB.list('/data').map(data=>{
+      this.conferences = data[0];
+      this.speakers = data[1];
+    });
     /* this.afDB.list("/data").subscribe((data: Object) => {
       let conferences = data[0];
       let tmpData = [];
@@ -43,7 +47,8 @@ export class DataService {
   }
 
   getConferences() {
-    return Observable.of(this.conferences);
+    return this.getData.subscribe(data => {return this.conferences});
+  
     // return this.conferences;
   }
   getConferences1(this: this) {}
@@ -88,15 +93,19 @@ export class DataService {
   }
 
   filterConferences(searchTerm) {
-    this.getData.subscribe((data: Object) => {
-      let conferences = data[0];
-        let tmpData = [];
-        for (let i in conferences) {
-          tmpData.push(conferences[i]);
-        }
-        this.conferences = tmpData;
-        return this.conferences;
-    });
+    return this.afDB.list("/data/conferences").map(data => data.filter(dato => dato.title.toLowerCase().includes(searchTerm.toLowerCase())));
+    // return this.afDB.list("/data/conferences").map(data=>{data.filter(data.title.toLowerCase().indexOf(searchTerm.toLowerCase()))});
+
+    // return this.getData.subscribe((data) => {
+    //     let tmpData = [];
+    //     for (let i in this.conferences) {
+    //       tmpData.push(this.conferences[i]);
+    //     }
+    //     // this.conferences = tmpData;
+    //   console.log(tmpData);
+    //   console.log(this.conferences);      
+    //     return tmpData;
+    // });
     
     
     // return this.conferences.filter((data)=>{

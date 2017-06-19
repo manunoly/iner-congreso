@@ -43,9 +43,6 @@ export class ConferencePage {
     this.dataS.addConference();
   }
 
-  addSpeaker() {
-    this.dataS.addSpeaker();
-  }
 
   itemTapped(event, item) {
     this.navCtrl.push(AboutPage, {

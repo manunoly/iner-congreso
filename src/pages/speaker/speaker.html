@@ -3,6 +3,12 @@
   <hr>
 
   <div offset-md-2 col-md-8 padding>
+    <button ion-button outline (click)="addSpeaker()">addSpeker</button>
+    <button ion-button outline (click)="filterSpeaker()">filterSpeaker</button>
+    <p *ngFor="let item of speaker | async as list">
+      {{ item.name }}
+      {{ item.shortAbout }}
+    </p>
     <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
 
     <div *ngIf="searching" class="spinner-container">
@@ -15,18 +21,25 @@
           <ion-avatar>
             <img [src]="speaker.profilePic">
           </ion-avatar>
-          <h2><a>{{ speaker.name }}</a></h2>
-          <p>{{ speaker.name }}</p>
+          <h2><a (click)='goToSpeakerDetail(speaker.$key)'>{{ speaker.name }}</a></h2>
+          <p>{{ speaker.degree }}</p>
         </ion-card-header>
         <ion-card-content>
           <p>{{ speaker.shortAbout }}.</p>
         </ion-card-content>
+        <ion-card-content *ngIf="speaker.conferences">
+          <h2>Ponencias</h2>
+          <a *ngFor="let conf of speaker.conferences">
+            {{ conf.title }}
+            <br>
+            </a>
+        </ion-card-content>
         <ion-row>
           <ion-col>
             <button ion-button icon-left clear small>
-            <ion-icon name="thumbs-up"></ion-icon>
-            <div>Detalles</div>
-         </button>
+              <ion-icon name="information"></ion-icon>
+              <div>Detalles</div>
+            </button>
           </ion-col>
         </ion-row>
       </ion-item>

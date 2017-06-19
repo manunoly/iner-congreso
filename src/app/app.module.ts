@@ -10,6 +10,7 @@ import { DataService } from '../pages/service/data.service';
 
 import { AboutPage } from '../pages/about/about';
 import { SpeakerPage } from '../pages/speaker/speaker';
+import { SpeakerDeatailPage } from '../pages/speaker-deatail/speaker-deatail';
 import { ConferencePage } from '../pages/conference/conference';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -40,6 +41,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     MyApp,
     AboutPage,
     SpeakerPage,
+    SpeakerDeatailPage,
     ConferencePage,
     HomePage,
     TabsPage
@@ -60,6 +62,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     HomePage,    
     AboutPage,
     SpeakerPage,
+    SpeakerDeatailPage,
     ConferencePage,
     TabsPage
   ],

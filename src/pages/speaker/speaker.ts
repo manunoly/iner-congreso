@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 import { FormControl } from "@angular/forms";
 
+import { SpeakerDeatailPage } from "./../speaker-deatail/speaker-deatail";
 import { DataService } from "./../service/data.service";
 import "rxjs/add/operator/debounceTime";
 
@@ -11,6 +12,7 @@ import "rxjs/add/operator/debounceTime";
 })
 export class SpeakerPage {
   speakers: any;
+  speaker: any;
   searchTerm: string = "";
   searchControl: FormControl;
   searching: any = false;
@@ -33,6 +35,24 @@ export class SpeakerPage {
 
   onSearchInput() {
     this.searching = true;
+  }
+
+  addSpeaker() {
+    this.dataS.addSpeaker();
+  }
+
+  goToSpeakerDetail(speakerID: any) {
+    console.log(speakerID);
+    this.navCtrl.push(SpeakerDeatailPage, {
+      speaker: speakerID
+    });
+  }
+
+  filterSpeaker(speaker) {
+    this.speaker = this.dataS.filterSpeaker(speaker);
+    // this.dataS.filterSpeaker("-KmgYzhT7U3imA_veDra").subscribe((data: JSON) => {
+    //   this.speaker = JSON.stringify(data[0]);
+    // });
   }
 
   setFilteredSpeakers() {

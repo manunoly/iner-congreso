@@ -4,7 +4,6 @@
 
   <div offset-md-2 col-md-8 padding>
     <button ion-button outline (click)="addConf()">addConference</button>
-    <button ion-button outline (click)="addSpeaker()">addSpeker</button>
     <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
 
     <div *ngIf="searching" class="spinner-container">

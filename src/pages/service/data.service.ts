@@ -63,10 +63,19 @@ export class DataService {
       });
     }
   }
+
+  getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+  }
+
   addConference() {
+    let day = this.getRandomIntInclusive(21, 23);
+    let hour = this.getRandomIntInclusive(0, 59);
     if (this.authS.isAuthenticated()) {
       this.afDB.list("/data/conferences").push({
-        title: "The Ionic package service",
+        title: "Conferencia No " + day + hour,
         location: "Room 2203",
         shortDescription: "Mobile devices and browsers",
         description:
@@ -75,7 +84,8 @@ export class DataService {
           { name: "Molly Mouse", speakerID: "123" },
           { name: "Burt Bear", speakerID: "1234" }
         ],
-        day: "21",
+        day: day,
+        date: "2017:01:13:" + day + ":" + hour,
         timeStart: "1:30 pm",
         timeEnd: "2:00 pm",
         topic: ["Services", "Data Manipulation"]
@@ -87,13 +97,13 @@ export class DataService {
     if (searchTerm === "")
       return this.afDB.list("/data/conferences", {
         query: {
-          orderByChild: "day"
+          orderByChild: "date"
         }
       });
     return this.afDB
       .list("/data/conferences", {
         query: {
-          orderByChild: "day"
+          orderByChild: "date"
         }
       })
       .map(data =>
@@ -123,6 +133,11 @@ export class DataService {
     // }
   }
 
+  filterSpeaker(speakerID) {
+    return this.afDB
+      .list("/data/speakers")
+      .map(data => data.filter(dato => dato.$key == speakerID));
+  }
   filterSpeakers(searchTerm) {
     if (searchTerm === "")
       return this.afDB.list("/data/speakers", {
@@ -146,7 +161,8 @@ export class DataService {
   addSpeaker() {
     if (this.authS.isAuthenticated()) {
       this.afDB.list("/data/speakers").push({
-        name: "Massimo Palem",
+        name: "Manu Chao",
+        degree: "Phd, Ingeniero Mecanico",
         profilePic: "assets/img/speakers/bear.jpg",
         shortAbout: "Mobile devices and browsers",
         about:

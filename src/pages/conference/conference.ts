@@ -2,7 +2,7 @@ import { AboutPage } from "./../about/about";
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 import { FormControl } from "@angular/forms";
-
+import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
 import { DataService } from "./../service/data.service";
 import "rxjs/add/operator/debounceTime";
 
@@ -43,6 +43,11 @@ export class ConferencePage {
     this.dataS.addConference();
   }
 
+  goToConferenceDetail(conferenceID) {
+    this.navCtrl.push(ConferenceDetailPage, {
+      conferenceID: conferenceID
+    });
+  }
 
   itemTapped(event, item) {
     this.navCtrl.push(AboutPage, {

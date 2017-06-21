@@ -22,7 +22,6 @@ export class DataService {
   constructor(private afDB: AngularFireDatabase, private authS: AuthService) {
     /*this.afDB.list("/data/conferences").subscribe(data => {
       this.conferences = data;
-      console.log(this.conferences);
     });*/
     /* this.afDB.list("/data").subscribe((data: Object) => {
       let conferences = data[0];
@@ -111,26 +110,12 @@ export class DataService {
           dato.title.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
-    // return this.afDB.list("/data").map(data => data[0]).filter(dato=> {return true});
-    // return this.afDB.list("/data/conferences").map(data=>{data.filter(data.title.toLowerCase().indexOf(searchTerm.toLowerCase()))});
+  }
 
-    // return this.getData.subscribe((data) => {
-    //     let tmpData = [];
-    //     for (let i in this.conferences) {
-    //       tmpData.push(this.conferences[i]);
-    //     }
-    //     // this.conferences = tmpData;
-    //   console.log(tmpData);
-    //   console.log(this.conferences);
-    //     return tmpData;
-    // });
-
-    // return this.conferences.filter((data)=>{
-    //   return data.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-    // });
-    //   this.conferences.filter((item) => {
-    //           return item.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-    // }
+  filterConference(conferenceID) {
+    return this.afDB
+      .list("/data/conferences")
+      .map(data => data.filter(dato => dato.$key == conferenceID));
   }
 
   filterSpeaker(speakerID) {

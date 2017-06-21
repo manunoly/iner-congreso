@@ -3,6 +3,7 @@ import { NavController, NavParams } from "ionic-angular";
 import { FormControl } from "@angular/forms";
 
 import { SpeakerDeatailPage } from "./../speaker-deatail/speaker-deatail";
+import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
 import { DataService } from "./../service/data.service";
 import "rxjs/add/operator/debounceTime";
 
@@ -42,9 +43,14 @@ export class SpeakerPage {
   }
 
   goToSpeakerDetail(speakerID: any) {
-    console.log(speakerID);
     this.navCtrl.push(SpeakerDeatailPage, {
       speaker: speakerID
+    });
+  }
+
+  goToConferenceDetail(conferenceID) {
+    this.navCtrl.push(ConferenceDetailPage, {
+      conferenceID: conferenceID
     });
   }
 

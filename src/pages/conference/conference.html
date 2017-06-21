@@ -14,9 +14,10 @@
         <ion-avatar item-start>
           <img src="img/avatar-cher.png">
         </ion-avatar>
-        <h2><a>{{ conference.title }}</a></h2>
+        <a (click)="goToConferenceDetail(conference.$key)">{{ conference.title }}</a>
         <p>{{ conference.shortDescription }}</p>
       </ion-item>
+
     </ion-list>
     <!--    <ion-item-group>
       <ion-item-divider color="light">A</ion-item-divider>

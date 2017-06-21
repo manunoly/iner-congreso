@@ -1,24 +1,22 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { NavController, NavParams } from "ionic-angular";
 
-/**
- * Generated class for the ConferenceDetailPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-@IonicPage()
+import { DataService } from "./../service/data.service";
 @Component({
-  selector: 'page-conference-detail',
-  templateUrl: 'conference-detail.html',
+  selector: "page-conference-detail",
+  templateUrl: "conference-detail.html"
 })
 export class ConferenceDetailPage {
+  confence: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private dataS: DataService
+  ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ConferenceDetailPage');
+    let conferenceID = this.navParams.data.conferenceID;
+    this.confence = this.dataS.filterConference(conferenceID);
   }
-
 }

@@ -22,13 +22,21 @@ export class HomePage {
     this.user = this.authS.getUser();
     this.user.subscribe((data: Object) => {
       if (data != null) {
-        this.displayName = data["email"].split("@")[0];
-        // this.name = user['displayName'];
+        // this.displayName = data["email"].split("@")[0];
+        this.displayName = data["displayName"];
       } else this.displayName = "Visitante";
     });
     this.dataS.loadData();
   }
   signInWithGoogle() {
+    this.authS.loginGoogle();
+  }
+
+  signInWithFacebook() {
+    this.authS.loginGoogle();
+  }
+
+  signInWithTwitter() {
     this.authS.loginGoogle();
   }
   signOut() {

@@ -12,6 +12,7 @@ import { AboutPage } from '../pages/about/about';
 import { SpeakerPage } from '../pages/speaker/speaker';
 import { SpeakerDeatailPage } from '../pages/speaker-deatail/speaker-deatail';
 import { ConferencePage } from '../pages/conference/conference';
+import { ConferenceDetailPage } from './../pages/conference-detail/conference-detail';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -43,6 +44,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     SpeakerPage,
     SpeakerDeatailPage,
     ConferencePage,
+    ConferenceDetailPage,
     HomePage,
     TabsPage
   ],
@@ -64,6 +66,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     SpeakerPage,
     SpeakerDeatailPage,
     ConferencePage,
+    ConferenceDetailPage,
     TabsPage
   ],
   providers: [

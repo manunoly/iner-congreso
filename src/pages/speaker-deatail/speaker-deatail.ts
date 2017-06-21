@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
-
+import { NavController, NavParams } from "ionic-angular";
+import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
 import { DataService } from "./../service/data.service";
 
 @Component({
@@ -13,14 +13,16 @@ export class SpeakerDeatailPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private dataS: DataService
-  ) {
-  }
+  ) {}
 
   ionViewDidLoad() {
-    let speakerD = this.navParams.data.speaker;
-    
-    console.log("ionViewDidLoad SpeakerDeatailPage");
+    let speakerID = this.navParams.data.speaker;
+    this.speaker = this.dataS.filterSpeaker(speakerID);
+  }
 
-    this.speaker = this.dataS.filterSpeaker(speakerD);
+  goToConferenceDetail(conferenceID) {
+    this.navCtrl.push(ConferenceDetailPage, {
+      conferenceID: conferenceID
+    });
   }
 }

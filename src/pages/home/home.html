@@ -1,15 +1,30 @@
-<ion-content>
-  <h2 ion-text color="primary" text-center text-center>Bienvenidos</h2>
-  <hr>
+<ion-content text-center>
   <div offset-md-2 col-md-8 padding>
-    <button ion-button outline (click)="signInWithGoogle()">Login</button>
-    <button ion-button outline (click)="signOut()">Logout</button>
-    <br>
-     <h1>Hello {{displayName}}</h1>  
-    <ion-list>
-      <ion-item class="text" *ngFor="let item of items | async">
-        {{item.$value}}
-      </ion-item>
-    </ion-list>
+    <div *ngIf="displayName == 'Visitante'; then userLogin else userPicture"></div>
+    <ng-template #userPicture>
+      <ion-fab top right>
+        <button  title={{displayName}} ion-fab mini color="light">
+        <!--<button ion-fab mini style="background-color: transparent">-->
+            <img src="./../../assets/img/logoiner.png">
+        </button>
+        <ion-fab-list>
+          <button (click)="signOut()" title="Salir" ion-fab><ion-icon name="log-out"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
+    </ng-template>
+    <ng-template #userLogin>
+      <ion-fab top right>
+        <button title="Iniciar Sesión" ion-fab mini color="light"><ion-icon name="person"></ion-icon></button>
+        <ion-fab-list>
+          <button (click)="signInWithGoogle()" title="Iniciar con Google" ion-fab><ion-icon name="logo-google"></ion-icon></button>
+          <button (click)="signInWithFacebook()" title="Iniciar con Facebook" ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+          <button (click)="signInWithTwitter()" title="Iniciar con Twitter" ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
+    </ng-template>
+    <!--  <h2 ion-text color="primary">Bienvenidos</h2>
+  <hr>-->
+    <img src="./../../assets/img/idi_.png">
+    <p> Congreso Investigación Desarrollo e Innovación en Sostenibilidad Energética 2017</p>
   </div>
 </ion-content>

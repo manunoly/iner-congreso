@@ -6,8 +6,7 @@
     <button ion-button outline (click)="addSpeaker()">addSpeker</button>
     <button ion-button outline (click)="filterSpeaker()">filterSpeaker</button>
     <p *ngFor="let item of speaker | async as list">
-      {{ item.name }}
-      {{ item.shortAbout }}
+      {{ item.name }} {{ item.shortAbout }}
     </p>
     <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
 
@@ -29,19 +28,11 @@
         </ion-card-content>
         <ion-card-content *ngIf="speaker.conferences">
           <h2>Ponencias</h2>
-          <a *ngFor="let conf of speaker.conferences">
+          <a *ngFor="let conf of speaker.conferences" (click)="goToConferenceDetail(conf.conferenceID)">
             {{ conf.title }}
             <br>
             </a>
         </ion-card-content>
-        <ion-row>
-          <ion-col>
-            <button ion-button icon-left clear small>
-              <ion-icon name="information"></ion-icon>
-              <div>Detalles</div>
-            </button>
-          </ion-col>
-        </ion-row>
       </ion-item>
     </ion-card>
   </div>

@@ -14,6 +14,8 @@ import { SpeakerDeatailPage } from '../pages/speaker-deatail/speaker-deatail';
 import { ConferencePage } from '../pages/conference/conference';
 import { ConferenceDetailPage } from './../pages/conference-detail/conference-detail';
 import { HomePage } from '../pages/home/home';
+import { ManageConferencePage } from '../pages/manage-conference/manage-conference';
+import { ManageSpeakerPage } from '../pages/manage-speaker/manage-speaker';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -45,6 +47,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     SpeakerDeatailPage,
     ConferencePage,
     ConferenceDetailPage,
+    ManageSpeakerPage,
+    ManageConferencePage,
     HomePage,
     TabsPage
   ],
@@ -67,6 +71,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     SpeakerDeatailPage,
     ConferencePage,
     ConferenceDetailPage,
+    ManageSpeakerPage,
+    ManageConferencePage,
     TabsPage
   ],
   providers: [

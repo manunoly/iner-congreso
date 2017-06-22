@@ -10,6 +10,7 @@ import { DataService } from "./../service/data.service";
 })
 export class HomePage {
   displayName = "Visitante";
+  picture = "./../../assets/icon/favicon.ico";
   user: any;
 
   constructor(
@@ -24,6 +25,8 @@ export class HomePage {
       if (data != null) {
         // this.displayName = data["email"].split("@")[0];
         this.displayName = data["displayName"];
+        this.picture = data["photoURL"];
+        console.log(this.picture);
       } else this.displayName = "Visitante";
     });
     this.dataS.loadData();

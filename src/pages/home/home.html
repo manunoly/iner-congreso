@@ -3,9 +3,11 @@
     <div *ngIf="displayName == 'Visitante'; then userLogin else userPicture"></div>
     <ng-template #userPicture>
       <ion-fab top right>
-        <button  title={{displayName}} ion-fab mini color="light">
+        <button title={{displayName}} ion-fab color="light">
         <!--<button ion-fab mini style="background-color: transparent">-->
-            <img src="./../../assets/img/logoiner.png">
+          <ion-avatar>
+            <img style="border-radius: 50%;" [src]="picture">
+          </ion-avatar>
         </button>
         <ion-fab-list>
           <button (click)="signOut()" title="Salir" ion-fab><ion-icon name="log-out"></ion-icon></button>
@@ -14,7 +16,7 @@
     </ng-template>
     <ng-template #userLogin>
       <ion-fab top right>
-        <button title="Iniciar Sesión" ion-fab mini color="light"><ion-icon name="person"></ion-icon></button>
+        <button title="Iniciar Sesión" ion-fab color="light"><ion-icon name="person"></ion-icon></button>
         <ion-fab-list>
           <button (click)="signInWithGoogle()" title="Iniciar con Google" ion-fab><ion-icon name="logo-google"></ion-icon></button>
           <button (click)="signInWithFacebook()" title="Iniciar con Facebook" ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
@@ -26,5 +28,25 @@
   <hr>-->
     <img src="./../../assets/img/idi_.png">
     <p> Congreso Investigación Desarrollo e Innovación en Sostenibilidad Energética 2017</p>
+
+    <ion-card>
+      <ion-card-header>
+        Congreso INER 2017
+      </ion-card-header>
+      <ion-card-content>
+        <p>
+          Es el tercer evento internacional organizado por el INER que se realizará bajo el marco del Innovative Smart Grid Technologies (ISGTLA) desarrollado por el Institute of Electrical and Electronics Engineers (IEEE) Power and Energy Society (PES) capítulo Ecuador.
+        </p>
+        <p>
+          El encuentro se llevará a cabo el 20, 21 y 22 de septiembre de 2017 en el JW Marriott Hotel de la ciudad de Quito.
+        </p>
+        <p>
+          Esperamos que al evento se den cita instituciones y personas comprometidas con el desarrollo de la investigación científica y el avance tecnológico, que promuevan el uso racional de la energía y el desarrollo de nuevas fuentes limpias y renovables.
+        </p>
+        <p>
+          En este contexto, damos la bienvenida a todos los interesados a participar de esta iniciativa única en el Ecuador. Esperamos que sea una experiencia beneficiosa para quienes asistan.
+        </p>
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>

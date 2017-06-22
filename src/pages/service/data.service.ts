@@ -118,7 +118,7 @@ export class DataService {
       .map(data => data.filter(dato => dato.$key == conferenceID));
   }
 
-  filterSpeaker(speakerID) {
+  filterSpeaker(speakerID = "") {
     return this.afDB
       .list("/data/speakers")
       .map(data => data.filter(dato => dato.$key == speakerID));
@@ -143,21 +143,21 @@ export class DataService {
       );
   }
 
-  addSpeaker() {
+  addSpeaker(speaker) {
     if (this.authS.isAuthenticated()) {
-      this.afDB.list("/data/speakers").push({
-        name: "Manu Chao",
-        degree: "Phd, Ingeniero Mecanico",
-        profilePic: "assets/img/speakers/bear.jpg",
-        shortAbout: "Mobile devices and browsers",
-        about:
-          "Mobile devices and browsers are now advanced enough that developers.",
-        conferences: [
+      console.log(speaker);
+      return this.afDB.list("/data/speakers").push({
+        name: speaker.name,
+        degree: speaker.degree,
+        profilePic: speaker.profilePic,
+        shortAbout: speaker.shortAbout,
+        about: speaker.about,
+       /* conferences: [
           { title: "Molly Mouse", conferenceID: "123" },
           { title: "Burt Bear", conferenceID: "1234" }
-        ],
-        email: "email@email.com"
-      });
+        ],*/
+        email: speaker.email
+      }).then(a=> {console.log(a); return "Ok"}).catch(a =>{ return "Error"});
     }
   }
 

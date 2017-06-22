@@ -4,6 +4,7 @@ import { FormControl } from "@angular/forms";
 
 import { SpeakerDeatailPage } from "./../speaker-deatail/speaker-deatail";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
+import { ManageSpeakerPage } from './../manage-speaker/manage-speaker';
 import { DataService } from "./../service/data.service";
 import "rxjs/add/operator/debounceTime";
 
@@ -38,8 +39,8 @@ export class SpeakerPage {
     this.searching = true;
   }
 
-  addSpeaker() {
-    this.dataS.addSpeaker();
+  goToManageSpeaker() {
+    this.navCtrl.push(ManageSpeakerPage);
   }
 
   goToSpeakerDetail(speakerID: any) {

@@ -6,36 +6,41 @@
 
 <ion-content *ngIf="isAuthenticated()">
   <div offset-md-2 col-md-8 padding text-center>
-    <ion-item *ngIf="submitAttempt">
-      <p *ngIf="!speakerForm.valid" text-center>Favor Completar Formulario.</p>
-    </ion-item>
-    <ion-list>
-      <form [formGroup]="speakerForm">
-        <ion-item>
-          <ion-label>Nombre:</ion-label>
-          <ion-input formControlName="name" type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>URL foto:</ion-label>
-          <ion-input formControlName="profilePic" type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Título:</ion-label>
-          <ion-input formControlName="degree" type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Correo:</ion-label>
-          <ion-input formControlName="email" type="email"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label stacked>Bibliografía Corta:</ion-label>
-          <ion-textarea style="resize: none;" rows="3" formControlName="shortAbout" type="text"></ion-textarea>
-        </ion-item>
-        <ion-item>
-          <ion-label style="resize: none" stacked>Bibliografía</ion-label>
-          <ion-textarea rows="5" formControlName="about" type="text"></ion-textarea>
-        </ion-item>
-        <!--      <ion-item>
+    <div text-right no-lines>
+      <a *ngIf="!showAddSpeaker" (click)="showAddSpeakerForm(true)">Adicionar Ponente</a>
+      <a *ngIf="showAddSpeaker" (click)="showAddSpeakerForm(false)">Ocultar Adicionar</a>
+    </div>
+    <div *ngIf="showAddSpeaker">
+      <ion-item *ngIf="submitAttempt">
+        <p *ngIf="!speakerForm.valid" text-center>Favor Completar Formulario.</p>
+      </ion-item>
+      <ion-list>
+        <form [formGroup]="speakerForm">
+          <ion-item>
+            <ion-label>Nombre:</ion-label>
+            <ion-input formControlName="name" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>URL foto:</ion-label>
+            <ion-input formControlName="profilePic" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Título:</ion-label>
+            <ion-input formControlName="degree" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Correo:</ion-label>
+            <ion-input formControlName="email" type="email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label stacked>Bibliografía Corta:</ion-label>
+            <ion-textarea style="resize: none;" rows="3" formControlName="shortAbout" type="text"></ion-textarea>
+          </ion-item>
+          <ion-item>
+            <ion-label style="resize: none" stacked>Bibliografía</ion-label>
+            <ion-textarea rows="5" formControlName="about" type="text"></ion-textarea>
+          </ion-item>
+          <!--      <ion-item>
           <ion-label>Privacy</ion-label>
           <ion-select formControlName="privacy">
             <ion-option value="public" checked="true">Public</ion-option>
@@ -43,21 +48,40 @@
             <ion-option value="private">Private</ion-option>
           </ion-select>
         </ion-item>-->
+          <br>
+          <button *ngIf="!showupdateSpeaker" type="button"  ion-button color="primary" (click)="addSpeaker()">Adicionar</button>
+          <button *ngIf="showupdateSpeaker" type="button"  ion-button color="primary" (click)="updateSpeaker()">Actualizar</button>
+        </form>
         <br>
-        <button ion-button color="primary" (click)="addSpeaker()">Adicionar Ponente</button>
-      </form>
-      <br>
-    </ion-list>
+      </ion-list>
+    </div>
     <ion-list>
       <ion-list-header>
         <h2> Listado de Ponentes</h2>
       </ion-list-header>
     </ion-list>
     <ion-item *ngFor="let speak of speakers | async">
+      <ion-avatar [hidden]='smallDevice' item-start>
+        <img src={{speak.profilePic}}>
+      </ion-avatar>
+      <!--<span class=".visible-md-*" [hidden]="isSM ? true : false"> {{ speak.degree }}</span> {{ speak.name }}-->
+      <h2>{{ speak.name }}</h2>
+      <p> {{ speak.degree }}</p>
+      <button title="Editar" (click)="loadSpeakerToEdit(speak)" [ngClass]="{'large': !smallDevice }"  item-end ion-button clear icon-only>
+        <ion-icon name="create"></ion-icon>
+      </button>
+      <button title="Eliminar" item-end (click)="removeSpeaker(speak.$key)" item-end ion-button clear icon-only>
+        <ion-icon title="Eliminar" item-end name="trash"></ion-icon>
+      </button>
+    </ion-item>
+    <!--<ion-item *ngFor="let speak of speakers | async">
       <ion-row>
         <ion-col col-10>
-          <!--<span class=".visible-md-*" [hidden]="isSM ? true : false"> {{ speak.degree }}</span> {{ speak.name }}-->
-          {{ speak.name }}
+          <ion-avatar item-start>
+            <img src={{speak.profilePic}}>
+          </ion-avatar>
+          <span class=".visible-md-*" [hidden]="isSM ? true : false"> {{ speak.degree }}</span> {{ speak.name }}
+          <p>{{ speak.name }}</p>
         </ion-col>
         <ion-col col-1 text-center>
           <a (click)="editSpeaker(speak.$key)" title="Editar">
@@ -66,10 +90,10 @@
         </ion-col>
         <ion-col col-1 text-center>
           <a (click)="removeSpeaker(speak.$key)">
-            <ion-icon title="Eliminar" name="close-circle"></ion-icon>
+            <ion-icon title="Eliminar" name="trash"></ion-icon>
           </a>
         </ion-col>
       </ion-row>
-    </ion-item>
+    </ion-item>-->
   </div>
 </ion-content>

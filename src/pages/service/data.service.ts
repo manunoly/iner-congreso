@@ -1,11 +1,9 @@
 import { Injectable } from "@angular/core";
+import { Platform } from "ionic-angular";
 
-import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/filter";
-import "rxjs/add/observable/of";
 
-import "rxjs/Operator";
 import {
   AngularFireDatabase,
   FirebaseListObservable
@@ -15,34 +13,38 @@ import { AuthService } from "./auth.service";
 @Injectable()
 export class DataService {
   // conferences: Observable<any>;
-  conferences: any;
-  speakers = [];
-  getData: any;
+  conferences: FirebaseListObservable<any>;
+  speakers: FirebaseListObservable<any>;
+  smallDevice: boolean;
 
-  constructor(private afDB: AngularFireDatabase, private authS: AuthService) {
-    /*this.afDB.list("/data/conferences").subscribe(data => {
-      this.conferences = data;
-    });*/
-    /* this.afDB.list("/data").subscribe((data: Object) => {
-      let conferences = data[0];
-      let tmpData = [];
-      for (let i in conferences) {
-        tmpData.push(conferences[i]);
-      }
-      this.conferences = Observable.create(observer => {
-        observer.next(tmpData);
-      });
+  constructor(
+    private afDB: AngularFireDatabase,
+    private authS: AuthService,
+    public platform: Platform
+  ) {}
 
-      this.speakers = [];
-      let speakers = data[1];
-      for (let i in speakers) {
-        this.speakers.push(speakers[i]);
-      }
-    });*/
-  }
   loadData() {
-    this.getData = this.afDB.list("/data").subscribe();
+    this.afDB.list("/data").subscribe();
+    this.speakers = this.afDB.list("/data/speakers", {
+      query: {
+        orderByChild: "name"
+      }
+    });
+    this.conferences = this.afDB.list("/data/conferences", {
+      query: {
+        orderByChild: "date"
+      }
+    });
   }
+
+  isSmallDevice() {
+    if (this.smallDevice === undefined) {
+      if (this.platform.width() > 575) this.smallDevice = false;
+      else this.smallDevice = true;
+    }
+    return this.smallDevice;
+  }
+
   updateConference() {
     if (this.authS.isAuthenticated()) {
       this.afDB.list("/data/conferences").update("123", {
@@ -93,88 +95,100 @@ export class DataService {
   }
 
   filterConferences(searchTerm) {
-    if (searchTerm === "")
-      return this.afDB.list("/data/conferences", {
-        query: {
-          orderByChild: "date"
-        }
-      });
-    return this.afDB
-      .list("/data/conferences", {
-        query: {
-          orderByChild: "date"
-        }
-      })
-      .map(data =>
-        data.filter(dato =>
-          dato.title.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
+    if (searchTerm === "") return this.conferences;
+    return this.conferences.map(data =>
+      data.filter(dato =>
+        dato.title.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
   }
 
   filterConference(conferenceID) {
-    return this.afDB
-      .list("/data/conferences")
-      .map(data => data.filter(dato => dato.$key == conferenceID));
+    return this.conferences.map(data =>
+      data.filter(dato => dato.$key == conferenceID)
+    );
   }
 
   filterSpeaker(speakerID = "") {
-    return this.afDB
-      .list("/data/speakers")
-      .map(data => data.filter(dato => dato.$key == speakerID));
+    return this.speakers.map(data =>
+      data.filter(dato => dato.$key == speakerID)
+    );
   }
+
   filterSpeakers(searchTerm) {
-    if (searchTerm === "")
-      return this.afDB.list("/data/speakers", {
-        query: {
-          orderByChild: "name"
-        }
-      });
-    return this.afDB
-      .list("/data/speakers", {
-        query: {
-          orderByChild: "name"
-        }
-      })
-      .map(data =>
-        data.filter(dato =>
-          dato.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
+    if (searchTerm === "") return this.speakers;
+    return this.speakers.map(data =>
+      data.filter(dato =>
+        dato.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
   }
 
   addSpeaker(speaker) {
     if (this.authS.isAuthenticated()) {
-      console.log(speaker);
-      return this.afDB.list("/data/speakers").push({
-        name: speaker.name,
-        degree: speaker.degree,
-        profilePic: speaker.profilePic,
-        shortAbout: speaker.shortAbout,
-        about: speaker.about,
-       /* conferences: [
+      return this.speakers
+        .push({
+          name: speaker.name,
+          degree: speaker.degree,
+          profilePic: speaker.profilePic,
+          shortAbout: speaker.shortAbout,
+          about: speaker.about,
+          /* conferences: [
           { title: "Molly Mouse", conferenceID: "123" },
           { title: "Burt Bear", conferenceID: "1234" }
         ],*/
-        email: speaker.email
-      }).then(a=> {console.log(a); return "Ok"}).catch(a =>{ return "Error"});
+          email: speaker.email
+        })
+        .then(a => {
+          return "Ok";
+        })
+        .catch(a => {
+          return "Error";
+        });
     }
   }
-
-  updateSpeaker() {
+  updateSpeaker1(speaker) {
+    console.log(speaker);
+    return "Ok";
+  }
+  updateSpeaker(speaker) {
     if (this.authS.isAuthenticated()) {
-      this.afDB.list("/data/conferences").update("123", {
-        name: "The Ionic package service",
-        profilePic: "assets/img/speakers/bear.jpg",
-        shortAbout: "Mobile devices and browsers",
-        about:
-          "Mobile devices and browsers are now advanced enough that developers.",
-        conferences: [
-          { title: "Molly Mouse", conferenceID: "123" },
-          { title: "Burt Bear", conferenceID: "1234" }
-        ],
-        email: "email@email.com"
+      return this.filterSpeaker(speaker.id).subscribe(oldSpeaker => {
+        let conf = "";
+        if (typeof oldSpeaker != "undefined" && oldSpeaker.length == 1 && "conferences" in oldSpeaker[0]){
+          conf = oldSpeaker[0].conferences;
+        }
+        return this.speakers
+          .update(speaker.id, {
+            name: speaker.name,
+            profilePic: speaker.profilePic,
+            shortAbout: speaker.shortAbout,
+            about: speaker.about,
+            conferences: conf,
+            email: speaker.email
+          })
+          .then(_ => {
+            return "OK";
+          })
+          .catch(_ => {
+            return "Error";
+          });
       });
+    }
+  }
+  /**
+   * TODO: Validate is admin role
+   */
+  deleteSpeaker(speakerID) {
+    if (this.authS.isAuthenticated()) {
+      return this.speakers
+        .remove(speakerID)
+        .then(_ => {
+          return "OK";
+        })
+        .catch(_ => {
+          return "Error";
+        });
     }
   }
 }

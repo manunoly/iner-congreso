@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Platform } from "ionic-angular";
+import { Platform, AlertController } from "ionic-angular";
+import { ToastController } from "ionic-angular";
 
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/filter";
+import "rxjs/Rx";
 
 import {
   AngularFireDatabase,
@@ -20,10 +20,16 @@ export class DataService {
   constructor(
     private afDB: AngularFireDatabase,
     private authS: AuthService,
-    public platform: Platform
+    public platform: Platform,
+    public toastCtrl: ToastController,
+    public alertCtrl: AlertController
   ) {}
 
   loadData() {
+    this.showNotification(
+      "Usuario y Contraseña no son almacenadas por esta aplicación.",
+      5000
+    );
     this.afDB.list("/data").subscribe();
     this.speakers = this.afDB.list("/data/speakers", {
       query: {
@@ -125,7 +131,7 @@ export class DataService {
   }
 
   addSpeaker(speaker) {
-    if (this.authS.isAuthenticated()) {
+    if (this.authS.isAdmin()) {
       return this.speakers
         .push({
           name: speaker.name,
@@ -140,22 +146,23 @@ export class DataService {
           email: speaker.email
         })
         .then(a => {
-          return "Ok";
+          this.showNotification("Ponente adicionado correctamente");
         })
         .catch(a => {
-          return "Error";
+          this.showNotification("Ha ocurrido un error adicionando el Ponente");
         });
-    }
+    } else this.showNotification("No tiene permisos.");
   }
-  updateSpeaker1(speaker) {
-    console.log(speaker);
-    return "Ok";
-  }
+
   updateSpeaker(speaker) {
-    if (this.authS.isAuthenticated()) {
-      return this.filterSpeaker(speaker.id).subscribe(oldSpeaker => {
+    if (this.authS.isAdmin()) {
+      let speakerU = this.filterSpeaker(speaker.id).subscribe(oldSpeaker => {
         let conf = "";
-        if (typeof oldSpeaker != "undefined" && oldSpeaker.length == 1 && "conferences" in oldSpeaker[0]){
+        if (
+          typeof oldSpeaker != "undefined" &&
+          oldSpeaker.length == 1 &&
+          "conferences" in oldSpeaker[0]
+        ) {
           conf = oldSpeaker[0].conferences;
         }
         return this.speakers
@@ -168,27 +175,56 @@ export class DataService {
             email: speaker.email
           })
           .then(_ => {
-            return "OK";
+            speakerU.unsubscribe();
+            this.showNotification("Ponente actualizado correctamente");
           })
           .catch(_ => {
-            return "Error";
+            speakerU.unsubscribe();
           });
       });
-    }
+    } else this.showNotification("No tiene permisos.");
   }
-  /**
-   * TODO: Validate is admin role
-   */
+
   deleteSpeaker(speakerID) {
-    if (this.authS.isAuthenticated()) {
-      return this.speakers
-        .remove(speakerID)
-        .then(_ => {
-          return "OK";
-        })
-        .catch(_ => {
-          return "Error";
-        });
-    }
+    if (this.authS.isAdmin()) {
+      let alert = this.alertCtrl.create({
+        title: "Confirmación",
+        message: "¿Seguro desea eliminar?",
+        buttons: [
+          {
+            text: "Cancel",
+            role: "cancel",
+            handler: () => {
+              console.log("Cancel clicked");
+            }
+          },
+          {
+            text: "Eliminar",
+            handler: () => {
+              this.speakers
+                .remove(speakerID)
+                .then(_ => {
+                  this.showNotification("Ponente Eliminado correctamente");
+                })
+                .catch(_ => {
+                  this.showNotification("No se pudo eliminar el Ponente");
+                });
+            }
+          }
+        ]
+      });
+      alert.present();
+    } else this.showNotification("No tiene permisos.");
+  }
+
+  showNotification(message, time = 3000) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: time,
+      position: "top",
+      // cssClass: "text-center toastStyle",
+      dismissOnPageChange: true
+    });
+    toast.present();
   }
 }

@@ -19,17 +19,19 @@ export class HomePage {
     private authS: AuthService,
     private dataS: DataService
   ) {}
+
   ionViewDidLoad() {
     this.user = this.authS.getUser();
-    this.user.subscribe((data: Object) => {
-      if (data != null) {
-        // this.displayName = data["email"].split("@")[0];
-        this.displayName = data["displayName"];
-        this.picture = data["photoURL"];
-        console.log(this.picture);
+    this.user.subscribe((user: Object) => {
+      if (user != null) {
+        // this.displayName = user["email"].split("@")[0];
+        this.displayName = user["displayName"];
+        this.picture = user["photoURL"];
+
       } else this.displayName = "Visitante";
     });
     this.dataS.loadData();
+    this.authS.isAdmin();
   }
   signInWithGoogle() {
     this.authS.loginGoogle();

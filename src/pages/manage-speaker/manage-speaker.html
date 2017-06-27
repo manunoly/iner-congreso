@@ -6,9 +6,9 @@
 
 <ion-content *ngIf="isAuthenticated()">
   <div offset-md-2 col-md-8 padding text-center>
-    <div text-right no-lines>
-      <a *ngIf="!showAddSpeaker" (click)="showAddSpeakerForm(true)">Adicionar Ponente</a>
-      <a *ngIf="showAddSpeaker" (click)="showAddSpeakerForm(false)">Ocultar Adicionar</a>
+    <div text-right>
+      <button ion-button clear *ngIf="!showAddSpeaker" (click)="showAddSpeakerForm(true)">Adicionar Ponente</button>
+      <button ion-button clear *ngIf="showAddSpeaker" (click)="showAddSpeakerForm(false)">Ocultar Adicionar</button>
     </div>
     <div *ngIf="showAddSpeaker">
       <ion-item *ngIf="submitAttempt">
@@ -49,32 +49,31 @@
           </ion-select>
         </ion-item>-->
           <br>
-          <button *ngIf="!showupdateSpeaker" type="button"  ion-button color="primary" (click)="addSpeaker()">Adicionar</button>
-          <button *ngIf="showupdateSpeaker" type="button"  ion-button color="primary" (click)="updateSpeaker()">Actualizar</button>
+          <button *ngIf="!showupdateSpeaker" type="button" ion-button color="primary" (click)="addSpeaker()">Adicionar</button>
+          <button *ngIf="showupdateSpeaker" type="button" ion-button color="primary" (click)="updateSpeaker()">Actualizar</button>
         </form>
         <br>
       </ion-list>
     </div>
     <ion-list>
-      <ion-list-header>
+      <ion-list-header no-lines>
         <h2> Listado de Ponentes</h2>
       </ion-list-header>
-    </ion-list>
-    <ion-item *ngFor="let speak of speakers | async">
-      <ion-avatar [hidden]='smallDevice' item-start>
-        <img src={{speak.profilePic}}>
-      </ion-avatar>
-      <!--<span class=".visible-md-*" [hidden]="isSM ? true : false"> {{ speak.degree }}</span> {{ speak.name }}-->
-      <h2>{{ speak.name }}</h2>
-      <p> {{ speak.degree }}</p>
-      <button title="Editar" (click)="loadSpeakerToEdit(speak)" [ngClass]="{'large': !smallDevice }"  item-end ion-button clear icon-only>
+      <ion-item *ngFor="let speak of speakers | async">
+        <ion-avatar [hidden]='smallDevice' item-start>
+          <img src={{speak.profilePic}}>
+        </ion-avatar>
+        <!--<span class=".visible-md-*" [hidden]="isSM ? true : false"> {{ speak.degree }}</span> {{ speak.name }}-->
+        <h2>{{ speak.name }}</h2>
+        <p> {{ speak.degree }}</p>
+        <button type="button" title="Editar" (click)="loadSpeakerToEdit(speak)" item-end ion-button clear icon-only>
         <ion-icon name="create"></ion-icon>
       </button>
-      <button title="Eliminar" item-end (click)="removeSpeaker(speak.$key)" item-end ion-button clear icon-only>
+        <button type="button" title="Eliminar" item-end (click)="removeSpeaker(speak.$key)" item-end ion-button clear icon-only>
         <ion-icon title="Eliminar" item-end name="trash"></ion-icon>
       </button>
-    </ion-item>
-    <!--<ion-item *ngFor="let speak of speakers | async">
+      </ion-item>
+      <!--<ion-item *ngFor="let speak of speakers | async">
       <ion-row>
         <ion-col col-10>
           <ion-avatar item-start>
@@ -95,5 +94,6 @@
         </ion-col>
       </ion-row>
     </ion-item>-->
+    </ion-list>
   </div>
 </ion-content>

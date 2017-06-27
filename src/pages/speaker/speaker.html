@@ -3,8 +3,9 @@
   <hr>
 
   <div offset-md-2 col-md-8 padding>
-    <button ion-button outline (click)="goToManageSpeaker()">addSpeker </button>
-    <button ion-button outline (click)="filterSpeaker()">filterSpeaker</button>
+    <div text-right>
+      <button text-right ion-button outline clear (click)="goToManageSpeaker()">Editar</button>
+    </div>
     <p *ngFor="let item of speaker | async as list">
       {{ item.name }} {{ item.shortAbout }}
     </p>

@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/v2/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -15,13 +14,26 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-a { cursor: pointer; cursor: hand; }
+a {
+  cursor: pointer;
+  cursor: hand;
+}
 
 .spinner-container {
-    width: 100%;
-    text-align: center;
-    padding: 10px;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
 }
+
 .toolbar-background {
-    background-color: transparent;
+  background-color: transparent;
+}
+
+.md button {
+  text-transform: none;
+}
+
+.toast-message {
+  text-align: center;
+  background-color: darkgray;
 }

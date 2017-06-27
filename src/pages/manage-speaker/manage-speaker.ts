@@ -1,3 +1,4 @@
+import { Subscriber } from 'rxjs/Subscriber';
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 import { FormControl, FormBuilder, Validators } from "@angular/forms";
@@ -35,7 +36,9 @@ export class ManageSpeakerPage {
   }
 
   removeSpeaker(speakerID) {
-    let result = this.dataS.deleteSpeaker(speakerID);
+    this.showupdateSpeaker = false;
+    this.dataS.deleteSpeaker(speakerID);
+
     /**
      * TODO: show confirmation message
      */
@@ -50,8 +53,8 @@ export class ManageSpeakerPage {
 
   updateSpeaker() {
     if (this.speakerForm.valid) {
-      let result = this.dataS.updateSpeaker(this.speakerForm.value);
-      // this.speakerForm.reset();
+      this.dataS.updateSpeaker(this.speakerForm.value);
+      this.speakerForm.reset();
       this.setSpeakerForm(undefined);
       this.showAddSpeaker = false;
       this.showupdateSpeaker = false;
@@ -65,8 +68,7 @@ export class ManageSpeakerPage {
 
   addSpeaker() {
     if (this.speakerForm.valid) {
-      let a = this.dataS.addSpeaker(this.speakerForm.value);
-      
+      this.dataS.addSpeaker(this.speakerForm.value);
       this.speakerForm.reset();
       this.setSpeakerForm(undefined);
     } else this.submitAttempt = true;

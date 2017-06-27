@@ -31,7 +31,7 @@ export class HomePage {
       } else this.displayName = "Visitante";
     });
     this.dataS.loadData();
-    this.authS.isAdmin();
+
   }
   signInWithGoogle() {
     this.authS.loginGoogle();

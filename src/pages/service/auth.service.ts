@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/toPromise';
+import "rxjs/add/operator/toPromise";
 
 // import { Subscriber } from 'rxjs/Subscriber';
 
@@ -38,9 +38,43 @@ export class AuthService {
     if (this.afAuth.auth.currentUser != null) return true;
   }
 
+  firebaseUserToPromise() {
+    if (this.isAuthenticated()) {
+      let user = new Promise(dataPromise => {
+        this.user.subscribe(
+          firebaseUser => {
+            dataPromise(firebaseUser);
+          },
+          err => {
+            dataPromise(err);
+          }
+        );
+      });
+      return user;
+    }
+    return null;
+  }
+
   isAdmin() {
-    this.user.toPromise().then(a=>{console.log(a)});
-    let isAdmin = false;
+    let firebaseUser = this.firebaseUserToPromise();
+    if (firebaseUser)
+      return firebaseUser.then(user => {
+        let isAdmin = false;
+        this.afDB
+          .object("/admin/", { preserveSnapshot: true })
+          .subscribe(adminData => {
+            console.log("dentro suscribe para buscar el admin");
+            console.log(adminData.key());
+            console.log(user["email"]);
+            if (adminData.val().indexOf(user["email"])) {
+              console.log("admin true en el if");
+              isAdmin = true;
+            }
+            return isAdmin;
+          });
+      });
+
+    /*let isAdmin = false;
     console.log("admin val inicio");
     if (this.isAuthenticated()) {
       this.afDB
@@ -60,7 +94,7 @@ export class AuthService {
     } else {
       console.log("admin val fin not autenticated");
       return isAdmin;
-    }
+    }*/
   }
 
   createAdmin() {

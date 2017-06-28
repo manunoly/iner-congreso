@@ -39,8 +39,8 @@ export class AuthService {
   }
 
   firebaseUserToPromise() {
-    if (this.isAuthenticated()) {
-      let user = new Promise(dataPromise => {
+    return new Promise(dataPromise => {
+      if (this.isAuthenticated()) {
         this.user.subscribe(
           firebaseUser => {
             dataPromise(firebaseUser);
@@ -49,52 +49,65 @@ export class AuthService {
             dataPromise(err);
           }
         );
+      } else dataPromise(false);
+    });
+  }
+
+  checkDataExist(data) {
+    return new Promise(dataPromise => {
+      this.afDB
+        .object(data, {
+          preserveSnapshot: true
+        })
+        .subscribe(adminData => {
+          if (adminData.val() !== null) {
+            dataPromise(true);
+          } else dataPromise(false);
+        });
+    });
+  }
+
+  isAdmin2() {
+    if (this.isAuthenticated())
+      return this.user.flatMap(user => {
+        return this.afDB.object(user["email"].split("@")[0], {
+          preserveSnapshot: true
+        });
+      }).subscribe(res=>{
+        console.log(res);
+        return res;
       });
-      return user;
-    }
-    return null;
+
+    // subscribe(user => {
+    //   this.checkDataExist(
+    //     user["email"].split("@")[0]
+    //   ).then(dataExist => {
+    //     return dataExist;
+    //   });
+    // });
   }
 
   isAdmin() {
     let firebaseUser = this.firebaseUserToPromise();
-    if (firebaseUser)
-      return firebaseUser.then(user => {
-        let isAdmin = false;
-        this.afDB
-          .object("/admin/", { preserveSnapshot: true })
-          .subscribe(adminData => {
-            console.log("dentro suscribe para buscar el admin");
-            console.log(adminData.key());
-            console.log(user["email"]);
-            if (adminData.val().indexOf(user["email"])) {
-              console.log("admin true en el if");
-              isAdmin = true;
-            }
-            return isAdmin;
-          });
-      });
-
-    /*let isAdmin = false;
-    console.log("admin val inicio");
-    if (this.isAuthenticated()) {
-      this.afDB
-        .object("/admin/", { preserveSnapshot: true })
-        .subscribe(adminUser => {
-          console.log("dentro suscribe para buscar el admin");
-          console.log(this.user["email"]);
-
-          if (this.user["email"] in adminUser.val()) {
-            console.log("admin true en el if");
-            isAdmin = true;
-          }
-          return isAdmin;
-          // console.log(adminUser.key);
-          // console.log(adminUser.val());
-        });
-    } else {
-      console.log("admin val fin not autenticated");
-      return isAdmin;
-    }*/
+    let userD = "";
+    return Observable.fromPromise(
+      firebaseUser
+        .then(user => {
+          console.log("firebaseUser");
+          console.log(user);
+          if (user) userD = user["email"].split("@")[0];
+          else return false;
+        })
+        .then(_ => {
+          if (userD)
+            return this.checkDataExist("/admin/" + userD).then(isAdmin => {
+              console.log("verifico si la data existe");
+              console.log(isAdmin);
+              return isAdmin;
+            });
+          else return false;
+        })
+    );
   }
 
   createAdmin() {

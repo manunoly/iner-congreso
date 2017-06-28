@@ -4,8 +4,9 @@ import { FormControl } from "@angular/forms";
 
 import { SpeakerDeatailPage } from "./../speaker-deatail/speaker-deatail";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
-import { ManageSpeakerPage } from './../manage-speaker/manage-speaker';
+import { ManageSpeakerPage } from "./../manage-speaker/manage-speaker";
 import { DataService } from "./../service/data.service";
+import { AuthService } from "./../service/auth.service";
 import "rxjs/add/operator/debounceTime";
 
 @Component({
@@ -18,11 +19,13 @@ export class SpeakerPage {
   searchTerm: string = "";
   searchControl: FormControl;
   searching: any = false;
+  isAdmin = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private dataS: DataService
+    private dataS: DataService,
+    private authS: AuthService
   ) {
     this.searchControl = new FormControl();
   }
@@ -33,6 +36,12 @@ export class SpeakerPage {
       this.searching = false;
       this.setFilteredSpeakers();
     });
+    this.authS.isAdmin2().subscribe(status => console.log(status[0]));
+
+    // .subscribe(admin => {
+    //   console.log(admin);
+    //   if (admin) this.isAdmin = true;
+    // });
   }
 
   onSearchInput() {

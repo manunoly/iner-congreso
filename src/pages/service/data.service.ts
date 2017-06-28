@@ -131,90 +131,98 @@ export class DataService {
   }
 
   addSpeaker(speaker) {
-    if (this.authS.isAdmin()) {
-      return this.speakers
-        .push({
-          name: speaker.name,
-          degree: speaker.degree,
-          profilePic: speaker.profilePic,
-          shortAbout: speaker.shortAbout,
-          about: speaker.about,
-          /* conferences: [
-          { title: "Molly Mouse", conferenceID: "123" },
-          { title: "Burt Bear", conferenceID: "1234" }
-        ],*/
-          email: speaker.email
-        })
-        .then(a => {
-          this.showNotification("Ponente adicionado correctamente");
-        })
-        .catch(a => {
-          this.showNotification("Ha ocurrido un error adicionando el Ponente");
-        });
-    } else this.showNotification("No tiene permisos.");
-  }
-
-  updateSpeaker(speaker) {
-    if (this.authS.isAdmin()) {
-      let speakerU = this.filterSpeaker(speaker.id).subscribe(oldSpeaker => {
-        let conf = "";
-        if (
-          typeof oldSpeaker != "undefined" &&
-          oldSpeaker.length == 1 &&
-          "conferences" in oldSpeaker[0]
-        ) {
-          conf = oldSpeaker[0].conferences;
-        }
-        return this.speakers
-          .update(speaker.id, {
+    this.authS.isAdmin().subscribe(permission => {
+      if (permission) {
+        this.speakers
+          .push({
             name: speaker.name,
+            degree: speaker.degree,
             profilePic: speaker.profilePic,
             shortAbout: speaker.shortAbout,
             about: speaker.about,
-            conferences: conf,
+            /* conferences: [
+          { title: "Molly Mouse", conferenceID: "123" },
+          { title: "Burt Bear", conferenceID: "1234" }
+        ],*/
             email: speaker.email
           })
-          .then(_ => {
-            speakerU.unsubscribe();
-            this.showNotification("Ponente actualizado correctamente");
+          .then(a => {
+            this.showNotification("Ponente adicionado correctamente");
           })
-          .catch(_ => {
-            speakerU.unsubscribe();
+          .catch(a => {
+            this.showNotification(
+              "Ha ocurrido un error adicionando el Ponente"
+            );
           });
-      });
-    } else this.showNotification("No tiene permisos.");
+      } else this.showNotification("No tiene permisos.");
+    });
+  }
+
+  updateSpeaker(speaker) {
+    this.authS.isAdmin().subscribe(permission => {
+      if (permission) {
+        let speakerU = this.filterSpeaker(speaker.id).subscribe(oldSpeaker => {
+          let conf = "";
+          if (
+            typeof oldSpeaker != "undefined" &&
+            oldSpeaker.length == 1 &&
+            "conferences" in oldSpeaker[0]
+          ) {
+            conf = oldSpeaker[0].conferences;
+          }
+          return this.speakers
+            .update(speaker.id, {
+              name: speaker.name,
+              profilePic: speaker.profilePic,
+              shortAbout: speaker.shortAbout,
+              about: speaker.about,
+              conferences: conf,
+              email: speaker.email
+            })
+            .then(_ => {
+              speakerU.unsubscribe();
+              this.showNotification("Ponente actualizado correctamente");
+            })
+            .catch(_ => {
+              speakerU.unsubscribe();
+            });
+        });
+      } else this.showNotification("No tiene permisos.");
+    });
   }
 
   deleteSpeaker(speakerID) {
-    if (this.authS.isAdmin()) {
-      let alert = this.alertCtrl.create({
-        title: "Confirmación",
-        message: "¿Seguro desea eliminar?",
-        buttons: [
-          {
-            text: "Cancel",
-            role: "cancel",
-            handler: () => {
-              console.log("Cancel clicked");
+    this.authS.isAdmin().subscribe(permission => {
+      if (permission) {
+        let alert = this.alertCtrl.create({
+          title: "Confirmación",
+          message: "¿Seguro desea eliminar?",
+          buttons: [
+            {
+              text: "Cancel",
+              role: "cancel",
+              handler: () => {
+                console.log("Cancel clicked");
+              }
+            },
+            {
+              text: "Eliminar",
+              handler: () => {
+                this.speakers
+                  .remove(speakerID)
+                  .then(_ => {
+                    this.showNotification("Ponente Eliminado correctamente");
+                  })
+                  .catch(_ => {
+                    this.showNotification("No se pudo eliminar el Ponente");
+                  });
+              }
             }
-          },
-          {
-            text: "Eliminar",
-            handler: () => {
-              this.speakers
-                .remove(speakerID)
-                .then(_ => {
-                  this.showNotification("Ponente Eliminado correctamente");
-                })
-                .catch(_ => {
-                  this.showNotification("No se pudo eliminar el Ponente");
-                });
-            }
-          }
-        ]
-      });
-      alert.present();
-    } else this.showNotification("No tiene permisos.");
+          ]
+        });
+        alert.present();
+      } else this.showNotification("No tiene permisos.");
+    });
   }
 
   showNotification(message, time = 3000) {

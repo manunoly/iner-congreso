@@ -1,4 +1,4 @@
-import { Subscriber } from "rxjs/Subscriber";
+import { Subscriber } from 'rxjs/Subscriber';
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 import { FormControl, FormBuilder, Validators } from "@angular/forms";
@@ -33,8 +33,6 @@ export class ManageSpeakerPage {
     if (!this.isAuthenticated()) this.navCtrl.push(HomePage);
     this.speakers = this.dataS.filterSpeakers("");
     this.smallDevice = this.dataS.isSmallDevice();
-    let a = "manunoly@gmail.com";
-    if (a in ["manunoly@gmail.com", "raul@gmail.com"]) console.log(a);
   }
 
   removeSpeaker(speakerID) {

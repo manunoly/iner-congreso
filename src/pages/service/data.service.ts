@@ -26,10 +26,6 @@ export class DataService {
   ) {}
 
   loadData() {
-    this.showNotification(
-      "Usuario y Contraseña no son almacenadas por esta aplicación.",
-      5000
-    );
     this.afDB.list("/data").subscribe();
     this.speakers = this.afDB.list("/data/speakers", {
       query: {
@@ -41,6 +37,10 @@ export class DataService {
         orderByChild: "date"
       }
     });
+    this.showNotification(
+      "Usuario y Contraseña no son almacenadas por esta aplicación.",
+      5000
+    );
   }
 
   isSmallDevice() {
@@ -131,8 +131,8 @@ export class DataService {
   }
 
   addSpeaker(speaker) {
-    this.authS.isAdmin().subscribe(permission => {
-      if (permission) {
+    this.authS.isAdminPromise().then(permission => {
+      if (permission.val() !== null) {
         this.speakers
           .push({
             name: speaker.name,
@@ -159,8 +159,8 @@ export class DataService {
   }
 
   updateSpeaker(speaker) {
-    this.authS.isAdmin().subscribe(permission => {
-      if (permission) {
+    this.authS.isAdminPromise().then(permission => {
+      if (permission.val() !== null) {
         let speakerU = this.filterSpeaker(speaker.id).subscribe(oldSpeaker => {
           let conf = "";
           if (
@@ -192,8 +192,8 @@ export class DataService {
   }
 
   deleteSpeaker(speakerID) {
-    this.authS.isAdmin().subscribe(permission => {
-      if (permission) {
+    this.authS.isAdminPromise().then(permission => {
+      if (permission.val() !== null) {
         let alert = this.alertCtrl.create({
           title: "Confirmación",
           message: "¿Seguro desea eliminar?",

@@ -12,6 +12,7 @@ import * as firebase from "firebase/app";
 @Injectable()
 export class AuthService {
   user: Observable<firebase.User>;
+  isAdminSingle: any;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -67,27 +68,33 @@ export class AuthService {
     });
   }
 
-  isAdmin2() {
-    if (this.isAuthenticated())
-      return this.user.flatMap(user => {
-        return this.afDB.object(user["email"].split("@")[0], {
+  isAdmin() {
+    return this.user.flatMap(user => {
+      if (this.isAuthenticated()) {
+        return this.afDB.object("/admin/" + user["email"].split("@")[0], {
           preserveSnapshot: true
         });
-      }).subscribe(res=>{
-        console.log(res);
-        return res;
-      });
-
-    // subscribe(user => {
-    //   this.checkDataExist(
-    //     user["email"].split("@")[0]
-    //   ).then(dataExist => {
-    //     return dataExist;
-    //   });
-    // });
+      } else {
+        let obj = {
+          val: function() {
+            return null;
+          }
+        };
+        return Observable.of(obj);
+      }
+    });
   }
 
-  isAdmin() {
+  isAdminPromise() {
+    return new Promise(dataPromise => {
+      this.isAdmin().subscribe(data => {
+        dataPromise(data);
+
+      });
+    });
+  }
+
+  isAdminWithPromise1() {
     let firebaseUser = this.firebaseUserToPromise();
     let userD = "";
     return Observable.fromPromise(

@@ -19,7 +19,7 @@ export class SpeakerPage {
   searchTerm: string = "";
   searchControl: FormControl;
   searching: any = false;
-  isAdmin = false;
+  isAdmin: any;
 
   constructor(
     public navCtrl: NavController,
@@ -36,12 +36,13 @@ export class SpeakerPage {
       this.searching = false;
       this.setFilteredSpeakers();
     });
-    this.authS.isAdmin2().subscribe(status => console.log(status[0]));
-
-    // .subscribe(admin => {
-    //   console.log(admin);
-    //   if (admin) this.isAdmin = true;
-    // });
+    this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
+      }
+    });
   }
 
   onSearchInput() {

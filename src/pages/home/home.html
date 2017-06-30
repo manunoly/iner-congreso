@@ -1,4 +1,24 @@
 <ion-content text-center>
+  <ion-navbar>
+    <div *ngIf="isAdmin">
+      <ion-title>
+        Administración
+      </ion-title>
+      <button ion-button clear icon-left (click)="goToManageSpeaker()">
+          <ion-icon name="people"> </ion-icon>
+          Ponentes
+        </button>
+      <button ion-button clear icon-left (click)="goToManageSpeaker()">
+          <ion-icon name="chatboxes"> </ion-icon>
+          Conferencias
+        </button>
+      <button ion-button clear icon-left (click)="goToManageSpeaker()">
+          <ion-icon name="school"> </ion-icon>
+          Conferencias
+        </button>
+    </div>
+  </ion-navbar>
+
   <div offset-md-2 col-md-8 padding>
     <div *ngIf="displayName == 'Visitante'; then userLogin else userPicture"></div>
     <ng-template #userPicture>
@@ -35,16 +55,21 @@
       </ion-card-header>
       <ion-card-content>
         <p>
-          Es el tercer evento internacional organizado por el INER que se realizará bajo el marco del Innovative Smart Grid Technologies (ISGTLA) desarrollado por el Institute of Electrical and Electronics Engineers (IEEE) Power and Energy Society (PES) capítulo Ecuador.
+          Es el tercer evento internacional organizado por el INER que se realizará bajo el marco del Innovative Smart Grid Technologies
+          (ISGTLA) desarrollado por el Institute of Electrical and Electronics Engineers (IEEE) Power and Energy Society
+          (PES) capítulo Ecuador.
         </p>
         <p>
           El encuentro se llevará a cabo el 20, 21 y 22 de septiembre de 2017 en el JW Marriott Hotel de la ciudad de Quito.
         </p>
         <p>
-          Esperamos que al evento se den cita instituciones y personas comprometidas con el desarrollo de la investigación científica y el avance tecnológico, que promuevan el uso racional de la energía y el desarrollo de nuevas fuentes limpias y renovables.
+          Esperamos que al evento se den cita instituciones y personas comprometidas con el desarrollo de la investigación científica
+          y el avance tecnológico, que promuevan el uso racional de la energía y el desarrollo de nuevas fuentes limpias
+          y renovables.
         </p>
         <p>
-          En este contexto, damos la bienvenida a todos los interesados a participar de esta iniciativa única en el Ecuador. Esperamos que sea una experiencia beneficiosa para quienes asistan.
+          En este contexto, damos la bienvenida a todos los interesados a participar de esta iniciativa única en el Ecuador. Esperamos
+          que sea una experiencia beneficiosa para quienes asistan.
         </p>
       </ion-card-content>
     </ion-card>

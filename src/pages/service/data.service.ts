@@ -12,7 +12,6 @@ import { AuthService } from "./auth.service";
 
 @Injectable()
 export class DataService {
-  // conferences: Observable<any>;
   conferences: FirebaseListObservable<any>;
   speakers: FirebaseListObservable<any>;
   smallDevice: boolean;
@@ -131,7 +130,7 @@ export class DataService {
   }
 
   addSpeaker(speaker) {
-    this.authS.isAdminPromise().then(permission => {
+    let observer = this.authS.isAdmin().subscribe(permission => {
       if (permission.val() !== null) {
         this.speakers
           .push({
@@ -155,11 +154,12 @@ export class DataService {
             );
           });
       } else this.showNotification("No tiene permisos.");
+      observer.unsubscribe();
     });
   }
 
   updateSpeaker(speaker) {
-    this.authS.isAdminPromise().then(permission => {
+    let observer = this.authS.isAdmin().subscribe(permission => {
       if (permission.val() !== null) {
         let speakerU = this.filterSpeaker(speaker.id).subscribe(oldSpeaker => {
           let conf = "";
@@ -188,11 +188,12 @@ export class DataService {
             });
         });
       } else this.showNotification("No tiene permisos.");
+      observer.unsubscribe();
     });
   }
 
   deleteSpeaker(speakerID) {
-    this.authS.isAdminPromise().then(permission => {
+    let observer = this.authS.isAdmin().subscribe(permission => {
       if (permission.val() !== null) {
         let alert = this.alertCtrl.create({
           title: "Confirmación",
@@ -222,6 +223,7 @@ export class DataService {
         });
         alert.present();
       } else this.showNotification("No tiene permisos.");
+      observer.unsubscribe();
     });
   }
 

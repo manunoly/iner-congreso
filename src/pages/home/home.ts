@@ -3,6 +3,8 @@ import { NavController, NavParams } from "ionic-angular";
 
 import { AuthService } from "./../service/auth.service";
 import { DataService } from "./../service/data.service";
+import { ManageSpeakerPage } from './../manage-speaker/manage-speaker';
+
 
 @Component({
   selector: "page-home",
@@ -12,6 +14,7 @@ export class HomePage {
   displayName = "Visitante";
   picture = "./../../assets/icon/favicon.ico";
   user: any;
+  isAdmin: any;
 
   constructor(
     public navCtrl: NavController,
@@ -30,6 +33,13 @@ export class HomePage {
 
       } else this.displayName = "Visitante";
     });
+    this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
+      }
+    });
     this.dataS.loadData();
 
   }
@@ -46,5 +56,9 @@ export class HomePage {
   }
   signOut() {
     this.authS.logout();
+  }
+
+  goToManageSpeaker() {
+    this.navCtrl.push(ManageSpeakerPage);
   }
 }

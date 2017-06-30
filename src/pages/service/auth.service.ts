@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/toPromise";
 
+
 // import { Subscriber } from 'rxjs/Subscriber';
 
 import { AngularFireAuth } from "angularfire2/auth";
@@ -89,32 +90,8 @@ export class AuthService {
     return new Promise(dataPromise => {
       this.isAdmin().subscribe(data => {
         dataPromise(data);
-
       });
     });
-  }
-
-  isAdminWithPromise1() {
-    let firebaseUser = this.firebaseUserToPromise();
-    let userD = "";
-    return Observable.fromPromise(
-      firebaseUser
-        .then(user => {
-          console.log("firebaseUser");
-          console.log(user);
-          if (user) userD = user["email"].split("@")[0];
-          else return false;
-        })
-        .then(_ => {
-          if (userD)
-            return this.checkDataExist("/admin/" + userD).then(isAdmin => {
-              console.log("verifico si la data existe");
-              console.log(isAdmin);
-              return isAdmin;
-            });
-          else return false;
-        })
-    );
   }
 
   createAdmin() {

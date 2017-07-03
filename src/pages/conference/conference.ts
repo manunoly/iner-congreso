@@ -39,10 +39,6 @@ export class ConferencePage {
     this.conferences = this.dataS.filterConferences(this.searchTerm);
   }
 
-  addConf() {
-    this.dataS.addConference();
-  }
-
   goToConferenceDetail(conferenceID) {
     this.navCtrl.push(ConferenceDetailPage, {
       conferenceID: conferenceID

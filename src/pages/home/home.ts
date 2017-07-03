@@ -4,7 +4,7 @@ import { NavController, NavParams } from "ionic-angular";
 import { AuthService } from "./../service/auth.service";
 import { DataService } from "./../service/data.service";
 import { ManageSpeakerPage } from './../manage-speaker/manage-speaker';
-
+import { ManageConferencePage } from './../manage-conference/manage-conference';
 
 @Component({
   selector: "page-home",
@@ -60,5 +60,9 @@ export class HomePage {
 
   goToManageSpeaker() {
     this.navCtrl.push(ManageSpeakerPage);
+  }
+
+  goToManageConference(){
+    this.navCtrl.push(ManageConferencePage);
   }
 }

@@ -1,7 +1,6 @@
-import { Subscriber } from 'rxjs/Subscriber';
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
-import { FormControl, FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 
 import { HomePage } from "./../home/home";
 import { DataService } from "./../service/data.service";
@@ -11,6 +10,7 @@ import { AuthService } from "./../service/auth.service";
   selector: "page-manage-speaker",
   templateUrl: "manage-speaker.html"
 })
+
 export class ManageSpeakerPage {
   submitAttempt: boolean;
   speakerForm: any;
@@ -38,10 +38,6 @@ export class ManageSpeakerPage {
   removeSpeaker(speakerID) {
     this.showupdateSpeaker = false;
     this.dataS.deleteSpeaker(speakerID);
-
-    /**
-     * TODO: show confirmation message
-     */
   }
 
   loadSpeakerToEdit(speaker) {

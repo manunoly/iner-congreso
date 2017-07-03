@@ -50,7 +50,7 @@ export class DataService {
     return this.smallDevice;
   }
 
-  updateConference() {
+  updateConference(conference) {
     if (this.authS.isAuthenticated()) {
       this.afDB.list("/data/conferences").update("123", {
         title: "Las Energias Limpias",
@@ -76,13 +76,14 @@ export class DataService {
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
   }
 
-  addConference() {
+  addConference(conference) {
     let day = this.getRandomIntInclusive(21, 23);
     let hour = this.getRandomIntInclusive(0, 59);
     if (this.authS.isAuthenticated()) {
       this.afDB.list("/data/conferences").push({
         title: "Conferencia No " + day + hour,
         location: "Room 2203",
+        profilePic: "",
         shortDescription: "Mobile devices and browsers",
         description:
           "Mobile devices and browsers are now advanced enough that developers can build native-quality mobile apps using open web technologies like HTML5, Javascript, and CSS. In this talk, we’ll provide background on why and how we created Ionic, the design decisions made as we integrated Ionic with Angular, and the performance considerations for mobile platforms that our team had to overcome. We’ll also review new and upcoming Ionic features, and talk about the hidden powers and benefits of combining mobile app development and Angular.",
@@ -97,6 +98,41 @@ export class DataService {
         topic: ["Services", "Data Manipulation"]
       });
     }
+  }
+
+  deleteConference(conferenceID){
+    let observer = this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        let alert = this.alertCtrl.create({
+          title: "Confirmación",
+          message: "¿Seguro desea eliminar?",
+          buttons: [
+            {
+              text: "Cancel",
+              role: "cancel",
+              handler: () => {
+                console.log("Cancel clicked");
+              }
+            },
+            {
+              text: "Eliminar",
+              handler: () => {
+                this.conferences
+                  .remove(conferenceID)
+                  .then(_ => {
+                    this.showNotification("Conferencia Eliminada correctamente");
+                  })
+                  .catch(_ => {
+                    this.showNotification("No se pudo eliminar la Conferencia");
+                  });
+              }
+            }
+          ]
+        });
+        alert.present();
+      } else this.showNotification("No tiene permisos.");
+      observer.unsubscribe();
+    });
   }
 
   filterConferences(searchTerm) {

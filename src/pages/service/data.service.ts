@@ -100,7 +100,7 @@ export class DataService {
     }
   }
 
-  deleteConference(conferenceID){
+  deleteConference(conferenceID) {
     let observer = this.authS.isAdmin().subscribe(permission => {
       if (permission.val() !== null) {
         let alert = this.alertCtrl.create({
@@ -120,7 +120,9 @@ export class DataService {
                 this.conferences
                   .remove(conferenceID)
                   .then(_ => {
-                    this.showNotification("Conferencia Eliminada correctamente");
+                    this.showNotification(
+                      "Conferencia Eliminada correctamente"
+                    );
                   })
                   .catch(_ => {
                     this.showNotification("No se pudo eliminar la Conferencia");

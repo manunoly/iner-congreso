@@ -7,9 +7,10 @@
 <ion-content *ngIf="isAuthenticated()">
   <div offset-md-2 col-md-8 padding text-center>
     <div text-right>
-      <button ion-button clear *ngIf="!showAddConference" (click)="showAddConferenceForm(true)">Adicionar Ponente</button>
+      <button ion-button clear *ngIf="!showAddConference" (click)="showAddConferenceForm(true)">Adicionar Conferencia</button>
       <button ion-button clear *ngIf="showAddConference" (click)="showAddConferenceForm(false)">Ocultar Adicionar</button>
     </div>
+
     <div *ngIf="showAddConference">
       <ion-item *ngIf="submitAttempt">
         <p *ngIf="!conferenceForm.valid" text-center>Favor Completar Formulario.</p>
@@ -17,37 +18,50 @@
       <ion-list>
         <form [formGroup]="conferenceForm">
           <ion-item>
-            <ion-label>Nombre:</ion-label>
-            <ion-input formControlName="name" type="text"></ion-input>
+            <ion-label>Título:</ion-label>
+            <ion-input formControlName="title" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Fecha Inicio</ion-label>
+            <ion-datetime displayFormat="YYYY-MM-DD 	HH:mm" pickerFormat="YYYY-MM-DD HH:mm" formControlName="date" dayValues="20,21,22"
+              monthValues="09" yearValues="2017" hourValues="07,08,09,10,11,12,13,14,15,16,17,18,19" minuteValues="00,15,30,45">
+            </ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label>Hora Fin</ion-label>
+            <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" formControlName="timeEnd" hourValues="07,08,09,10,11,12,13,14,15,16,17,18,19"
+              minuteValues="00,15,30,45"></ion-datetime>
           </ion-item>
           <ion-item>
             <ion-label>URL foto:</ion-label>
             <ion-input formControlName="profilePic" type="text"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>Título:</ion-label>
-            <ion-input formControlName="degree" type="text"></ion-input>
+            <ion-label>Ubicación:</ion-label>
+            <ion-input formControlName="location" type="text"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>Correo:</ion-label>
-            <ion-input formControlName="email" type="email"></ion-input>
+            <ion-label>Tema:</ion-label>
+            <ion-input formControlName="topic" type="text"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label stacked>Bibliografía Corta:</ion-label>
-            <ion-textarea style="resize: none;" rows="3" formControlName="shortAbout" type="text"></ion-textarea>
+            <ion-label>Ponentes:</ion-label>
+            <ion-input formControlName="speakers" type="text"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label style="resize: none" stacked>Bibliografía</ion-label>
-            <ion-textarea rows="5" formControlName="about" type="text"></ion-textarea>
+            <ion-label stacked>Descripción Corta:</ion-label>
+            <ion-textarea style="resize: none;" rows="3" formControlName="shortDescription" type="text"></ion-textarea>
           </ion-item>
-          <!--      <ion-item>
-          <ion-label>Privacy</ion-label>
-          <ion-select formControlName="privacy">
-            <ion-option value="public" checked="true">Public</ion-option>
-            <ion-option value="friends">Friends Only</ion-option>
-            <ion-option value="private">Private</ion-option>
-          </ion-select>
-        </ion-item>-->
+          <ion-item>
+            <ion-label style="resize: none" stacked>Descripción</ion-label>
+            <ion-textarea rows="5" formControlName="description" type="text"></ion-textarea>
+          </ion-item>
+          <ion-item text-right>
+            <button ion-button clear (click)="addSpeakerCheckbox()">Editar Ponentes</button>
+          </ion-item>
+          <ion-item text-right>
+            <button ion-button clear (click)="addTopicCheckbox()">Editar Temas</button>
+          </ion-item>
           <br>
           <button *ngIf="!showupdateConference" type="button" ion-button color="primary" (click)="addConference()">Adicionar</button>
           <button *ngIf="showupdateConference" type="button" ion-button color="primary" (click)="updateConference()">Actualizar</button>

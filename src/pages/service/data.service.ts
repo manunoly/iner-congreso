@@ -14,6 +14,8 @@ import { AuthService } from "./auth.service";
 export class DataService {
   conferences: FirebaseListObservable<any>;
   speakers: FirebaseListObservable<any>;
+  location: FirebaseListObservable<any>;
+  topic: FirebaseListObservable<any>;
   smallDevice: boolean;
 
   constructor(
@@ -36,6 +38,16 @@ export class DataService {
         orderByChild: "date"
       }
     });
+    this.location = this.afDB.list("/data/location", {
+      query: {
+        orderByChild: "name"
+      }
+    });
+    this.topic = this.afDB.list("/data/topic", {
+      query: {
+        orderByChild: "topic"
+      }
+    });
     this.showNotification(
       "Usuario y Contraseña no son almacenadas por esta aplicación.",
       5000
@@ -50,30 +62,25 @@ export class DataService {
     return this.smallDevice;
   }
 
-  updateConference(conference) {
-    if (this.authS.isAuthenticated()) {
-      this.afDB.list("/data/conferences").update("123", {
-        title: "Las Energias Limpias",
-        location: "Room 2203",
-        shortDescription: "Mobile devices and browsers",
-        description:
-          "Mobile devices and browsers are now advanced enough that developers can build native-quality mobile apps using open web technologies like HTML5, Javascript, and CSS. In this talk, we’ll provide background on why and how we created Ionic, the design decisions made as we integrated Ionic with Angular, and the performance considerations for mobile platforms that our team had to overcome. We’ll also review new and upcoming Ionic features, and talk about the hidden powers and benefits of combining mobile app development and Angular.",
-        speakers: [
-          { name: "Molly Mouse", speakerID: "123" },
-          { name: "Burt Bear", speakerID: "1234" }
-        ],
-        day: "21",
-        timeStart: "1:30 pm",
-        timeEnd: "2:00 pm",
-        topic: ["Services", "Data Manipulation"]
-      });
-    }
-  }
-
   getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+  }
+
+  filterConferences(searchTerm) {
+    if (searchTerm === "") return this.conferences;
+    return this.conferences.map(data =>
+      data.filter(dato =>
+        dato.title.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }
+
+  filterConference(conferenceID) {
+    return this.conferences.map(data =>
+      data.filter(dato => dato.$key == conferenceID)
+    );
   }
 
   addConference(conference) {
@@ -93,6 +100,26 @@ export class DataService {
         ],
         day: day,
         date: "2017:01:13:" + day + ":" + hour,
+        timeStart: "1:30 pm",
+        timeEnd: "2:00 pm",
+        topic: ["Services", "Data Manipulation"]
+      });
+    }
+  }
+
+  updateConference(conference) {
+    if (this.authS.isAuthenticated()) {
+      this.afDB.list("/data/conferences").update("123", {
+        title: "Las Energias Limpias",
+        location: "Room 2203",
+        shortDescription: "Mobile devices and browsers",
+        description:
+          "Mobile devices and browsers are now advanced enough that developers can build native-quality mobile apps using open web technologies like HTML5, Javascript, and CSS. In this talk, we’ll provide background on why and how we created Ionic, the design decisions made as we integrated Ionic with Angular, and the performance considerations for mobile platforms that our team had to overcome. We’ll also review new and upcoming Ionic features, and talk about the hidden powers and benefits of combining mobile app development and Angular.",
+        speakers: [
+          { name: "Molly Mouse", speakerID: "123" },
+          { name: "Burt Bear", speakerID: "1234" }
+        ],
+        day: "21",
         timeStart: "1:30 pm",
         timeEnd: "2:00 pm",
         topic: ["Services", "Data Manipulation"]
@@ -135,21 +162,6 @@ export class DataService {
       } else this.showNotification("No tiene permisos.");
       observer.unsubscribe();
     });
-  }
-
-  filterConferences(searchTerm) {
-    if (searchTerm === "") return this.conferences;
-    return this.conferences.map(data =>
-      data.filter(dato =>
-        dato.title.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
-  }
-
-  filterConference(conferenceID) {
-    return this.conferences.map(data =>
-      data.filter(dato => dato.$key == conferenceID)
-    );
   }
 
   filterSpeaker(speakerID = "") {
@@ -254,6 +266,176 @@ export class DataService {
                   })
                   .catch(_ => {
                     this.showNotification("No se pudo eliminar el Ponente");
+                  });
+              }
+            }
+          ]
+        });
+        alert.present();
+      } else this.showNotification("No tiene permisos.");
+      observer.unsubscribe();
+    });
+  }
+
+  filterLocation(locationID = "") {
+    return this.location.map(data =>
+      data.filter(dato => dato.$key == locationID)
+    );
+  }
+
+  getLocation() {
+    return this.location;
+  }
+
+  addLocation(location) {
+    let observer = this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        this.location
+          .push({
+            name: location.name,
+            profilePic: location.profilePic,
+            location: location.location
+          })
+          .then(a => {
+            this.showNotification("Lugar adicionado correctamente");
+          })
+          .catch(a => {
+            this.showNotification("Ha ocurrido un error adicionando el Lugar");
+          });
+      } else this.showNotification("No tiene permisos.");
+      observer.unsubscribe();
+    });
+  }
+
+  updateLocation(location) {
+    let observer = this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        this.location
+          .update(location.id, {
+            name: location.name,
+            profilePic: location.profilePic,
+            location: location.location
+          })
+          .then(_ => {
+            this.showNotification("Lugar actualizado correctamente");
+          })
+          .catch(_ => {
+            this.showNotification("No se pudo eliminar el Lugar");
+          });
+      } else this.showNotification("No tiene permisos.");
+      observer.unsubscribe();
+    });
+  }
+
+  deleteLocation(locationID) {
+    let observer = this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        let alert = this.alertCtrl.create({
+          title: "Confirmación",
+          message: "¿Seguro desea eliminar?",
+          buttons: [
+            {
+              text: "Cancel",
+              role: "cancel",
+              handler: () => {
+                console.log("Cancel clicked");
+              }
+            },
+            {
+              text: "Eliminar",
+              handler: () => {
+                this.location
+                  .remove(locationID)
+                  .then(_ => {
+                    this.showNotification("Ponente Eliminado correctamente");
+                  })
+                  .catch(_ => {
+                    this.showNotification("No se pudo eliminar el Ponente");
+                  });
+              }
+            }
+          ]
+        });
+        alert.present();
+      } else this.showNotification("No tiene permisos.");
+      observer.unsubscribe();
+    });
+  }
+
+  filterTopic(locationID = "") {
+    return this.location.map(data =>
+      data.filter(dato => dato.$key == locationID)
+    );
+  }
+
+  getTopic() {
+    return this.topic;
+  }
+
+  addTopic(topic) {
+    let observer = this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        this.topic
+          .push({
+            topic: topic.topic,
+            profilePic: topic.profilePic,
+            description: topic.description
+          })
+          .then(a => {
+            this.showNotification("Tema adicionado correctamente");
+          })
+          .catch(a => {
+            this.showNotification("Ha ocurrido un error adicionando el Tema");
+          });
+      } else this.showNotification("No tiene permisos.");
+      observer.unsubscribe();
+    });
+  }
+
+  updateTopic(topic) {
+    let observer = this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        this.topic
+          .update(topic.id, {
+            topic: topic.topic,
+            profilePic: topic.profilePic,
+            description: topic.description
+          })
+          .then(_ => {
+            this.showNotification("Tema actualizado correctamente");
+          })
+          .catch(_ => {
+            this.showNotification("No se pudo eliminar el Tema");
+          });
+      } else this.showNotification("No tiene permisos.");
+      observer.unsubscribe();
+    });
+  }
+
+  deleteTopic(topicID) {
+    let observer = this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        let alert = this.alertCtrl.create({
+          title: "Confirmación",
+          message: "¿Seguro desea eliminar?",
+          buttons: [
+            {
+              text: "Cancel",
+              role: "cancel",
+              handler: () => {
+                console.log("Cancel clicked");
+              }
+            },
+            {
+              text: "Eliminar",
+              handler: () => {
+                this.topic
+                  .remove(topicID)
+                  .then(_ => {
+                    this.showNotification("Tema Eliminado correctamente");
+                  })
+                  .catch(_ => {
+                    this.showNotification("No se pudo eliminar el Tema");
                   });
               }
             }

@@ -22,10 +22,15 @@
             <ion-input formControlName="title" type="text"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>Fecha Inicio</ion-label>
-            <ion-datetime displayFormat="YYYY-MM-DD 	HH:mm" pickerFormat="YYYY-MM-DD HH:mm" formControlName="date" dayValues="20,21,22"
-              monthValues="09" yearValues="2017" hourValues="07,08,09,10,11,12,13,14,15,16,17,18,19" minuteValues="00,15,30,45">
+            <ion-label>Fecha</ion-label>
+            <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" formControlName="date" dayValues="20,21,22"
+              monthValues="09" yearValues="2017">
             </ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label>Hora Inicio</ion-label>
+            <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" formControlName="timeStart" hourValues="07,08,09,10,11,12,13,14,15,16,17,18,19"
+              minuteValues="00,15,30,45"></ion-datetime>
           </ion-item>
           <ion-item>
             <ion-label>Hora Fin</ion-label>
@@ -37,31 +42,47 @@
             <ion-input formControlName="profilePic" type="text"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>Ubicación:</ion-label>
-            <ion-input formControlName="location" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Tema:</ion-label>
-            <ion-input formControlName="topic" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Ponentes:</ion-label>
-            <ion-input formControlName="speakers" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
             <ion-label stacked>Descripción Corta:</ion-label>
             <ion-textarea style="resize: none;" rows="3" formControlName="shortDescription" type="text"></ion-textarea>
           </ion-item>
           <ion-item>
-            <ion-label style="resize: none" stacked>Descripción</ion-label>
-            <ion-textarea rows="5" formControlName="description" type="text"></ion-textarea>
+            <ion-label stacked>Descripción</ion-label>
+            <ion-textarea style="resize: none" rows="5" formControlName="description" type="text"></ion-textarea>
           </ion-item>
-          <ion-item text-right>
-            <button ion-button clear (click)="addSpeakerCheckbox()">Editar Ponentes</button>
+          <ion-item>
+            <div text-right>
+              <button ion-button clear (click)="addSpeakerCheckbox()">Editar Ponentes</button>
+            </div>
+            <div *ngIf="conferenceForm.value.speakers">
+              <h3>Ponentes</h3>
+              <ul *ngFor="let item of conferenceForm.value.speakers">
+                <li>{{item.name}}</li>
+              </ul>
+            </div>
           </ion-item>
-          <ion-item text-right>
-            <button ion-button clear (click)="addTopicCheckbox()">Editar Temas</button>
+          <ion-item>
+            <div text-right>
+              <button ion-button clear (click)="addTopicCheckbox()">Editar Temas</button>
+            </div>
+            <div *ngIf="conferenceForm.value.topic">
+              <h3>Temas</h3>
+              <ul *ngFor="let item of conferenceForm.value.topic">
+                <li>{{item.topic}}</li>
+              </ul>
+            </div>
           </ion-item>
+          <ion-item>
+            <div text-right>
+              <button ion-button clear (click)="addLocationCheckbox()">Editar Lugar</button>
+            </div>
+            <div *ngIf="conferenceForm.value.location">
+              <h3>Lugar</h3>
+              <ul *ngFor="let item of conferenceForm.value.location">
+                <li>{{item.name}}</li>
+              </ul>
+            </div>
+          </ion-item>
+
           <br>
           <button *ngIf="!showupdateConference" type="button" ion-button color="primary" (click)="addConference()">Adicionar</button>
           <button *ngIf="showupdateConference" type="button" ion-button color="primary" (click)="updateConference()">Actualizar</button>

@@ -16,18 +16,19 @@ import { ConferenceDetailPage } from './../pages/conference-detail/conference-de
 import { HomePage } from '../pages/home/home';
 import { ManageConferencePage } from '../pages/manage-conference/manage-conference';
 import { ManageSpeakerPage } from '../pages/manage-speaker/manage-speaker';
+import { ManageLocationPage } from './../pages/manage-location/manage-location';
+import { ManageTopicPage } from './../pages/manage-topic/manage-topic';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-//firebase 
+//firebase
 // import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 // import { FirebaseProvider } from 'providers/firebase/firebase';
-
 
   // Initialize Firebase
   const firebaseConfig = {
@@ -49,6 +50,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     ConferenceDetailPage,
     ManageSpeakerPage,
     ManageConferencePage,
+    ManageLocationPage,
+    ManageTopicPage,
     HomePage,
     TabsPage
   ],
@@ -65,7 +68,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,    
+    HomePage,
     AboutPage,
     SpeakerPage,
     SpeakerDeatailPage,
@@ -73,6 +76,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     ConferenceDetailPage,
     ManageSpeakerPage,
     ManageConferencePage,
+    ManageLocationPage,
+    ManageTopicPage,
     TabsPage
   ],
   providers: [

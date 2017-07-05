@@ -5,6 +5,8 @@ import { AuthService } from "./../service/auth.service";
 import { DataService } from "./../service/data.service";
 import { ManageSpeakerPage } from './../manage-speaker/manage-speaker';
 import { ManageConferencePage } from './../manage-conference/manage-conference';
+import { ManageTopicPage } from '../manage-topic/manage-topic';
+import { ManageLocationPage } from '../manage-location/manage-location';
 
 @Component({
   selector: "page-home",
@@ -64,5 +66,13 @@ export class HomePage {
 
   goToManageConference(){
     this.navCtrl.push(ManageConferencePage);
+  }
+
+  goToManageLocation(){
+    this.navCtrl.push(ManageLocationPage);
+  }
+
+  goToManageTopic(){
+    this.navCtrl.push(ManageTopicPage);
   }
 }

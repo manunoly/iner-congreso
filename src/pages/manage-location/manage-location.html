@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+    <h2 ion-text color="primary" text-center>Gestionar Locales</h2>
+  </ion-navbar>
+</ion-header>
+
+<ion-content *ngIf="isAuthenticated()">
+  <div offset-md-2 col-md-8 padding text-center>
+    <div text-right>
+      <button ion-button clear *ngIf="!showAddLocation" (click)="showAddLocationForm(true)">Adicionar Lugar</button>
+      <button ion-button clear *ngIf="showAddLocation" (click)="showAddLocationForm(false)">Ocultar Adicionar</button>
+    </div>
+    <div *ngIf="showAddLocation">
+      <ion-item *ngIf="submitAttempt">
+        <p *ngIf="!locationForm.valid" text-center>Favor Completar Formulario.</p>
+      </ion-item>
+      <ion-list>
+        <form [formGroup]="locationForm">
+          <ion-item>
+            <ion-label>Lugar:</ion-label>
+            <ion-input formControlName="name" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>URL foto:</ion-label>
+            <ion-input formControlName="profilePic" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Ubicación:</ion-label>
+            <ion-input formControlName="location" type="text"></ion-input>
+          </ion-item>
+          <br>
+          <button *ngIf="!showupdateLocation" type="button" ion-button color="primary" (click)="addLocation()">Adicionar</button>
+          <button *ngIf="showupdateLocation" type="button" ion-button color="primary" (click)="updateLocation()">Actualizar</button>
+        </form>
+        <br>
+      </ion-list>
+    </div>
+    <ion-list>
+      <ion-list-header no-lines>
+        <h2> Listado de Lugares</h2>
+      </ion-list-header>
+      <ion-item *ngFor="let location of locations | async">
+        <ion-avatar [hidden]='smallDevice' item-start>
+          <img src={{location.profilePic}}>
+        </ion-avatar>
+        <h2>{{ location.name }}</h2>
+        <p> {{ location.location }}</p>
+        <button type="button" title="Editar" (click)="loadLocationToEdit(location)" item-end ion-button clear icon-only>
+        <ion-icon name="create"></ion-icon>
+      </button>
+        <button type="button" title="Eliminar" item-end (click)="removeLocation(location.$key)" item-end ion-button clear icon-only>
+        <ion-icon title="Eliminar" item-end name="trash"></ion-icon>
+      </button>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

@@ -87,19 +87,23 @@ export class ManageConferencePage {
         alert.addInput({
           type: "checkbox",
           label: speaker.name,
-          value: JSON.stringify({["speakerID"]: speaker.$key, ["name"]: speaker.name})
+          value: JSON.stringify({
+            ["speakerID"]: speaker.$key,
+            ["name"]: speaker.name
+          })
         });
       });
       alert.addButton("Cancelar");
       alert.addButton({
         text: "Adicionar",
         handler: data => {
-          console.log("Checkbox data:", data);
-          let speakersConf = []
-          data.forEach(element => {
-            speakersConf.push(element);
-          });
-          console.log(speakersConf)
+          if (data.length > 0) {
+            let speakersConf = [];
+            data.forEach(element => {
+              speakersConf.push(JSON.parse(element));
+            });
+            this.conferenceForm.controls["speakers"].setValue(speakersConf);
+          } else this.conferenceForm.controls["speakers"].setValue("");
           this.testCheckboxOpen = false;
           this.testCheckboxResult = data;
         }
@@ -108,28 +112,31 @@ export class ManageConferencePage {
       speakers.unsubscribe();
     });
   }
-
-addTopicCheckbox(){
-    let speakers = this.dataS.filterSpeakers("").subscribe(data => {
+  addTopicCheckbox() {
+    let speakers = this.dataS.getTopic().subscribe(data => {
       let alert = this.alertCtrl.create();
-      alert.setTitle("Ponentes de esta Conferencia?");
-      data.forEach(speaker => {
+      alert.setTitle("Temas de esta Conferencia?");
+      data.forEach(topic => {
         alert.addInput({
           type: "checkbox",
-          label: speaker.name,
-          value: JSON.stringify({["speakerID"]: speaker.$key, ["name"]: speaker.name})
+          label: topic.topic,
+          value: JSON.stringify({
+            ["speakerID"]: topic.$key,
+            ["topic"]: topic.topic
+          })
         });
       });
       alert.addButton("Cancelar");
       alert.addButton({
         text: "Adicionar",
         handler: data => {
-          console.log("Checkbox data:", data);
-          let speakersConf = []
-          data.forEach(element => {
-            speakersConf.push(element);
-          });
-          console.log(speakersConf)
+          if (data.length > 0) {
+            let topicsConf = [];
+            data.forEach(element => {
+              topicsConf.push(JSON.parse(element));
+            });
+            this.conferenceForm.controls["topic"].setValue(topicsConf);
+          } else this.conferenceForm.controls["topic"].setValue("");
           this.testCheckboxOpen = false;
           this.testCheckboxResult = data;
         }
@@ -137,7 +144,40 @@ addTopicCheckbox(){
       alert.present();
       speakers.unsubscribe();
     });
-}
+  }
+  addLocationCheckbox() {
+    let locations = this.dataS.getLocation().subscribe(data => {
+      let alert = this.alertCtrl.create();
+      alert.setTitle("Temas de esta Conferencia?");
+      data.forEach(location => {
+        alert.addInput({
+          type: "checkbox",
+          label: location.name,
+          value: JSON.stringify({
+            ["speakerID"]: location.$key,
+            ["name"]: location.name
+          })
+        });
+      });
+      alert.addButton("Cancelar");
+      alert.addButton({
+        text: "Adicionar",
+        handler: data => {
+          if (data.length > 0) {
+            let locationConf = [];
+            data.forEach(element => {
+              locationConf.push(JSON.parse(element));
+            });
+            this.conferenceForm.controls["location"].setValue(locationConf);
+          } else this.conferenceForm.controls["location"].setValue("");
+          this.testCheckboxOpen = false;
+          this.testCheckboxResult = data;
+        }
+      });
+      alert.present();
+      locations.unsubscribe();
+    });
+  }
 
   setConferenceForm(conference) {
     if (conference === undefined) {
@@ -147,8 +187,12 @@ addTopicCheckbox(){
           Validators.compose([Validators.maxLength(300), Validators.required])
         ],
         date: [
-          "2017-09-20 08:00",
+          "2017-09-20",
           Validators.compose([Validators.maxLength(20), Validators.required])
+        ],
+        timeStart: [
+          "09:10",
+          Validators.compose([Validators.maxLength(10), Validators.required])
         ],
         timeEnd: [
           "",
@@ -172,7 +216,7 @@ addTopicCheckbox(){
         ],
         speakers: [
           "",
-          Validators.compose([Validators.maxLength(100), Validators.required])
+          Validators.compose([Validators.maxLength(500), Validators.required])
         ],
         shortDescription: [
           "",

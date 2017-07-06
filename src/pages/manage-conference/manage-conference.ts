@@ -57,7 +57,6 @@ export class ManageConferencePage {
       this.setConferenceForm(undefined);
       this.showAddConference = false;
       this.showupdateConference = false;
-      //FIXME: show notification result
     } else this.submitAttempt = true;
   }
 
@@ -66,13 +65,13 @@ export class ManageConferencePage {
   }
 
   addConference() {
-    console.log(this.conferenceForm.value);
+    // console.log(this.conferenceForm.value);
 
-    // if (this.conferenceForm.valid) {
-    //   this.dataS.addConference(this.conferenceForm.value);
-    //   this.conferenceForm.reset();
-    //   this.setConferenceForm(undefined);
-    // } else this.submitAttempt = true;
+    if (this.conferenceForm.valid) {
+      this.dataS.addConference(this.conferenceForm.value);
+      this.conferenceForm.reset();
+      this.setConferenceForm(undefined);
+    } else this.submitAttempt = true;
   }
 
   showAddConferenceForm(showAddConference = false) {
@@ -121,7 +120,7 @@ export class ManageConferencePage {
           type: "checkbox",
           label: topic.topic,
           value: JSON.stringify({
-            ["speakerID"]: topic.$key,
+            ["topicID"]: topic.$key,
             ["topic"]: topic.topic
           })
         });
@@ -154,7 +153,7 @@ export class ManageConferencePage {
           type: "checkbox",
           label: location.name,
           value: JSON.stringify({
-            ["speakerID"]: location.$key,
+            ["locationID"]: location.$key,
             ["name"]: location.name
           })
         });
@@ -191,7 +190,7 @@ export class ManageConferencePage {
           Validators.compose([Validators.maxLength(20), Validators.required])
         ],
         timeStart: [
-          "09:10",
+          "",
           Validators.compose([Validators.maxLength(10), Validators.required])
         ],
         timeEnd: [

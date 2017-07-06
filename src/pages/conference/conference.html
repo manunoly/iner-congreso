@@ -4,26 +4,49 @@
 
   <div offset-md-2 col-md-8 padding>
     <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+    <div float-end col-6 col-sm-4>
+      <ion-item>
+        <ion-label>Dia</ion-label>
+        <ion-select [(ngModel)]="filterDay" [formControl]="searchControl" (ionChange)="onSearchInput()">
+          <ion-option checked="" value="">Todos</ion-option>
+          <ion-option value="20">20</ion-option>
+          <ion-option value="21">21</ion-option>
+          <ion-option value="22">22</ion-option>
+        </ion-select>
+      </ion-item>
+    </div>
     <div *ngIf="searching" class="spinner-container">
       <ion-spinner></ion-spinner>
     </div>
-    <ion-list>
-      <ion-item class="text" *ngFor="let conference of conferences | async">
-        <ion-avatar item-start>
-          <!-- FIXME: A4 if else would be better.
-          -->
-          <img *ngIf="!conference.profilePic" src="./../../assets/icon/favicon.ico">
-          <img *ngIf="conference.profilePic" [src]="conference.profilePic">
-        </ion-avatar>
-        <a (click)="goToConferenceDetail(conference.$key)">{{ conference.title }}</a>
-        <p>{{ conference.shortDescription }}</p>
-      </ion-item>
-
+    <ion-list *ngIf="conferences | async; let conferencesD">
+      <span #item *ngFor='let conference of (conferences | async); let i = index'>
+        <ion-list-header text-color="primary" no-lines *ngIf="i == 0 || conference.day !== conferencesD[i - 1].day">
+          Día {{ conference.day }}
+        </ion-list-header>
+        <ion-item-sliding #item>
+          <ion-item>
+            <ion-avatar item-start>
+              <img *ngIf="!conference.profilePic" src="./../../assets/icon/favicon.ico">
+              <img *ngIf="conference.profilePic" [src]="conference.profilePic">
+            </ion-avatar>
+            <div>
+              <button *ngIf="isFavorite" item-right ion-button clear icon-only>
+                <ion-icon name="star"></ion-icon>
+              </button>
+            </div>
+            <a (click)="goToConferenceDetail(conference.$key)">{{ conference.title }}</a>
+            <p>{{ conference.shortDescription }}</p>
+          </ion-item>
+          <ion-item-options side="right">
+            <button item-end ion-button clear icon-only>
+              <ion-icon name="star"></ion-icon>
+            </button>
+            <button item-end ion-button clear icon-only>
+              <ion-icon name="thumbs-up"></ion-icon>
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </span>
     </ion-list>
-    <!--    <ion-item-group>
-      <ion-item-divider color="light">A</ion-item-divider>
-      <ion-item>Angola</ion-item>
-      <ion-item>Argentina</ion-item>
-    </ion-item-group>-->
   </div>
 </ion-content>

@@ -68,12 +68,18 @@ export class DataService {
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
   }
 
-  filterConferences(searchTerm) {
-    if (searchTerm === "") return this.conferences;
+  filterConferences(searchTerm = "", day = "") {
+    if (searchTerm === "" && day === "") return this.conferences;
     return this.conferences.map(data =>
-      data.filter(dato =>
-        dato.title.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      data.filter(dato => {
+        if (searchTerm != "" && day === "")
+          dato.title.toLowerCase().includes(searchTerm.toLowerCase());
+        else if (searchTerm === "" && day != "") {
+          dato.day == day;
+        } else if(searchTerm != "" && day != ""){
+          dato.title.toLowerCase().includes(searchTerm.toLowerCase()) && dato.day == day;
+        }
+      })
     );
   }
 
@@ -84,25 +90,20 @@ export class DataService {
   }
 
   addConference(conference) {
-    let day = this.getRandomIntInclusive(21, 23);
-    let hour = this.getRandomIntInclusive(0, 59);
+    let date = conference.date.split("-");
     if (this.authS.isAuthenticated()) {
       this.afDB.list("/data/conferences").push({
-        title: "Conferencia No " + day + hour,
-        location: "Room 2203",
-        profilePic: "",
-        shortDescription: "Mobile devices and browsers",
-        description:
-          "Mobile devices and browsers are now advanced enough that developers can build native-quality mobile apps using open web technologies like HTML5, Javascript, and CSS. In this talk, we’ll provide background on why and how we created Ionic, the design decisions made as we integrated Ionic with Angular, and the performance considerations for mobile platforms that our team had to overcome. We’ll also review new and upcoming Ionic features, and talk about the hidden powers and benefits of combining mobile app development and Angular.",
-        speakers: [
-          { name: "Molly Mouse", speakerID: "123" },
-          { name: "Burt Bear", speakerID: "1234" }
-        ],
-        day: day,
-        date: "2017:01:13:" + day + ":" + hour,
-        timeStart: "1:30 pm",
-        timeEnd: "2:00 pm",
-        topic: ["Services", "Data Manipulation"]
+        title: conference.title,
+        profilePic: conference.profilePic,
+        shortDescription: conference.shortDescription,
+        description: conference.description,
+        day: date[2],
+        date: conference.date + " " + conference.timeStart,
+        timeStart: conference.timeStart,
+        timeEnd: conference.timeEnd,
+        speakers: conference.speakers,
+        location: conference.location,
+        topic: conference.topic
       });
     }
   }

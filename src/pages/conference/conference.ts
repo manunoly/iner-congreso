@@ -15,6 +15,7 @@ export class ConferencePage {
   searchTerm: string = "";
   searchControl: FormControl;
   searching: any = false;
+  filterDay = "";
 
   constructor(
     public navCtrl: NavController,
@@ -36,7 +37,11 @@ export class ConferencePage {
   }
 
   setFilteredConferences() {
-    this.conferences = this.dataS.filterConferences(this.searchTerm);
+    this.conferences = this.dataS.filterConferences(this.searchTerm, this.filterDay);
+  }
+
+  filterByDay(){
+    console.log(this.filterDay);
   }
 
   goToConferenceDetail(conferenceID) {

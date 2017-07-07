@@ -68,19 +68,72 @@ export class DataService {
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
   }
 
-  filterConferences(searchTerm = "", day = "") {
-    if (searchTerm === "" && day === "") return this.conferences;
-    return this.conferences.map(data =>
-      data.filter(dato => {
-        if (searchTerm != "" && day === "")
-          dato.title.toLowerCase().includes(searchTerm.toLowerCase());
-        else if (searchTerm === "" && day != "") {
-          dato.day == day;
-        } else if(searchTerm != "" && day != ""){
-          dato.title.toLowerCase().includes(searchTerm.toLowerCase()) && dato.day == day;
-        }
-      })
-    );
+  checkTopic(dato = [], topic = []) {
+    console.log(topic);
+    dato.forEach(elem => {
+      console.log(elem.topicID);
+      if (elem.topicID == topic[topic.indexOf(elem.topicID)]){
+        console.log("si esta el id");
+        return elem;
+      }
+    });
+    return undefined;
+  }
+  /**
+ * FIXME: not work right the filter
+ *
+ * @param {string} [searchTerm=""]
+ * @param {string} [day=""]
+ * @returns
+ * @memberof DataService
+ */
+  filterConferences(searchTerm = "", day = [], topic = []) {
+    let dayLength = day.length;
+    let topicLength = topic.length;
+    if (searchTerm === "" && dayLength == 0 && topicLength == 0)
+      return this.conferences;
+
+    if (searchTerm != "" && dayLength == 0 && topicLength == 0) {
+      console.log("filtrar solo por texto conf");
+      console.log(searchTerm);
+      return this.conferences.map(data =>
+        data.filter(dato =>
+          dato.title.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    } else if (searchTerm != "" && dayLength > 0 && topicLength == 0) {
+      console.log("filtrar solo por ambos");
+      return this.conferences.map(data =>
+        data.filter(
+          dato =>
+            dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            dato.day == day[day.indexOf(dato.day)]
+        )
+      );
+    } else if (searchTerm != "" && dayLength == 0 && topicLength > 0) {
+      console.log("filtrar solo por texto y tematica");
+      return this.conferences.map(data =>
+        data.filter(
+          dato =>
+            dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            (dato.topic.some(elem=> topic.indexOf(elem.topicID)))
+        )
+      );
+    } else if (searchTerm === "" && dayLength > 0 && topicLength == 0) {
+      console.log("filtrar solo por dia");
+      return this.conferences.map(data =>
+        data.filter(dato => dato.day == day[day.indexOf(dato.day)])
+      );
+    } else if (searchTerm != "" && dayLength > 0 && topicLength == 0) {
+      console.log("filtrar solo por ambos");
+      return this.conferences.map(data =>
+        data.filter(
+          dato =>
+            dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            dato.day == day[day.indexOf(dato.day)]
+        )
+      );
+    }
   }
 
   filterConference(conferenceID) {

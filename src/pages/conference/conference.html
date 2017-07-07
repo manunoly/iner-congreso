@@ -4,14 +4,22 @@
 
   <div offset-md-2 col-md-8 padding>
     <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+    <!--<div float-end col-6 col-sm-4>-->
     <div float-end col-6 col-sm-4>
       <ion-item>
         <ion-label>Dia</ion-label>
-        <ion-select [(ngModel)]="filterDay" [formControl]="searchControl" (ionChange)="onSearchInput()">
-          <ion-option checked="" value="">Todos</ion-option>
+        <ion-select  multiple="true" [(ngModel)]="filterDay" [formControl]="dayControl" (ionChange)="onSearchInput()">
+          <ion-option selected="true" value="">Todos</ion-option>
           <ion-option value="20">20</ion-option>
           <ion-option value="21">21</ion-option>
           <ion-option value="22">22</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Temas</ion-label>
+        <ion-select multiple="true" [(ngModel)]="filterTopic" [formControl]="dayControl" (ionChange)="onSearchInput()">
+          <ion-option selected="true" value="">Todos</ion-option>
+          <ion-option *ngFor="let topic of topics | async" [value]="topic.$key" [selected]="true">{{topic.topic}}</ion-option>
         </ion-select>
       </ion-item>
     </div>

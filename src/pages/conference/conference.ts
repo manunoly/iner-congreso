@@ -12,10 +12,14 @@ import "rxjs/add/operator/debounceTime";
 })
 export class ConferencePage {
   conferences: any;
-  searchTerm: string = "";
+  topics: any;
+  searchTerm = "";
   searchControl: FormControl;
+  dayControl: FormControl;
+  topicControl: FormControl;
   searching: any = false;
-  filterDay = "";
+  filterDay = [];
+  filterTopic = [];
 
   constructor(
     public navCtrl: NavController,
@@ -23,10 +27,21 @@ export class ConferencePage {
     private dataS: DataService
   ) {
     this.searchControl = new FormControl();
+    this.dayControl = new FormControl();
+    this.topicControl = new FormControl();
   }
   ionViewDidLoad() {
+    this.topics = this.dataS.getTopic();
     this.setFilteredConferences();
-    this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
+    this.searchControl.valueChanges.debounceTime(400).subscribe(search => {
+      this.searching = false;
+      this.setFilteredConferences();
+    });
+    this.dayControl.valueChanges.debounceTime(400).subscribe(search => {
+      this.searching = false;
+      this.setFilteredConferences();
+    });
+        this.topicControl.valueChanges.debounceTime(400).subscribe(search => {
       this.searching = false;
       this.setFilteredConferences();
     });
@@ -37,11 +52,11 @@ export class ConferencePage {
   }
 
   setFilteredConferences() {
-    this.conferences = this.dataS.filterConferences(this.searchTerm, this.filterDay);
-  }
-
-  filterByDay(){
-    console.log(this.filterDay);
+    this.conferences = this.dataS.filterConferences(
+      this.searchTerm,
+      this.filterDay,
+      this.filterTopic
+    );
   }
 
   goToConferenceDetail(conferenceID) {

@@ -72,7 +72,7 @@ export class DataService {
     console.log(topic);
     dato.forEach(elem => {
       console.log(elem.topicID);
-      if (elem.topicID == topic[topic.indexOf(elem.topicID)]){
+      if (elem.topicID == topic[topic.indexOf(elem.topicID)]) {
         console.log("si esta el id");
         return elem;
       }
@@ -88,6 +88,9 @@ export class DataService {
  * @memberof DataService
  */
   filterConferences(searchTerm = "", day = [], topic = []) {
+    console.log(searchTerm);
+    console.log(day);
+    console.log(topic);
     let dayLength = day.length;
     let topicLength = topic.length;
     if (searchTerm === "" && dayLength == 0 && topicLength == 0)
@@ -95,19 +98,32 @@ export class DataService {
 
     if (searchTerm != "" && dayLength == 0 && topicLength == 0) {
       console.log("filtrar solo por texto conf");
-      console.log(searchTerm);
       return this.conferences.map(data =>
         data.filter(dato =>
           dato.title.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
+    } else if (searchTerm === "" && dayLength > 0 && topicLength == 0) {
+      console.log("filtrar solo por dia");
+      return this.conferences.map(data =>
+        data.filter(dato => dato.day == day[day.indexOf(dato.day)])
+      );
+    } else if (searchTerm === "" && dayLength == 0 && topicLength > 0) {
+      console.log("filtrar solo por tema");
+      return this.conferences.map(data =>
+        data.filter(dato =>
+          dato.topic.some(
+            elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+          )
+        )
+      );
     } else if (searchTerm != "" && dayLength > 0 && topicLength == 0) {
-      console.log("filtrar solo por ambos");
+      console.log("filtrar solo por dia y texto");
       return this.conferences.map(data =>
         data.filter(
           dato =>
             dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-            dato.day == day[day.indexOf(dato.day)]
+            dato.day === day[day.indexOf(dato.day)]
         )
       );
     } else if (searchTerm != "" && dayLength == 0 && topicLength > 0) {
@@ -116,21 +132,31 @@ export class DataService {
         data.filter(
           dato =>
             dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-            (dato.topic.some(elem=> topic.indexOf(elem.topicID)))
+            dato.topic.some(
+              elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+            )
         )
       );
-    } else if (searchTerm === "" && dayLength > 0 && topicLength == 0) {
-      console.log("filtrar solo por dia");
+    } else if (searchTerm === "" && dayLength > 0 && topicLength > 0) {
+      console.log("filtrar solo por dia y tema");
       return this.conferences.map(data =>
-        data.filter(dato => dato.day == day[day.indexOf(dato.day)])
+        data.filter(
+          dato =>
+            dato.topic.some(
+              elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+            ) && dato.day == day[day.indexOf(dato.day)]
+        )
       );
-    } else if (searchTerm != "" && dayLength > 0 && topicLength == 0) {
-      console.log("filtrar solo por ambos");
+    } else if (searchTerm != "" && dayLength > 0 && topicLength > 0) {
+      console.log("filtrar por texto, dia y tema");
       return this.conferences.map(data =>
         data.filter(
           dato =>
             dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-            dato.day == day[day.indexOf(dato.day)]
+            dato.day == day[day.indexOf(dato.day)] &&
+            dato.topic.some(
+              elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+            )
         )
       );
     }

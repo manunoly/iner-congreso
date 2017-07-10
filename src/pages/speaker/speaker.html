@@ -13,7 +13,7 @@
     </div>
 
     <ion-card *ngFor="let speaker of speakers | async">
-      <ion-item text-center>
+      <ion-item text-center text-wrap>
         <ion-card-header>
           <ion-avatar>
             <img [src]="speaker.profilePic">

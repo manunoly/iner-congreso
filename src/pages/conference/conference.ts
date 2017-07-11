@@ -20,6 +20,7 @@ export class ConferencePage {
   searching: any = false;
   filterDay = [];
   filterTopic = [];
+  search: boolean = true;
 
   constructor(
     public navCtrl: NavController,
@@ -41,7 +42,7 @@ export class ConferencePage {
       this.searching = false;
       this.setFilteredConferences();
     });
-        this.topicControl.valueChanges.debounceTime(400).subscribe(search => {
+    this.topicControl.valueChanges.debounceTime(400).subscribe(search => {
       this.searching = false;
       this.setFilteredConferences();
     });
@@ -49,6 +50,17 @@ export class ConferencePage {
 
   onSearchInput() {
     this.searching = true;
+  }
+
+  showHideSearch() {
+    this.search = !this.search;
+  }
+
+  reset() {
+    this.conferences = this.dataS.filterConferences();
+    this.filterDay = [];
+    this.filterTopic = [];
+    this.searchTerm = "";
   }
 
   setFilteredConferences() {

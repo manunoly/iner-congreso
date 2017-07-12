@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/toPromise";
-
+import { ToastController } from "ionic-angular";
 
 // import { Subscriber } from 'rxjs/Subscriber';
 
@@ -17,7 +16,8 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private afDB: AngularFireDatabase
+    private afDB: AngularFireDatabase,
+    public toastCtrl: ToastController
   ) {
     this.user = afAuth.authState;
   }
@@ -25,7 +25,15 @@ export class AuthService {
   loginGoogle() {
     this.afAuth.auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .catch(error => console.log(error));
+      .then(res => console.log(res))
+      .catch(res => this.showNotification(res));
+  }
+
+  loginFacebook() {
+    this.afAuth.auth
+      .signInWithPopup(new firebase.auth.FacebookAuthProvider())
+      .then(res => console.log(res))
+      .catch(res => this.showNotification(res));
   }
 
   logout() {
@@ -101,5 +109,16 @@ export class AuthService {
     });
     //     subscribe(users => {
     //       ["manunoly@gmail.com", "raul@gmail.com"]);
+  }
+
+  showNotification(message, time = 5000) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: time,
+      position: "top",
+      // cssClass: "text-center toastStyle",
+      dismissOnPageChange: true
+    });
+    toast.present();
   }
 }

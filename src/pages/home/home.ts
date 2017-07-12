@@ -50,7 +50,7 @@ export class HomePage {
   }
 
   signInWithFacebook() {
-    this.authS.loginGoogle();
+    this.authS.loginFacebook();
   }
 
   signInWithTwitter() {

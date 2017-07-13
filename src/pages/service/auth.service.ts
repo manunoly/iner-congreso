@@ -25,15 +25,31 @@ export class AuthService {
   loginGoogle() {
     this.afAuth.auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(res => console.log(res))
-      .catch(res => this.showNotification(res));
+      .then(res => {
+        console.log("Google");
+        console.log(res);
+      })
+      .catch(res => this.showNotification(res, 10000));
   }
 
   loginFacebook() {
     this.afAuth.auth
       .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-      .then(res => console.log(res))
-      .catch(res => this.showNotification(res));
+      .then(res => {
+        console.log("Facebook");
+        console.log(res);
+      })
+      .catch(res => this.showNotification(res, 10000));
+  }
+
+  loginTwitter() {
+    this.afAuth.auth
+      .signInWithPopup(new firebase.auth.TwitterAuthProvider())
+      .then(res => {
+        console.log("Twitter");
+        console.log(res);
+      })
+      .catch(res => this.showNotification(res, 10000));
   }
 
   logout() {
@@ -80,7 +96,7 @@ export class AuthService {
   isAdmin() {
     return this.user.flatMap(user => {
       if (this.isAuthenticated()) {
-        return this.afDB.object("/admin/" + user["email"].split("@")[0], {
+        return this.afDB.object("/admin/" + user.uid, {
           preserveSnapshot: true
         });
       } else {

@@ -54,7 +54,7 @@ export class HomePage {
   }
 
   signInWithTwitter() {
-    this.authS.loginGoogle();
+    this.authS.loginTwitter();
   }
   signOut() {
     this.authS.logout();

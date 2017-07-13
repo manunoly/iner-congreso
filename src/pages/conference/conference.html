@@ -5,7 +5,7 @@
     <!--<div float-end col-6 col-sm-4>-->
       <button float-end ion-button color="light" round icon-only (click)="showHideSearch()"><ion-icon name="search"></ion-icon></button>
     <ion-card [hidden]="search">
-      <!--<button float-end ion-button clear (click)="reset()">Limpiar</button>-->
+      <button float-end ion-button clear (click)="reset()">Limpiar</button>
       <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
       <ion-item>
         <ion-label>Dia</ion-label>

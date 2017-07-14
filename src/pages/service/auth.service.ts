@@ -23,33 +23,45 @@ export class AuthService {
   }
 
   loginGoogle() {
-    this.afAuth.auth
-      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(res => {
-        console.log("Google");
-        console.log(res);
-      })
-      .catch(res => this.showNotification(res, 10000));
+    try {
+      this.afAuth.auth
+        .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+        .then(res => {
+          console.log("Google");
+          console.log(res);
+        })
+        .catch(res => this.showNotification(res, 10000));
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   loginFacebook() {
-    this.afAuth.auth
-      .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-      .then(res => {
-        console.log("Facebook");
-        console.log(res);
-      })
-      .catch(res => this.showNotification(res, 10000));
+    try {
+      this.afAuth.auth
+        .signInWithPopup(new firebase.auth.FacebookAuthProvider())
+        .then(res => {
+          console.log("Facebook");
+          console.log(res);
+        })
+        .catch(res => this.showNotification(res, 10000));
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   loginTwitter() {
-    this.afAuth.auth
-      .signInWithPopup(new firebase.auth.TwitterAuthProvider())
-      .then(res => {
-        console.log("Twitter");
-        console.log(res);
-      })
-      .catch(res => this.showNotification(res, 10000));
+    try {
+      this.afAuth.auth
+        .signInWithPopup(new firebase.auth.TwitterAuthProvider())
+        .then(res => {
+          console.log("Twitter");
+          console.log(res);
+        })
+        .catch(res => this.showNotification(res, 10000));
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   logout() {

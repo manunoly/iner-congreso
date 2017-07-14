@@ -16,7 +16,11 @@ export class DataService {
   speakers: FirebaseListObservable<any>;
   location: FirebaseListObservable<any>;
   topic: FirebaseListObservable<any>;
+  favConfObj: FirebaseListObservable<any>;
+  favConf = [];
   smallDevice: boolean;
+  user: any;
+  userUid: string = "";
 
   constructor(
     private afDB: AngularFireDatabase,
@@ -48,10 +52,57 @@ export class DataService {
         orderByChild: "topic"
       }
     });
+    this.authS.getUser().subscribe(user => {
+      if (this.authS.isAuthenticated()) {
+        this.user.subscribe(user => {
+          if (this.authS.isAuthenticated()) {
+            this.userUid = user.uid;
+          }
+        });
+      }
+    });
     this.showNotification(
       "Usuario y Contraseña no son almacenadas por esta aplicación.",
       5000
     );
+  }
+
+  getFavoriteConference() {
+    if (this.authS.isAuthenticated) {
+      this.favConfObj = this.afDB.list("/user/" + this.userUid + "/favorite");
+      return this.favConfObj;
+    }
+  }
+
+  addFavorite(conferenceID) {
+    if (this.authS.isAuthenticated()) {
+      this.afDB
+        .list(`/user/${this.userUid}/favorite/${conferenceID}`)
+        .push(conferenceID)
+        .then(_ => {
+          this.showNotification("Conferencia addionada a favoritas");
+        })
+        .catch(_ => {
+          this.showNotification(
+            "Ha ocurrido un error adicionando la Conferencia"
+          );
+        });
+    } else this.showNotification("Debe identificarse primero");
+  }
+
+  removeFavorite(conferenceID) {
+    if (this.authS.isAuthenticated()) {
+      this.favConfObj
+        .remove(conferenceID)
+        .then(_ => {
+          this.showNotification("Conferencia Eliminada");
+        })
+        .catch(_ => {
+          this.showNotification(
+            "Ha ocurrido un error eliminando la Conferencia"
+          );
+        });
+    } else this.showNotification("Debe identificarse primero");
   }
 
   isSmallDevice() {
@@ -69,9 +120,7 @@ export class DataService {
   }
 
   checkTopic(dato = [], topic = []) {
-    console.log(topic);
     dato.forEach(elem => {
-      console.log(elem.topicID);
       if (elem.topicID == topic[topic.indexOf(elem.topicID)]) {
         console.log("si esta el id");
         return elem;
@@ -79,14 +128,7 @@ export class DataService {
     });
     return undefined;
   }
-  /**
- * FIXME: not work right the filter
- *
- * @param {string} [searchTerm=""]
- * @param {string} [day=""]
- * @returns
- * @memberof DataService
- */
+
   filterConferences(searchTerm = "", day = [], topic = []) {
     console.log(searchTerm);
     console.log(day);
@@ -171,7 +213,7 @@ export class DataService {
   addConference(conference) {
     let date = conference.date.split("-");
     if (this.authS.isAuthenticated()) {
-      this.afDB.list("/data/conferences").push({
+      this.conferences.push({
         title: conference.title,
         profilePic: conference.profilePic,
         shortDescription: conference.shortDescription,
@@ -189,7 +231,7 @@ export class DataService {
 
   updateConference(conference) {
     if (this.authS.isAuthenticated()) {
-      this.afDB.list("/data/conferences").update("123", {
+      this.conferences.update("123", {
         title: "Las Energias Limpias",
         location: "Room 2203",
         shortDescription: "Mobile devices and browsers",

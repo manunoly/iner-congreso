@@ -30,17 +30,15 @@
         <ion-list-header text-color="primary" no-lines *ngIf="i == 0 || conference.day !== conferencesD[i - 1].day">
           Día {{ conference.day }}
         </ion-list-header>
-        <ion-item-sliding #item>
+        <ion-item-sliding #slidingItem>
           <ion-item text-wrap>
             <ion-avatar item-start>
               <img *ngIf="!conference.profilePic" src="./../../assets/icon/favicon.ico">
               <img *ngIf="conference.profilePic" [src]="conference.profilePic">
             </ion-avatar>
-            <div>
-              <button *ngIf="isFavorite" item-right ion-button clear icon-only>
-                <ion-icon name="star"></ion-icon>
-              </button>
-            </div>
+            <button *ngIf="favConf.indexOf(conference.$key) != -1" (click)="removeFavorite(conference.$key)" item-end ion-button clear icon-only>
+              <ion-icon name="star"></ion-icon>
+            </button>
             <a (click)="goToConferenceDetail(conference.$key)">{{ conference.title }}</a>
             <p>Hora: {{conference.timeStart }} - {{ conference.timeEnd }}</p>
             <div *ngIf="conference.topic.length" >
@@ -58,7 +56,7 @@
   <p>{{ conference.shortDescription }}</p>
   </ion-item>
   <ion-item-options side="right">
-    <button item-end ion-button clear icon-only>
+    <button (click)="addFavorite(conference.$key, slidingItem)" item-end ion-button clear icon-only>
               <ion-icon name="star"></ion-icon>
             </button>
     <button item-end ion-button clear icon-only>

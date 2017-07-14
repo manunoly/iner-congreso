@@ -43,7 +43,7 @@ export class HomePage {
       }
     });
     this.dataS.loadData();
-
+    this.dataS.getFavoriteConference();
   }
   signInWithGoogle() {
     this.authS.loginGoogle();

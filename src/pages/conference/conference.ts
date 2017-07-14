@@ -4,6 +4,7 @@ import { NavController, NavParams } from "ionic-angular";
 import { FormControl } from "@angular/forms";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
 import { DataService } from "./../service/data.service";
+import { ItemSliding } from "ionic-angular";
 import "rxjs/add/operator/debounceTime";
 
 @Component({
@@ -21,6 +22,7 @@ export class ConferencePage {
   filterDay = [];
   filterTopic = [];
   search: boolean = true;
+  favConf = [];
 
   constructor(
     public navCtrl: NavController,
@@ -50,6 +52,26 @@ export class ConferencePage {
 
   onSearchInput() {
     this.searching = true;
+  }
+
+  getFavoriteConference() {
+    this.dataS.getFavoriteConference().subscribe(favConf => {
+      favConf.forEach(element => {
+        console.log(element);
+        this.favConf.push(element.$key);
+      });
+    });
+  }
+
+  addFavorite(conferenceID, slidingItem: ItemSliding) {
+    this.dataS.addFavorite(conferenceID);
+    slidingItem.close();
+    // console.log(conferenceID);
+  }
+
+  removeFavorite(conferenceID) {
+    this.dataS.removeFavorite(conferenceID);
+    // console.log(conferenceID);
   }
 
   showHideSearch() {

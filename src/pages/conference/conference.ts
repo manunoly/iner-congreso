@@ -48,19 +48,15 @@ export class ConferencePage {
       this.searching = false;
       this.setFilteredConferences();
     });
+    this.dataS.getFavoriteConferenceObj().subscribe(favConf => {
+        favConf.forEach(element => {
+          this.favConf.push(element.$key);
+        });
+      })
   }
 
   onSearchInput() {
     this.searching = true;
-  }
-
-  getFavoriteConference() {
-    this.dataS.getFavoriteConference().subscribe(favConf => {
-      favConf.forEach(element => {
-        console.log(element);
-        this.favConf.push(element.$key);
-      });
-    });
   }
 
   addFavorite(conferenceID, slidingItem: ItemSliding) {

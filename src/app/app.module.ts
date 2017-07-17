@@ -10,7 +10,7 @@ import { DataService } from '../pages/service/data.service';
 
 import { AboutPage } from '../pages/about/about';
 import { SpeakerPage } from '../pages/speaker/speaker';
-import { SpeakerDeatailPage } from '../pages/speaker-deatail/speaker-deatail';
+import { SpeakerDetailPage } from '../pages/speaker-detail/speaker-detail';
 import { ConferencePage } from '../pages/conference/conference';
 import { ConferenceDetailPage } from './../pages/conference-detail/conference-detail';
 import { HomePage } from '../pages/home/home';
@@ -45,7 +45,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     MyApp,
     AboutPage,
     SpeakerPage,
-    SpeakerDeatailPage,
+    SpeakerDetailPage,
     ConferencePage,
     ConferenceDetailPage,
     ManageSpeakerPage,
@@ -59,8 +59,6 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-//firebase Module import
-    // HttpModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(firebaseConfig),
@@ -71,7 +69,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     HomePage,
     AboutPage,
     SpeakerPage,
-    SpeakerDeatailPage,
+    SpeakerDetailPage,
     ConferencePage,
     ConferenceDetailPage,
     ManageSpeakerPage,

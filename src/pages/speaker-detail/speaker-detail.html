@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+    <h2 ion-text color="primary" text-center>Ponente</h2>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div offset-md-2 col-md-8 padding>
+    <div *ngFor="let speak of speaker | async as list">
+      <ion-item no-lines text-center>
+        <ion-card-header>
+          <ion-avatar style="width: 100; height: 100;">
+            <img [src]="speak.profilePic">
+          </ion-avatar>
+          <h2 Text-Capitalize>{{ speak.name }}</h2>
+          <p>{{ speak.degree }}</p>
+        </ion-card-header>
+        <ion-card-content *ngIf="speak.conferences">
+          <h2>Ponencias</h2>
+          <a *ngFor="let conf of speak.conferences" (click)="goToConferenceDetail(conf.conferenceID)">
+            {{ conf.title }}
+            <br>
+            </a>
+        </ion-card-content>
+        <ion-card-content text-center>
+          <p>{{ speak.about }}.</p>
+          <br>
+          <div>
+            <h2>Datos de Contacto</h2>
+            <button [disabled]="!speak.twitter" ion-button icon-only clear icon-only (click)="goToSpeakerSocial(speak.twitter)" color="twitter">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </button>
+            <button [disabled]="!speak.linkedin" ion-button icon-only clear icon-only (click)="goToSpeakerSocial(speak.linkedin)" color="linkedin">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </button>
+            <button [disabled]="!speak.googleScholar" ion-button icon-only clear icon-only (click)="goToSpeakerSocial(speak.googleScholar)" color="google">
+              <ion-icon name="logo-google"></ion-icon>
+            </button>
+          </div>
+          <div *ngIf="showMail; then mail else showButton"></div>
+          <ng-template #mail>
+            {{ speak.email }}
+          </ng-template>
+          <ng-template #showButton>
+            <button ion-button clear icon-start (click)="showSpeakerMail()">
+              <ion-icon name="at"></ion-icon>
+              Mostrar Correo
+            </button>
+          </ng-template>
+        </ion-card-content>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>

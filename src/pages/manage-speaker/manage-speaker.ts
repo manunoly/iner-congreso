@@ -10,7 +10,6 @@ import { AuthService } from "./../service/auth.service";
   selector: "page-manage-speaker",
   templateUrl: "manage-speaker.html"
 })
-
 export class ManageSpeakerPage {
   submitAttempt: boolean;
   speakerForm: any;
@@ -46,7 +45,10 @@ export class ManageSpeakerPage {
     this.showAddSpeakerForm(true);
     this.setSpeakerForm(speaker);
   }
-
+  /**
+ * FIXME: Adicionar perfil de linkedin o pagina web de la persona y redes académicas (google scholar y demás).
+ *
+ */
   updateSpeaker() {
     if (this.speakerForm.valid) {
       this.dataS.updateSpeaker(this.speakerForm.value);
@@ -54,7 +56,6 @@ export class ManageSpeakerPage {
       this.setSpeakerForm(undefined);
       this.showAddSpeaker = false;
       this.showupdateSpeaker = false;
-      //FIXME: show notification result
     } else this.submitAttempt = true;
   }
 
@@ -99,6 +100,21 @@ export class ManageSpeakerPage {
           "Ing. Sistemas",
           Validators.compose([Validators.maxLength(100), Validators.required])
         ],
+        googleScholar: [
+          // "",
+          "https://scholar.google.es/citations?view_op=metrics_intro&hl=es",
+          Validators.compose([Validators.maxLength(1000)])
+        ],
+        linkedin: [
+          // "",
+          "https://www.linkedin.com/in/manunoly/",
+          Validators.compose([Validators.maxLength(1000)])
+        ],
+        twitter: [
+          // "",
+          "https://twitter.com/manunoly",
+          Validators.compose([Validators.maxLength(1000)])
+        ],
         email: [
           "iner@iner.ec",
           Validators.compose([Validators.maxLength(100), Validators.required])
@@ -136,6 +152,18 @@ export class ManageSpeakerPage {
         degree: [
           speaker.degree,
           Validators.compose([Validators.maxLength(100), Validators.required])
+        ],
+        googleScholar: [
+          speaker.googleScholar,
+          Validators.compose([Validators.maxLength(1000)])
+        ],
+        linkedin: [
+          speaker.linkedin,
+          Validators.compose([Validators.maxLength(1000)])
+        ],
+        twitter: [
+          speaker.twitter,
+          Validators.compose([Validators.maxLength(1000)])
         ],
         email: [
           speaker.email,

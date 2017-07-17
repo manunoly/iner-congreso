@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 
 import { DataService } from "./../service/data.service";
-import { SpeakerDeatailPage } from './../speaker-deatail/speaker-deatail';
+import { SpeakerDetailPage } from './../speaker-detail/speaker-detail';
 @Component({
   selector: "page-conference-detail",
   templateUrl: "conference-detail.html"
@@ -22,7 +22,7 @@ export class ConferenceDetailPage {
   }
 
   goToSpeakerDetail(speakerID: any) {
-    this.navCtrl.push(SpeakerDeatailPage, {
+    this.navCtrl.push(SpeakerDetailPage, {
       speaker: speakerID
     });
   }

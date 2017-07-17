@@ -11,16 +11,13 @@ import * as firebase from "firebase/app";
 
 @Injectable()
 export class AuthService {
-  user: Observable<firebase.User>;
   isAdminSingle: any;
 
   constructor(
     private afAuth: AngularFireAuth,
     private afDB: AngularFireDatabase,
     public toastCtrl: ToastController
-  ) {
-    this.user = afAuth.authState;
-  }
+  ) {}
 
   loginGoogle() {
     try {
@@ -69,17 +66,18 @@ export class AuthService {
   }
 
   getUser() {
-    return this.user;
+    return this.afAuth.authState;
   }
 
   isAuthenticated() {
-    if (this.afAuth.auth.currentUser != null) return true;
+    if (this.afAuth.auth.currentUser != null)
+      return this.afAuth.auth.currentUser.uid;
   }
 
   firebaseUserToPromise() {
     return new Promise(dataPromise => {
       if (this.isAuthenticated()) {
-        this.user.subscribe(
+        this.afAuth.authState.subscribe(
           firebaseUser => {
             dataPromise(firebaseUser);
           },
@@ -106,8 +104,8 @@ export class AuthService {
   }
 
   isAdmin() {
-    return this.user.flatMap(user => {
-      if (this.isAuthenticated()) {
+    return this.afAuth.authState.flatMap(user => {
+      if (user) {
         return this.afDB.object("/admin/" + user.uid, {
           preserveSnapshot: true
         });

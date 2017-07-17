@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 import { FormControl } from "@angular/forms";
 
-import { SpeakerDeatailPage } from "./../speaker-deatail/speaker-deatail";
+import { SpeakerDetailPage } from "./../speaker-detail/speaker-detail";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
 import { DataService } from "./../service/data.service";
 import { AuthService } from "./../service/auth.service";
@@ -41,7 +41,7 @@ export class SpeakerPage {
   }
 
   goToSpeakerDetail(speakerID: any) {
-    this.navCtrl.push(SpeakerDeatailPage, {
+    this.navCtrl.push(SpeakerDetailPage, {
       speaker: speakerID
     });
   }

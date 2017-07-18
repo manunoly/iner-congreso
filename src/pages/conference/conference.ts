@@ -23,6 +23,7 @@ export class ConferencePage {
   filterTopic = [];
   search: boolean = true;
   favConf = [];
+  conferencesFavorite: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -48,15 +49,14 @@ export class ConferencePage {
       this.searching = false;
       this.setFilteredConferences();
     });
-    this.dataS.getFavoriteConferenceObj().subscribe(favConf => {
-        favConf.forEach(element => {
-          this.favConf.push(element.$key);
-        });
-      })
   }
 
   onSearchInput() {
     this.searching = true;
+  }
+
+  isFavorite(conferenceID) {
+    return this.dataS.isFavoriteConference(conferenceID);
   }
 
   addFavorite(conferenceID, slidingItem: ItemSliding) {

@@ -3,7 +3,6 @@ import { Platform, AlertController } from "ionic-angular";
 import { ToastController } from "ionic-angular";
 
 import "rxjs/Rx";
-import { Observable } from "rxjs/Observable";
 
 import {
   AngularFireDatabase,
@@ -17,7 +16,7 @@ export class DataService {
   speakers: FirebaseListObservable<any>;
   location: FirebaseListObservable<any>;
   topic: FirebaseListObservable<any>;
-  favConfObj: FirebaseListObservable<any>;
+  favConfObj: any = null;
   favConf = [];
   smallDevice: boolean;
   userUid: string = "";
@@ -31,18 +30,6 @@ export class DataService {
   ) {}
 
   loadData() {
-    this.authS.getUser().flatMap(user => {
-      if (user) {
-        this.userUid = user.uid;
-        return (this.favConfObj = this.afDB.list(
-          "/user/" + this.userUid + "/favorite"
-        ));
-      } else {
-        this.userUid = "";
-        this.favConf = [];
-        return Observable.of(this.favConf);
-      }
-    });
     this.afDB.list("/data").subscribe();
     this.speakers = this.afDB.list("/data/speakers", {
       query: {
@@ -64,26 +51,42 @@ export class DataService {
         orderByChild: "topic"
       }
     });
-
     this.showNotification(
       "Usuario y Contraseña no son almacenadas por esta aplicación.",
       5000
     );
+    this.getFavoriteConferenceObj();
   }
 
-  getFavoriteConference() {
+  /*  getFavoriteConference() {
     return new Promise(dataP =>
       this.favConfObj.subscribe(favConf => {
-        favConf.forEach(element => {
-          this.favConf.push(element.$key);
-        });
+        if (favConf)
+          favConf.forEach(element => {
+            this.favConf.push(element.$key);
+          });
         return dataP(this.favConf);
       })
     );
-  }
+  }*/
 
-  getFavoriteConferenceObj() {
-    return this.favConfObj;
+  private getFavoriteConferenceObj() {
+    this.authS.getUser().subscribe(user => {
+      if (user) {
+        this.userUid = user.uid;
+        this.favConfObj = this.afDB.list("/user/" + this.userUid + "/favorite");
+        this.favConfObj.subscribe(favConf => {
+          this.favConf = [];
+          if (favConf)
+            favConf.forEach(element => {
+              this.favConf.push(element.$key);
+            });
+        });
+      } else {
+        this.userUid = "";
+        this.favConf = [];
+      }
+    });
   }
 
   isFavoriteConference(conferenceID) {
@@ -91,9 +94,9 @@ export class DataService {
   }
 
   addFavorite(conferenceID) {
-    let dataConf = {};
-    dataConf["conferenceID"] = conferenceID;
     if (this.userUid) {
+      let dataConf = {};
+      dataConf["conferenceID"] = conferenceID;
       let dir = "/user/" + this.userUid + "/favorite/" + conferenceID;
       this.afDB
         .object(dir)
@@ -111,11 +114,10 @@ export class DataService {
 
   removeFavorite(conferenceID) {
     if (this.userUid) {
-      this.afDB
-        .list("/user/" + this.userUid + "/favorite")
+      this.favConfObj
         .remove(conferenceID)
         .then(_ => {
-          this.showNotification("Conferencia Eliminada");
+          this.showNotification("Conferencia Eliminada de Favoritas");
         })
         .catch(_ => {
           this.showNotification(

@@ -2,10 +2,16 @@
   <h2 ion-text color="primary" text-center text-center>Conferencias</h2>
   <hr>
   <div offset-md-2 col-md-8 padding>
-    <!--<div float-end col-6 col-sm-4>-->
+    <!--<ion-item float-end col-6 col-sm-4>-->
     <button float-end ion-button color="light" round icon-only (click)="showHideSearch()"><ion-icon name="search"></ion-icon></button>
     <ion-card [hidden]="search">
+      <ion-item item-end float-end>
       <button float-end ion-button clear (click)="reset()">Limpiar</button>
+      </ion-item>
+      <ion-item item-end float-end>
+        <ion-checkbox float-end [(ngModel)]="conferencesFavorite"></ion-checkbox>
+        <ion-label float-end>Favoritas</ion-label>
+      </ion-item>
       <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
       <ion-item>
         <ion-label>Dia</ion-label>
@@ -36,9 +42,8 @@
               <img *ngIf="!conference.profilePic" src="./../../assets/icon/favicon.ico">
               <img *ngIf="conference.profilePic" [src]="conference.profilePic">
             </ion-avatar>
-            <button *ngIf="favConf.indexOf(conference.$key) != -1" (click)="removeFavorite(conference.$key)" item-end ion-button clear icon-only>
+            <button *ngIf="isFavorite(conference.$key)" data-toggle="Eliminar de Favoritas" (click)="removeFavorite(conference.$key)" item-end ion-button clear icon-only>
               <ion-icon name="star"></ion-icon>
-              {{favConf.indexOf(conference.$key)}}
             </button>
             <a (click)="goToConferenceDetail(conference.$key)">{{ conference.title }}</a>
             <p>Hora: {{conference.timeStart }} - {{ conference.timeEnd }}</p>

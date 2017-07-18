@@ -12,12 +12,12 @@ import { AboutPage } from '../pages/about/about';
 import { SpeakerPage } from '../pages/speaker/speaker';
 import { SpeakerDetailPage } from '../pages/speaker-detail/speaker-detail';
 import { ConferencePage } from '../pages/conference/conference';
-import { ConferenceDetailPage } from './../pages/conference-detail/conference-detail';
+import { ConferenceDetailPage } from '../pages/conference-detail/conference-detail';
 import { HomePage } from '../pages/home/home';
 import { ManageConferencePage } from '../pages/manage-conference/manage-conference';
 import { ManageSpeakerPage } from '../pages/manage-speaker/manage-speaker';
-import { ManageLocationPage } from './../pages/manage-location/manage-location';
-import { ManageTopicPage } from './../pages/manage-topic/manage-topic';
+import { ManageLocationPage } from '../pages/manage-location/manage-location';
+import { ManageTopicPage } from '../pages/manage-topic/manage-topic';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';

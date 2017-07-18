@@ -14,7 +14,7 @@ import { ManageLocationPage } from '../manage-location/manage-location';
 })
 export class HomePage {
   displayName = "Visitante";
-  picture = "./../../assets/icon/favicon.ico";
+  picture = "../../assets/icon/favicon.ico";
   user: any;
   isAdmin: any;
 
@@ -43,7 +43,6 @@ export class HomePage {
       }
     });
     this.dataS.loadData();
-    this.dataS.getFavoriteConference();
   }
   signInWithGoogle() {
     this.authS.loginGoogle();

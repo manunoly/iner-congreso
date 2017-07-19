@@ -16,7 +16,7 @@
           <ion-icon name="locate"> </ion-icon>
           Lugar
         </button>
-        <button ion-button clear icon-left (click)="goToManageTopic()">
+      <button ion-button clear icon-left (click)="goToManageTopic()">
           <ion-icon name="school"> </ion-icon>
           Temas
         </button>
@@ -77,5 +77,21 @@
         </p>
       </ion-card-content>
     </ion-card>
+    <ion-grid>
+      <ion-item float-end item-end no-lines>
+        <!--Timeline Button -->
+        <a float-end href="https://twitter.com/intent/tweet?button_hashtag=INER_EC" class="twitter-hashtag-button" data-show-count="false">Tweet #INER_EC</a>
+      </ion-item>
+      <ion-row>
+        <ion-col col-md-6>
+          <!--Ultimos Twit from INER_EC -->
+          <a class="twitter-timeline" height="600px" tweet-limit="10" href="https://twitter.com/INER_EC">Tweets by INER_EC</a>
+        </ion-col>
+        <ion-col col-md-6 style="max-height: 600px">
+          <!--Ultimos Twit from hasgtag inercongres FIXME: data-tweet-limit=5 en twitter arreglar el contenido cuando me digan el hash del congreso-->
+          <a class="twitter-timeline" data-height="600px" href="https://twitter.com/hashtag/angular4" data-widget-id="887705957941354496">#Iner_EC Tweets</a>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>

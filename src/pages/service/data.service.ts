@@ -151,76 +151,88 @@ export class DataService {
     return undefined;
   }
 
-  filterConferences(searchTerm = "", day = [], topic = []) {
-    console.log(searchTerm);
-    console.log(day);
-    console.log(topic);
-    let dayLength = day.length;
-    let topicLength = topic.length;
-    if (searchTerm === "" && dayLength == 0 && topicLength == 0)
-      return this.conferences;
+  filterConferences(
+    searchTerm = "",
+    day = [],
+    topic = [],
+    favorite = [],
+    speakerID = ""
+  ) {
+    if (!speakerID) {
+      let dayLength = day.length;
+      let topicLength = topic.length;
+      if (searchTerm === "" && dayLength == 0 && topicLength == 0)
+        return this.conferences;
 
-    if (searchTerm != "" && dayLength == 0 && topicLength == 0) {
-      console.log("filtrar solo por texto conf");
-      return this.conferences.map(data =>
-        data.filter(dato =>
-          dato.title.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
-    } else if (searchTerm === "" && dayLength > 0 && topicLength == 0) {
-      console.log("filtrar solo por dia");
-      return this.conferences.map(data =>
-        data.filter(dato => dato.day == day[day.indexOf(dato.day)])
-      );
-    } else if (searchTerm === "" && dayLength == 0 && topicLength > 0) {
-      console.log("filtrar solo por tema");
-      return this.conferences.map(data =>
-        data.filter(dato =>
-          dato.topic.some(
-            elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+      if (searchTerm != "" && dayLength == 0 && topicLength == 0) {
+        console.log("filtrar solo por texto conf");
+        return this.conferences.map(data =>
+          data.filter(dato =>
+            dato.title.toLowerCase().includes(searchTerm.toLowerCase())
           )
-        )
-      );
-    } else if (searchTerm != "" && dayLength > 0 && topicLength == 0) {
-      console.log("filtrar solo por dia y texto");
-      return this.conferences.map(data =>
-        data.filter(
-          dato =>
-            dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-            dato.day === day[day.indexOf(dato.day)]
-        )
-      );
-    } else if (searchTerm != "" && dayLength == 0 && topicLength > 0) {
-      console.log("filtrar solo por texto y tematica");
-      return this.conferences.map(data =>
-        data.filter(
-          dato =>
-            dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        );
+      } else if (searchTerm === "" && dayLength > 0 && topicLength == 0) {
+        console.log("filtrar solo por dia");
+        return this.conferences.map(data =>
+          data.filter(dato => dato.day == day[day.indexOf(dato.day)])
+        );
+      } else if (searchTerm === "" && dayLength == 0 && topicLength > 0) {
+        console.log("filtrar solo por tema");
+        return this.conferences.map(data =>
+          data.filter(dato =>
             dato.topic.some(
               elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
             )
-        )
-      );
-    } else if (searchTerm === "" && dayLength > 0 && topicLength > 0) {
-      console.log("filtrar solo por dia y tema");
+          )
+        );
+      } else if (searchTerm != "" && dayLength > 0 && topicLength == 0) {
+        console.log("filtrar solo por dia y texto");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.day === day[day.indexOf(dato.day)]
+          )
+        );
+      } else if (searchTerm != "" && dayLength == 0 && topicLength > 0) {
+        console.log("filtrar solo por texto y tematica");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              )
+          )
+        );
+      } else if (searchTerm === "" && dayLength > 0 && topicLength > 0) {
+        console.log("filtrar solo por dia y tema");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              ) && dato.day == day[day.indexOf(dato.day)]
+          )
+        );
+      } else if (searchTerm != "" && dayLength > 0 && topicLength > 0) {
+        console.log("filtrar por texto, dia y tema");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.day == day[day.indexOf(dato.day)] &&
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              )
+          )
+        );
+      }
+    } else {
+      console.log("Conf para speaker");
       return this.conferences.map(data =>
-        data.filter(
-          dato =>
-            dato.topic.some(
-              elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
-            ) && dato.day == day[day.indexOf(dato.day)]
-        )
-      );
-    } else if (searchTerm != "" && dayLength > 0 && topicLength > 0) {
-      console.log("filtrar por texto, dia y tema");
-      return this.conferences.map(data =>
-        data.filter(
-          dato =>
-            dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-            dato.day == day[day.indexOf(dato.day)] &&
-            dato.topic.some(
-              elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
-            )
+        data.filter(dato =>
+          dato.speakers.some(elem => elem.speakerID === speakerID)
         )
       );
     }
@@ -358,32 +370,20 @@ export class DataService {
   updateSpeaker(speaker) {
     let observer = this.authS.isAdmin().subscribe(permission => {
       if (permission.val() !== null) {
-        let speakerU = this.filterSpeaker(speaker.id).subscribe(oldSpeaker => {
-          let conf = "";
-          if (
-            typeof oldSpeaker != "undefined" &&
-            oldSpeaker.length == 1 &&
-            "conferences" in oldSpeaker[0]
-          ) {
-            conf = oldSpeaker[0].conferences;
-          }
-          return this.speakers
-            .update(speaker.id, {
-              name: speaker.name,
-              profilePic: speaker.profilePic,
-              shortAbout: speaker.shortAbout,
-              about: speaker.about,
-              conferences: conf,
-              email: speaker.email
-            })
-            .then(_ => {
-              speakerU.unsubscribe();
-              this.showNotification("Ponente actualizado correctamente");
-            })
-            .catch(_ => {
-              speakerU.unsubscribe();
-            });
-        });
+        this.speakers
+          .update(speaker.id, {
+            name: speaker.name,
+            profilePic: speaker.profilePic,
+            shortAbout: speaker.shortAbout,
+            about: speaker.about,
+            email: speaker.email
+          })
+          .then(_ => {
+            this.showNotification("Ponente actualizado correctamente");
+          })
+          .catch(_ => {
+            this.showNotification("El Ponente no pudo ser actualizado");
+          });
       } else this.showNotification("No tiene permisos.");
       observer.unsubscribe();
     });

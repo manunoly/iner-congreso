@@ -5,12 +5,12 @@
     <!--<ion-item float-end col-6 col-sm-4>-->
     <button float-end ion-button color="light" round icon-only (click)="showHideSearch()"><ion-icon name="search"></ion-icon></button>
     <ion-card [hidden]="search">
-      <ion-item item-end float-end>
-      <button float-end ion-button clear (click)="reset()">Limpiar</button>
+      <ion-item>
+        <button float-end ion-button (click)="reset()">Limpiar</button>
       </ion-item>
-      <ion-item item-end float-end>
-        <ion-checkbox float-end [(ngModel)]="conferencesFavorite"></ion-checkbox>
-        <ion-label float-end>Favoritas</ion-label>
+      <ion-item col-sm-6 col-md-4 col-lg-3 float-right text-right>
+        <ion-label>Favoritas</ion-label>
+        <ion-checkbox [(ngModel)]="conferencesFavorite"></ion-checkbox>
       </ion-item>
       <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
       <ion-item>

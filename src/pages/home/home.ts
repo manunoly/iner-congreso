@@ -3,10 +3,10 @@ import { NavController, NavParams } from "ionic-angular";
 
 import { AuthService } from "./../service/auth.service";
 import { DataService } from "./../service/data.service";
-import { ManageSpeakerPage } from './../manage-speaker/manage-speaker';
-import { ManageConferencePage } from './../manage-conference/manage-conference';
-import { ManageTopicPage } from '../manage-topic/manage-topic';
-import { ManageLocationPage } from '../manage-location/manage-location';
+import { ManageSpeakerPage } from "./../manage-speaker/manage-speaker";
+import { ManageConferencePage } from "./../manage-conference/manage-conference";
+import { ManageTopicPage } from "../manage-topic/manage-topic";
+import { ManageLocationPage } from "../manage-location/manage-location";
 
 @Component({
   selector: "page-home",
@@ -32,7 +32,6 @@ export class HomePage {
         // this.displayName = user["email"].split("@")[0];
         this.displayName = user["displayName"];
         this.picture = user["photoURL"];
-
       } else this.displayName = "Visitante";
     });
     this.authS.isAdmin().subscribe(permission => {
@@ -44,6 +43,21 @@ export class HomePage {
     });
     this.dataS.loadData();
   }
+
+  ngAfterViewInit() {
+    !(function(d:any, s:any, id:any) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        p = /^http:/.test(d.location) ? "http" : "https";
+      if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + "://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }
+    })(document, "script", "twitter-wjs");
+  }
+
   signInWithGoogle() {
     this.authS.loginGoogle();
   }
@@ -63,15 +77,15 @@ export class HomePage {
     this.navCtrl.push(ManageSpeakerPage);
   }
 
-  goToManageConference(){
+  goToManageConference() {
     this.navCtrl.push(ManageConferencePage);
   }
 
-  goToManageLocation(){
+  goToManageLocation() {
     this.navCtrl.push(ManageLocationPage);
   }
 
-  goToManageTopic(){
+  goToManageTopic() {
     this.navCtrl.push(ManageTopicPage);
   }
 }

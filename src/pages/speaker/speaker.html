@@ -25,13 +25,13 @@
         <ion-card-content>
           <p>{{ speaker.shortAbout }}.</p>
         </ion-card-content>
-        <ion-card-content *ngIf="speaker.conferences">
+<!--        <ion-card-content *ngIf="getConference(speaker.$key)">
           <h2>Ponencias</h2>
-          <a *ngFor="let conf of speaker.conferences" (click)="goToConferenceDetail(conf.conferenceID)">
-            {{ conf.title }}
+          <a *ngFor="let conf of getConference(speaker.$key) | async" (click)="goToConferenceDetail(conf.$key)">
+            {{ conf }}
             <br>
             </a>
-        </ion-card-content>
+        </ion-card-content>-->
       </ion-item>
     </ion-card>
   </div>

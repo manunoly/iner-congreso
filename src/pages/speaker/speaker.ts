@@ -46,6 +46,23 @@ export class SpeakerPage {
     });
   }
 
+  getConference(speakerID) {
+    let objConf = this.dataS.filterConferences(
+      null,
+      null,
+      null,
+      null,
+      speakerID
+    );
+    return objConf.subscribe(conf => {
+      let speakerConf = [];
+      conf.forEach(element => {
+        speakerConf.push(element);
+      });
+      return speakerConf;
+    });
+  }
+
   goToConferenceDetail(conferenceID) {
     this.navCtrl.push(ConferenceDetailPage, {
       conferenceID: conferenceID

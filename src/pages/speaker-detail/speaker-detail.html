@@ -14,9 +14,9 @@
           <h2 Text-Capitalize>{{ speak.name }}</h2>
           <p>{{ speak.degree }}</p>
         </ion-card-header>
-        <ion-card-content *ngIf="speak.conferences">
+        <ion-card-content *ngIf='speakerConf.length > 0'>
           <h2>Ponencias</h2>
-          <a *ngFor="let conf of speak.conferences" (click)="goToConferenceDetail(conf.conferenceID)">
+          <a *ngFor="let conf of speakerConf" (click)="goToConferenceDetail(conf.$key)">
             {{ conf.title }}
             <br>
             </a>
@@ -32,7 +32,8 @@
             <button [disabled]="!speak.linkedin" ion-button icon-only clear icon-only (click)="goToSpeakerSocial(speak.linkedin)" color="linkedin">
               <ion-icon name="logo-linkedin"></ion-icon>
             </button>
-            <button [disabled]="!speak.googleScholar" ion-button icon-only clear icon-only (click)="goToSpeakerSocial(speak.googleScholar)" color="google">
+            <button [disabled]="!speak.googleScholar" ion-button icon-only clear icon-only (click)="goToSpeakerSocial(speak.googleScholar)"
+              color="google">
               <ion-icon name="logo-google"></ion-icon>
             </button>
           </div>

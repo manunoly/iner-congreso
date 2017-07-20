@@ -11,20 +11,23 @@ import { AuthService } from "./../service/auth.service";
 export class SpeakerDetailPage {
   speaker: any;
   showMail: boolean = false;
+  speakerConf = [];
+  speakerID: string = "";
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private dataS: DataService,
     private authS: AuthService
-  ) {}
+  ) { }
   /**
  * FIXME: Adicionar perfil de linkedin o pagina web de la persona y redes académicas (google scholar y demás).
  *
  * @memberof SpeakerDetailPage
  */
   ionViewDidLoad() {
-    let speakerID = this.navParams.data.speaker;
-    this.speaker = this.dataS.filterSpeaker(speakerID);
+    this.speakerID = this.navParams.data.speaker;
+    this.getConference();
+    this.speaker = this.dataS.filterSpeaker(this.speakerID);
   }
 
   goToConferenceDetail(conferenceID) {
@@ -32,6 +35,25 @@ export class SpeakerDetailPage {
       conferenceID: conferenceID
     });
   }
+
+  getConference() {
+    let objConf = this.dataS.filterConferences(
+      "",
+      [],
+      [],
+      [],
+      this.speakerID
+    ).subscribe(conf => {
+      let speakerConf = [];
+      if (conf)
+        conf.forEach(element => {
+          speakerConf.push(element);
+        });
+      this.speakerConf = speakerConf;
+      objConf.unsubscribe();
+    });
+  }
+
   isAutenticated() {
     return this.authS.isAuthenticated();
   }

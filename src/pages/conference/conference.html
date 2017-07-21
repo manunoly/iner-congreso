@@ -62,12 +62,14 @@
   <p>{{ conference.shortDescription }}</p>
   </ion-item>
   <ion-item-options side="right">
-    <button (click)="addFavorite(conference.$key, slidingItem)" item-end ion-button clear icon-only>
-              <ion-icon name="star"></ion-icon>
-            </button>
-    <button item-end ion-button clear icon-only>
-              <ion-icon name="thumbs-up"></ion-icon>
-            </button>
+    <button (click)="addFavorite(conference.$key, slidingItem)" item-end ion-button clear>
+      <ion-icon name="star"></ion-icon>
+      Asistiré
+    </button>
+    <button item-end ion-button clear>
+      <ion-icon name="thumbs-up"></ion-icon>
+      Valorar
+    </button>
   </ion-item-options>
   </ion-item-sliding>
   </span>

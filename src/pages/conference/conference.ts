@@ -4,6 +4,7 @@ import { NavController, NavParams } from "ionic-angular";
 import { FormControl } from "@angular/forms";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
 import { DataService } from "./../service/data.service";
+import { AuthService } from "./../service/auth.service";
 import { ItemSliding } from "ionic-angular";
 import "rxjs/add/operator/debounceTime";
 
@@ -18,6 +19,7 @@ export class ConferencePage {
   searchControl: FormControl;
   dayControl: FormControl;
   topicControl: FormControl;
+  favorite: FormControl;
   searching: any = false;
   filterDay = [];
   filterTopic = [];
@@ -28,11 +30,13 @@ export class ConferencePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private dataS: DataService
+    private dataS: DataService,
+    private authS: AuthService
   ) {
     this.searchControl = new FormControl();
     this.dayControl = new FormControl();
     this.topicControl = new FormControl();
+    this.favorite = new FormControl();
   }
   ionViewDidLoad() {
     this.topics = this.dataS.getTopic();
@@ -49,10 +53,19 @@ export class ConferencePage {
       this.searching = false;
       this.setFilteredConferences();
     });
+    this.favorite.valueChanges.debounceTime(400).subscribe(search => {
+      this.searching = false;
+      this.setFilteredConferences();
+    });
   }
 
   onSearchInput() {
     this.searching = true;
+  }
+
+  isAuthenticated() {
+    if (this.authS.isAuthenticated()) return true;
+    this.conferencesFavorite = false;
   }
 
   isFavorite(conferenceID) {
@@ -85,7 +98,8 @@ export class ConferencePage {
     this.conferences = this.dataS.filterConferences(
       this.searchTerm,
       this.filterDay,
-      this.filterTopic
+      this.filterTopic,
+      this.conferencesFavorite
     );
   }
 

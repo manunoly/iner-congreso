@@ -155,37 +155,109 @@ export class DataService {
     searchTerm = "",
     day = [],
     topic = [],
-    favorite = [],
+    favorite = false,
     speakerID = ""
   ) {
     if (!speakerID) {
       let dayLength = day.length;
       let topicLength = topic.length;
-      if (searchTerm === "" && dayLength == 0 && topicLength == 0)
+      if (searchTerm === "" && dayLength == 0 && topicLength == 0 && !favorite)
         return this.conferences;
-
-      if (searchTerm != "" && dayLength == 0 && topicLength == 0) {
+      else if (
+        searchTerm === "" &&
+        dayLength == 0 &&
+        topicLength == 0 &&
+        favorite
+      )
+        return this.conferences.map(data =>
+          data.filter(dato => this.favConf.indexOf(dato.$key) != -1)
+        );
+      else if (
+        searchTerm != "" &&
+        dayLength == 0 &&
+        topicLength == 0 &&
+        !favorite
+      ) {
         console.log("filtrar solo por texto conf");
         return this.conferences.map(data =>
           data.filter(dato =>
             dato.title.toLowerCase().includes(searchTerm.toLowerCase())
           )
         );
-      } else if (searchTerm === "" && dayLength > 0 && topicLength == 0) {
+      } else if (
+        searchTerm != "" &&
+        dayLength == 0 &&
+        topicLength == 0 &&
+        favorite
+      ) {
+        console.log("filtrar por texto conf y fav");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              this.favConf.indexOf(dato.$key) != -1
+          )
+        );
+      } else if (
+        searchTerm === "" &&
+        dayLength > 0 &&
+        topicLength == 0 &&
+        !favorite
+      ) {
         console.log("filtrar solo por dia");
         return this.conferences.map(data =>
           data.filter(dato => dato.day == day[day.indexOf(dato.day)])
         );
-      } else if (searchTerm === "" && dayLength == 0 && topicLength > 0) {
-        console.log("filtrar solo por tema");
+      } else if (
+        searchTerm === "" &&
+        dayLength > 0 &&
+        topicLength == 0 &&
+        favorite
+      ) {
+        console.log("filtrar solo por dia y fav");
         return this.conferences.map(data =>
-          data.filter(dato =>
-            dato.topic.some(
-              elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
-            )
+          data.filter(
+            dato =>
+              dato.day == day[day.indexOf(dato.day)] &&
+              this.favConf.indexOf(dato.$key) != -1
           )
         );
-      } else if (searchTerm != "" && dayLength > 0 && topicLength == 0) {
+      } else if (
+        searchTerm === "" &&
+        dayLength == 0 &&
+        topicLength > 0 &&
+        favorite
+      ) {
+        console.log("filtrar solo por tema");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              )
+          )
+        );
+      } else if (
+        searchTerm === "" &&
+        dayLength == 0 &&
+        topicLength > 0 &&
+        favorite
+      ) {
+        console.log("filtrar solo por tema y fav");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              ) && this.favConf.indexOf(dato.$key) != -1
+          )
+        );
+      }  else if (
+        searchTerm != "" &&
+        dayLength > 0 &&
+        topicLength == 0 &&
+        !favorite
+      ) {
         console.log("filtrar solo por dia y texto");
         return this.conferences.map(data =>
           data.filter(
@@ -194,7 +266,27 @@ export class DataService {
               dato.day === day[day.indexOf(dato.day)]
           )
         );
-      } else if (searchTerm != "" && dayLength == 0 && topicLength > 0) {
+      } else if (
+        searchTerm != "" &&
+        dayLength > 0 &&
+        topicLength == 0 &&
+        favorite
+      ) {
+        console.log("filtrar solo por dia y texto y fav");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.day === day[day.indexOf(dato.day)] &&
+              this.favConf.indexOf(dato.$key) != -1
+          )
+        );
+      } else if (
+        searchTerm != "" &&
+        dayLength == 0 &&
+        topicLength > 0 &&
+        !favorite
+      ) {
         console.log("filtrar solo por texto y tematica");
         return this.conferences.map(data =>
           data.filter(
@@ -205,7 +297,29 @@ export class DataService {
               )
           )
         );
-      } else if (searchTerm === "" && dayLength > 0 && topicLength > 0) {
+      } else if (
+        searchTerm != "" &&
+        dayLength == 0 &&
+        topicLength > 0 &&
+        favorite
+      ) {
+        console.log("filtrar solo por texto y tematica y fav");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              ) &&
+              this.favConf.indexOf(dato.$key) != -1
+          )
+        );
+      } else if (
+        searchTerm === "" &&
+        dayLength > 0 &&
+        topicLength > 0 &&
+        !favorite
+      ) {
         console.log("filtrar solo por dia y tema");
         return this.conferences.map(data =>
           data.filter(
@@ -215,7 +329,29 @@ export class DataService {
               ) && dato.day == day[day.indexOf(dato.day)]
           )
         );
-      } else if (searchTerm != "" && dayLength > 0 && topicLength > 0) {
+      } else if (
+        searchTerm === "" &&
+        dayLength > 0 &&
+        topicLength > 0 &&
+        favorite
+      ) {
+        console.log("filtrar solo por dia y tema y fav");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.topic.some(
+                elem => elem.topicID == topic[topic.indexOf(elem.topicID)]
+              ) &&
+              dato.day == day[day.indexOf(dato.day)] &&
+              this.favConf.indexOf(dato.$key) != -1
+          )
+        );
+      } else if (
+        searchTerm != "" &&
+        dayLength > 0 &&
+        topicLength > 0 &&
+        !favorite
+      ) {
         console.log("filtrar por texto, dia y tema");
         return this.conferences.map(data =>
           data.filter(
@@ -225,6 +361,24 @@ export class DataService {
               dato.topic.some(
                 elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
               )
+          )
+        );
+      } else if (
+        searchTerm != "" &&
+        dayLength > 0 &&
+        topicLength > 0 &&
+        favorite
+      ) {
+        console.log("filtrar por texto, dia y tema y fav");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.day == day[day.indexOf(dato.day)] &&
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              ) &&
+              this.favConf.indexOf(dato.$key) != -1
           )
         );
       }

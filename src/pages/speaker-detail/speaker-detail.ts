@@ -41,7 +41,7 @@ export class SpeakerDetailPage {
       "",
       [],
       [],
-      [],
+      false,
       this.speakerID
     ).subscribe(conf => {
       let speakerConf = [];

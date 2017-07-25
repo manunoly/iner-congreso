@@ -6,6 +6,8 @@ import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
 import { DataService } from "./../service/data.service";
 import { AuthService } from "./../service/auth.service";
 import { ItemSliding } from "ionic-angular";
+import { RatePage } from "./../rate/rate";
+import { PopoverController } from "ionic-angular";
 import "rxjs/add/operator/debounceTime";
 
 @Component({
@@ -31,7 +33,8 @@ export class ConferencePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private dataS: DataService,
-    private authS: AuthService
+    private authS: AuthService,
+    public popoverCtrl: PopoverController
   ) {
     this.searchControl = new FormControl();
     this.dayControl = new FormControl();
@@ -66,6 +69,15 @@ export class ConferencePage {
   isAuthenticated() {
     if (this.authS.isAuthenticated()) return true;
     this.conferencesFavorite = false;
+  }
+
+  rateConference(myEvent, conferenceID, slidingItem) {
+    let popover = this.popoverCtrl.create(RatePage,{conferenceID:conferenceID});
+    popover.present({
+      ev: myEvent
+
+    });
+    slidingItem.close();
   }
 
   isFavorite(conferenceID) {

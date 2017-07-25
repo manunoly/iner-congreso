@@ -17,6 +17,7 @@ import { HomePage } from '../pages/home/home';
 import { ManageConferencePage } from '../pages/manage-conference/manage-conference';
 import { ManageSpeakerPage } from '../pages/manage-speaker/manage-speaker';
 import { ManageLocationPage } from '../pages/manage-location/manage-location';
+import { RatePage } from '../pages/rate/rate';
 import { ManageTopicPage } from '../pages/manage-topic/manage-topic';
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -52,6 +53,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     ManageConferencePage,
     ManageLocationPage,
     ManageTopicPage,
+    RatePage,
     HomePage,
     TabsPage
   ],
@@ -76,6 +78,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     ManageConferencePage,
     ManageLocationPage,
     ManageTopicPage,
+    RatePage,
     TabsPage
   ],
   providers: [

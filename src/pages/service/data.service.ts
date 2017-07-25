@@ -212,14 +212,13 @@ export class DataService {
         searchTerm === "" &&
         dayLength > 0 &&
         topicLength == 0 &&
-        favorite
+        !favorite
       ) {
         console.log("filtrar solo por dia y fav");
         return this.conferences.map(data =>
           data.filter(
             dato =>
-              dato.day == day[day.indexOf(dato.day)] &&
-              this.favConf.indexOf(dato.$key) != -1
+              dato.day == day[day.indexOf(dato.day)]
           )
         );
       } else if (
@@ -228,12 +227,13 @@ export class DataService {
         topicLength > 0 &&
         favorite
       ) {
-        console.log("filtrar solo por tema");
+        console.log("filtrar solo por tema y favo");
         return this.conferences.map(data =>
           data.filter(
             dato =>
               dato.topic.some(
                 elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+                && this.favConf.indexOf(dato.$key) != -1
               )
           )
         );

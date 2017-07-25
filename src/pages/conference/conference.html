@@ -70,7 +70,7 @@
       <ion-icon name="star"></ion-icon>
       Asistiré
     </button>
-    <button item-end ion-button clear>
+    <button  (click)="rateConference($event,conference.$key, slidingItem)" item-end ion-button clear>
       <ion-icon name="thumbs-up"></ion-icon>
       Valorar
     </button>

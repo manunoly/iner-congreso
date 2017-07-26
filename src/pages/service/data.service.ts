@@ -151,6 +151,41 @@ export class DataService {
     return undefined;
   }
 
+  rateConference(conferenceID, rate) {
+    if (this.authS.isAuthenticated()) {
+      let dir = "/data/conferences/" + conferenceID + "/rate";
+      let data = {};
+      data[this.userUid] = rate;
+      let sum: number = 0;
+      let conference = this.filterConference(conferenceID).subscribe(conf => {
+        if (conf[0].rate) {
+          let objData = conf[0].rate;
+          delete objData.average;
+          let values = (<any>Object).values(objData);
+          values.forEach(element => {
+            sum = sum + element;
+          });
+          sum = sum + rate;
+          data["average"] = Math.round(sum / values.length);
+          console.log(data)
+        } else data["average"] = rate;
+        this.afDB
+          .object(dir)
+          .update(data)
+          .then(_ => {
+            this.showNotification("La Conferencia ha sido Valorada");
+            conference.unsubscribe();
+          })
+          .catch(_ => {
+            this.showNotification(
+              "Ha ocurrido un error valorando la Conferencia"
+            );
+            conference.unsubscribe();
+          });
+      });
+    } else this.showNotification("Debe identificarse primero");
+  }
+
   filterConferences(
     searchTerm = "",
     day = [],
@@ -216,10 +251,7 @@ export class DataService {
       ) {
         console.log("filtrar solo por dia y fav");
         return this.conferences.map(data =>
-          data.filter(
-            dato =>
-              dato.day == day[day.indexOf(dato.day)]
-          )
+          data.filter(dato => dato.day == day[day.indexOf(dato.day)])
         );
       } else if (
         searchTerm === "" &&
@@ -229,12 +261,12 @@ export class DataService {
       ) {
         console.log("filtrar solo por tema y favo");
         return this.conferences.map(data =>
-          data.filter(
-            dato =>
-              dato.topic.some(
-                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
-                && this.favConf.indexOf(dato.$key) != -1
-              )
+          data.filter(dato =>
+            dato.topic.some(
+              elem =>
+                elem.topicID === topic[topic.indexOf(elem.topicID)] &&
+                this.favConf.indexOf(dato.$key) != -1
+            )
           )
         );
       } else if (
@@ -252,7 +284,7 @@ export class DataService {
               ) && this.favConf.indexOf(dato.$key) != -1
           )
         );
-      }  else if (
+      } else if (
         searchTerm != "" &&
         dayLength > 0 &&
         topicLength == 0 &&

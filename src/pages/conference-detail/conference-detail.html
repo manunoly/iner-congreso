@@ -25,19 +25,22 @@
           <h2>Tema</h2>
           <p *ngFor="let topic of conf.topic">
             {{ topic.topic }}
-            </p>
+          </p>
         </ion-card-content>
         <ion-card-content *ngIf="conf.location">
           <h2>Ubicación</h2>
           <p *ngFor="let location of conf.location">
             {{ location.name }}
-            </p>
+          </p>
         </ion-card-content>
         <ion-card-content>
           <p>{{ conf.shortDescription }}</p>
           <br>
           <p>{{ conf.description }}</p>
-
+          <br>
+          <div text-center>
+            <button ion-button color="light" (click)="rateConference($event)">Valorar</button>
+          </div>
         </ion-card-content>
       </ion-item>
     </div>

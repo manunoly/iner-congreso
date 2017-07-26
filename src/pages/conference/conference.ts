@@ -87,7 +87,6 @@ export class ConferencePage {
   addFavorite(conferenceID, slidingItem: ItemSliding) {
     this.dataS.addFavorite(conferenceID);
     slidingItem.close();
-    // console.log(conferenceID);
   }
 
   removeFavorite(conferenceID) {

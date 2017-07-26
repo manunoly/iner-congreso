@@ -1,21 +1,24 @@
-import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { ViewController } from "ionic-angular";
+import { DataService } from "./../service/data.service";
 
 @Component({
-  selector: 'page-rate',
-  templateUrl: 'rate.html',
+  selector: "page-rate",
+  templateUrl: "rate.html"
 })
 export class RatePage {
   rate: number = 5;
 
-  constructor(public viewCtrl: ViewController) {
-  }
+  constructor(public viewCtrl: ViewController, private dataS: DataService) {}
 
-  ionViewDidLoad() {
-    console.log(this.viewCtrl.data.conferenceID);
-  }
+  ionViewDidLoad() {}
 
   close() {
+    this.viewCtrl.dismiss();
+  }
+
+  rateConference() {
+    this.dataS.rateConference(this.viewCtrl.data.conferenceID, this.rate);
     this.viewCtrl.dismiss();
   }
 }

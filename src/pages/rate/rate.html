@@ -1,9 +1,16 @@
-<ion-content padding>
-  <ion-list>
+<ion-content padding  style="overflow: hidden">
+  <ion-list no-lines>
     <ion-item>
-      <ion-label>Valore Conferencia</ion-label>
-      <ion-range min="1" max="5" step="1" snaps="true" [(ngModel)]="rate"></ion-range>
+      <ion-label text-center><button ion-button clear icon-right large full> {{rate}} <ion-icon name="star"></ion-icon></button>
+      </ion-label>
+      <ion-range min="1" max="5" step="1" snaps="true" [(ngModel)]="rate">
+        <ion-icon small range-left name="star"></ion-icon>
+        <ion-icon range-right name="star"></ion-icon>
+      </ion-range>
+    </ion-item>
+    <ion-item>
+      <button ion-button color="light" icon-right (click)="close()">Cancelar</button>
+      <button ion-button icon-right (click)="rateConference()">Valorar</button>
     </ion-item>
   </ion-list>
-
 </ion-content>

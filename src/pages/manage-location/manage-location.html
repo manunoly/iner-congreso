@@ -28,6 +28,10 @@
             <ion-label>Ubicación:</ion-label>
             <ion-input formControlName="location" type="text"></ion-input>
           </ion-item>
+          <ion-item>
+            <ion-label>Capacidad:</ion-label>
+            <ion-input formControlName="capacity" type="number"></ion-input>
+          </ion-item>
           <br>
           <button *ngIf="!showupdateLocation" type="button" ion-button color="primary" (click)="addLocation()">Adicionar</button>
           <button *ngIf="showupdateLocation" type="button" ion-button color="primary" (click)="updateLocation()">Actualizar</button>

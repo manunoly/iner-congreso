@@ -39,7 +39,16 @@
           <p>{{ conf.description }}</p>
           <br>
           <div text-center>
-            <button ion-button color="light" (click)="rateConference($event)">Valorar</button>
+            <button ion-button color="light" (click)="rateConference($event)">Valorar
+              <ion-icon name="thumbs-up"></ion-icon>
+            </button>
+            <div *ngIf="isFavorite(conf.$key); then addFavorite else removeFavorite"></div>
+            <button #addFavorite ion-button color="light" (click)="addFavorite(conf.$key)">Favorita
+              <ion-icon name="star"></ion-icon>
+            </button>
+            <button #removeFavorite ion-button color="light" (click)="removeFavorite(conf.$key)">Favorita
+              <ion-icon name="star"></ion-icon>
+            </button>
           </div>
         </ion-card-content>
       </ion-item>

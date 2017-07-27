@@ -20,6 +20,7 @@ import { ManageLocationPage } from '../pages/manage-location/manage-location';
 import { RatePage } from '../pages/rate/rate';
 import { ManageTopicPage } from '../pages/manage-topic/manage-topic';
 import { TabsPage } from '../pages/tabs/tabs';
+import { SlidePage } from '../pages/slide/slide';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -55,6 +56,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     ManageTopicPage,
     RatePage,
     HomePage,
+    SlidePage,
     TabsPage
   ],
   imports: [
@@ -79,6 +81,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     ManageLocationPage,
     ManageTopicPage,
     RatePage,
+    SlidePage,
     TabsPage
   ],
   providers: [

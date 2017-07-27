@@ -33,6 +33,19 @@ export class ConferenceDetailPage {
     });
   }
 
+  addFavorite(conferenceID) {
+    this.dataS.addFavorite(conferenceID);
+  }
+
+  isFavorite(conferenceID) {
+    return this.dataS.isFavoriteConference(conferenceID);
+  }
+
+  removeFavorite(conferenceID) {
+    this.dataS.removeFavorite(conferenceID);
+    // console.log(conferenceID);
+  }
+
   goToSpeakerDetail(speakerID: any) {
     this.navCtrl.push(SpeakerDetailPage, {
       speaker: speakerID

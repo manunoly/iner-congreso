@@ -102,7 +102,7 @@ export class DataService {
         .object(dir)
         .set(dataConf)
         .then(_ => {
-          this.showNotification("Conferencia addionada a favoritas");
+          this.showNotification("Conferencia adicionada a favoritas");
         })
         .catch(_ => {
           this.showNotification(
@@ -153,21 +153,22 @@ export class DataService {
 
   rateConference(conferenceID, rate) {
     if (this.authS.isAuthenticated()) {
-      let dir = "/data/conferences/" + conferenceID + "/rate";
-      let data = {};
-      data[this.userUid] = rate;
-      let sum: number = 0;
       let conference = this.filterConference(conferenceID).subscribe(conf => {
+        let dir = "/data/conferences/" + conferenceID + "/rate";
+        let data = {};
+        data[this.userUid] = rate;
+        let sum: number = 0;
         if (conf[0].rate) {
           let objData = conf[0].rate;
-          delete objData.average;
-          let values = (<any>Object).values(objData);
+          objData["average"] = rate;
+          delete objData[this.userUid];
+          let values = Object.keys(objData).map(function(key) {
+            return objData[key];
+          });
           values.forEach(element => {
             sum = sum + element;
           });
-          sum = sum + rate;
           data["average"] = Math.round(sum / values.length);
-          console.log(data)
         } else data["average"] = rate;
         this.afDB
           .object(dir)
@@ -621,13 +622,15 @@ export class DataService {
   }
 
   addLocation(location) {
+    console.log(location);
     let observer = this.authS.isAdmin().subscribe(permission => {
       if (permission.val() !== null) {
         this.location
           .push({
             name: location.name,
             profilePic: location.profilePic,
-            location: location.location
+            location: location.location,
+            capacity: location.capacity
           })
           .then(a => {
             this.showNotification("Lugar adicionado correctamente");
@@ -647,7 +650,8 @@ export class DataService {
           .update(location.id, {
             name: location.name,
             profilePic: location.profilePic,
-            location: location.location
+            location: location.location,
+            capacity: location.capacity
           })
           .then(_ => {
             this.showNotification("Lugar actualizado correctamente");

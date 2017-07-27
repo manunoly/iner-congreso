@@ -64,6 +64,7 @@ export class ManageLocationPage {
 
   addLocation() {
     if (this.locationForm.valid) {
+      console.log(this.locationForm.valid);
       this.dataS.addLocation(this.locationForm.value);
       this.locationForm.reset();
       this.setLocationForm(undefined);
@@ -95,6 +96,10 @@ export class ManageLocationPage {
         location: [
           "",
           Validators.compose([Validators.maxLength(100), Validators.required])
+        ],
+        capacity: [
+          "",
+          Validators.compose([Validators.maxLength(3), Validators.required])
         ]
       });
     } else {
@@ -117,6 +122,10 @@ export class ManageLocationPage {
         ],
         location: [
           location.location,
+          Validators.compose([Validators.maxLength(100), Validators.required])
+        ],
+        capacity: [
+          location.capacity,
           Validators.compose([Validators.maxLength(100), Validators.required])
         ]
       });

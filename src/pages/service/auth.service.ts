@@ -24,6 +24,7 @@ export class AuthService {
       this.afAuth.auth
         .signInWithPopup(new firebase.auth.GoogleAuthProvider())
         .then(res => {
+          console.log(res);
           this.showNotification("Bienvenido " + this.afAuth.auth.currentUser.displayName, 3000);
         })
         .catch(res => this.showNotification(res, 10000));
@@ -37,6 +38,7 @@ export class AuthService {
       this.afAuth.auth
         .signInWithPopup(new firebase.auth.FacebookAuthProvider())
         .then(res => {
+          console.log(res);
           this.showNotification("Bienvenido " + this.afAuth.auth.currentUser.displayName, 3000);
         })
         .catch(res => this.showNotification(res, 10000));
@@ -50,6 +52,7 @@ export class AuthService {
       this.afAuth.auth
         .signInWithPopup(new firebase.auth.TwitterAuthProvider())
         .then(res => {
+          console.log(res);
           this.showNotification("Bienvenido " + this.afAuth.auth.currentUser.displayName, 3000);
         })
         .catch(res => this.showNotification(res, 10000));

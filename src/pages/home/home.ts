@@ -31,7 +31,8 @@ export class HomePage {
       if (user != null) {
         // this.displayName = user["email"].split("@")[0];
         this.displayName = user["displayName"];
-        this.picture = user["photoURL"];
+        if (user["photoURL"] != "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg")
+          this.picture = user["photoURL"];
       } else this.displayName = "Visitante";
     });
     this.authS.isAdmin().subscribe(permission => {

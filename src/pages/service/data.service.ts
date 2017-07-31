@@ -447,7 +447,8 @@ export class DataService {
             timeEnd: conference.timeEnd,
             speakers: conference.speakers,
             location: conference.location,
-            topic: conference.topic
+            topic: conference.topic,
+            assistants : 0
           })
           .then(a => {
             this.showNotification("Conferencia adicionada correctamente");

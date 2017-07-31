@@ -14,11 +14,11 @@ export class RatePage {
   ionViewDidLoad() {}
 
   close() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss().catch(() => {});
   }
 
   rateConference() {
     this.dataS.rateConference(this.viewCtrl.data.conferenceID, this.rate);
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss().catch(() => {});
   }
 }

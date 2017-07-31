@@ -76,29 +76,27 @@ export class ManageConferencePage {
     this.showAddConference = showAddConference;
   }
 
-  checkSpeakerAsign(speakers, id) {
-    if (speakers)
-      speakers.forEach(element => {
-        if (element.speakerID == id) return true;
+  checkSpeakerAsign(id) {
+    if (this.conferenceForm.value.speakers) {
+      this.conferenceForm.value.speakers.forEach(element => {
+        if (element.speakerID === id) return true;
       });
+    }
+    return false;
   }
 
   addSpeakerCheckbox() {
     let speakers = this.dataS.filterSpeakers("").subscribe(data => {
-      console.log();
       let alert = this.alertCtrl.create();
       alert.setTitle("Ponentes de esta Conferencia?");
       data.forEach(speaker => {
         alert.addInput({
           type: "checkbox",
           label: speaker.name,
+          // checked: this.checkSpeakerAsign(speaker.$key),
           value: JSON.stringify({
             ["speakerID"]: speaker.$key,
             ["name"]: speaker.name
-            /**            ["selected"]: this.checkSpeakerAsign(
-              this.conferenceForm.value.speakers,
-              speaker.$key
-            ) */
           })
         });
       });
@@ -121,6 +119,18 @@ export class ManageConferencePage {
       speakers.unsubscribe();
     });
   }
+
+  checkTopicAsign(id) {
+    if (this.conferenceForm.value.topic) {
+      this.conferenceForm.value.topic.forEach(element => {
+        if (element.topicID == id) {
+          return true;
+        }
+      });
+    }
+    return false;
+  }
+
   addTopicCheckbox() {
     let speakers = this.dataS.getTopic().subscribe(data => {
       let alert = this.alertCtrl.create();
@@ -129,6 +139,7 @@ export class ManageConferencePage {
         alert.addInput({
           type: "checkbox",
           label: topic.topic,
+          // checked: this.checkTopicAsign(topic.$key),
           value: JSON.stringify({
             ["topicID"]: topic.$key,
             ["topic"]: topic.topic
@@ -154,6 +165,16 @@ export class ManageConferencePage {
       speakers.unsubscribe();
     });
   }
+
+  checkLocationAsign(id) {
+    if (this.conferenceForm.value.location) {
+      this.conferenceForm.value.location.forEach(element => {
+        if ((element.locationID = id)) return true;
+      });
+    }
+    return false;
+  }
+
   addLocationCheckbox() {
     let locations = this.dataS.getLocation().subscribe(data => {
       let alert = this.alertCtrl.create();
@@ -161,9 +182,11 @@ export class ManageConferencePage {
       data.forEach(location => {
         alert.addInput({
           type: "checkbox",
+          // checked: this.checkLocationAsign(location.$key),
           label: location.name,
           value: JSON.stringify({
             ["locationID"]: location.$key,
+            ["capacity"]: location.capacity,
             ["name"]: location.name
           })
         });

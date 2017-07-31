@@ -65,8 +65,6 @@ export class ManageConferencePage {
   }
 
   addConference() {
-    // console.log(this.conferenceForm.value);
-
     if (this.conferenceForm.valid) {
       this.dataS.addConference(this.conferenceForm.value);
       this.conferenceForm.reset();
@@ -78,8 +76,16 @@ export class ManageConferencePage {
     this.showAddConference = showAddConference;
   }
 
+  checkSpeakerAsign(speakers, id) {
+    if (speakers)
+      speakers.forEach(element => {
+        if (element.speakerID == id) return true;
+      });
+  }
+
   addSpeakerCheckbox() {
     let speakers = this.dataS.filterSpeakers("").subscribe(data => {
+      console.log();
       let alert = this.alertCtrl.create();
       alert.setTitle("Ponentes de esta Conferencia?");
       data.forEach(speaker => {
@@ -89,6 +95,10 @@ export class ManageConferencePage {
           value: JSON.stringify({
             ["speakerID"]: speaker.$key,
             ["name"]: speaker.name
+            /**            ["selected"]: this.checkSpeakerAsign(
+              this.conferenceForm.value.speakers,
+              speaker.$key
+            ) */
           })
         });
       });
@@ -229,13 +239,21 @@ export class ManageConferencePage {
     } else {
       this.conferenceForm = this.formBuilder.group({
         id: [conference.$key],
-        name: [
-          conference.name,
-          Validators.compose([
-            Validators.maxLength(100),
-            Validators.pattern("[a-zA-Z ]*"),
-            Validators.required
-          ])
+        title: [
+          conference.title,
+          Validators.compose([Validators.maxLength(300), Validators.required])
+        ],
+        date: [
+          conference.date.split(" ")[0],
+          Validators.compose([Validators.maxLength(20), Validators.required])
+        ],
+        timeStart: [
+          conference.timeStart,
+          Validators.compose([Validators.maxLength(10), Validators.required])
+        ],
+        timeEnd: [
+          conference.timeEnd,
+          Validators.compose([Validators.maxLength(10), Validators.required])
         ],
         profilePic: [
           conference.profilePic,
@@ -245,20 +263,24 @@ export class ManageConferencePage {
             Validators.required
           ])
         ],
-        degree: [
-          conference.degree,
+        location: [
+          conference.location,
           Validators.compose([Validators.maxLength(100), Validators.required])
         ],
-        email: [
-          conference.email,
+        topic: [
+          conference.topic,
           Validators.compose([Validators.maxLength(100), Validators.required])
         ],
-        shortAbout: [
-          conference.shortAbout,
+        speakers: [
+          conference.speakers,
+          Validators.compose([Validators.maxLength(500), Validators.required])
+        ],
+        shortDescription: [
+          conference.shortDescription,
           Validators.compose([Validators.maxLength(1000), Validators.required])
         ],
-        about: [
-          conference.about,
+        description: [
+          conference.description,
           Validators.compose([Validators.maxLength(10000), Validators.required])
         ]
       });

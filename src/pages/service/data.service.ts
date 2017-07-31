@@ -432,42 +432,65 @@ export class DataService {
   }
 
   addConference(conference) {
-    let date = conference.date.split("-");
-    if (this.authS.isAuthenticated()) {
-      this.conferences.push({
-        title: conference.title,
-        profilePic: conference.profilePic,
-        shortDescription: conference.shortDescription,
-        description: conference.description,
-        day: date[2],
-        date: conference.date + " " + conference.timeStart,
-        timeStart: conference.timeStart,
-        timeEnd: conference.timeEnd,
-        speakers: conference.speakers,
-        location: conference.location,
-        topic: conference.topic
-      });
-    }
+    let observer = this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        let date = conference.date.split("-");
+        this.conferences
+          .push({
+            title: conference.title,
+            profilePic: conference.profilePic,
+            shortDescription: conference.shortDescription,
+            description: conference.description,
+            day: date[2],
+            date: conference.date + " " + conference.timeStart,
+            timeStart: conference.timeStart,
+            timeEnd: conference.timeEnd,
+            speakers: conference.speakers,
+            location: conference.location,
+            topic: conference.topic
+          })
+          .then(a => {
+            this.showNotification("Conferencia adicionada correctamente");
+          })
+          .catch(a => {
+            this.showNotification(
+              "Ha ocurrido un error adicionando la Conferencia"
+            );
+          });
+      } else this.showNotification("No tiene permisos.");
+      observer.unsubscribe();
+    });
   }
 
   updateConference(conference) {
-    if (this.authS.isAuthenticated()) {
-      this.conferences.update("123", {
-        title: "Las Energias Limpias",
-        location: "Room 2203",
-        shortDescription: "Mobile devices and browsers",
-        description:
-          "Mobile devices and browsers are now advanced enough that developers can build native-quality mobile apps using open web technologies like HTML5, Javascript, and CSS. In this talk, we’ll provide background on why and how we created Ionic, the design decisions made as we integrated Ionic with Angular, and the performance considerations for mobile platforms that our team had to overcome. We’ll also review new and upcoming Ionic features, and talk about the hidden powers and benefits of combining mobile app development and Angular.",
-        speakers: [
-          { name: "Molly Mouse", speakerID: "123" },
-          { name: "Burt Bear", speakerID: "1234" }
-        ],
-        day: "21",
-        timeStart: "1:30 pm",
-        timeEnd: "2:00 pm",
-        topic: ["Services", "Data Manipulation"]
-      });
-    }
+    let observer = this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        let date = conference.date.split("-");
+        this.conferences
+          .update(conference.id,{
+            title: conference.title,
+            profilePic: conference.profilePic,
+            shortDescription: conference.shortDescription,
+            description: conference.description,
+            day: date[2],
+            date: conference.date + " " + conference.timeStart,
+            timeStart: conference.timeStart,
+            timeEnd: conference.timeEnd,
+            speakers: conference.speakers,
+            location: conference.location,
+            topic: conference.topic
+          })
+          .then(a => {
+            this.showNotification("Conferencia actualizada correctamente");
+          })
+          .catch(a => {
+            this.showNotification(
+              "Ha ocurrido un error actualizando la Conferencia"
+            );
+          });
+      } else this.showNotification("No tiene permisos.");
+      observer.unsubscribe();
+    });
   }
 
   deleteConference(conferenceID) {

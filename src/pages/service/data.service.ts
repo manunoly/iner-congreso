@@ -95,35 +95,65 @@ export class DataService {
 
   addFavorite(conferenceID) {
     if (this.userUid) {
-      let dataConf = {};
-      dataConf["conferenceID"] = conferenceID;
-      let dir = "/user/" + this.userUid + "/favorite/" + conferenceID;
-      this.afDB
-        .object(dir)
-        .set(dataConf)
-        .then(_ => {
-          this.showNotification("Conferencia adicionada a favoritas");
-        })
-        .catch(_ => {
-          this.showNotification(
-            "Ha ocurrido un error adicionando la Conferencia"
-          );
-        });
+      if (this.favConf.indexOf(conferenceID) == -1) {
+        let dataConf = {};
+        dataConf["conferenceID"] = conferenceID;
+        let dir = "/user/" + this.userUid + "/favorite/" + conferenceID;
+        this.afDB
+          .object(dir)
+          .set(dataConf)
+          .then(_ => {
+            let confAssistants = this.filterConference(
+              conferenceID
+            ).subscribe(conf => {
+              this.conferences
+                .update(conf[0].$key, {
+                  assistants: conf[0].assistants + 1
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+              confAssistants.unsubscribe();
+            });
+            this.showNotification("Conferencia adicionada a favoritas");
+          })
+          .catch(_ => {
+            this.showNotification(
+              "Ha ocurrido un error adicionando la Conferencia"
+            );
+          });
+      } else
+        this.showNotification("La Conferencia ya se encuentra en favoritas");
     } else this.showNotification("Debe identificarse primero");
   }
 
   removeFavorite(conferenceID) {
     if (this.userUid) {
-      this.favConfObj
-        .remove(conferenceID)
-        .then(_ => {
-          this.showNotification("Conferencia Eliminada de Favoritas");
-        })
-        .catch(_ => {
-          this.showNotification(
-            "Ha ocurrido un error eliminando la Conferencia"
-          );
-        });
+      if (this.favConf.indexOf(conferenceID) != -1) {
+        this.favConfObj
+          .remove(conferenceID)
+          .then(_ => {
+            let confAssistantsRest = this.filterConference(
+              conferenceID
+            ).subscribe(conf => {
+              this.conferences
+                .update(conf[0].$key, {
+                  assistants: conf[0].assistants - 1
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+              confAssistantsRest.unsubscribe();
+            });
+            this.showNotification("Conferencia Eliminada de Favoritas");
+          })
+          .catch(_ => {
+            this.showNotification(
+              "Ha ocurrido un error eliminando la Conferencia"
+            );
+          });
+      } else
+        this.showNotification("La Conferencia no se encuentra en favoritas");
     } else this.showNotification("Debe identificarse primero");
   }
 
@@ -144,7 +174,6 @@ export class DataService {
   checkTopic(dato = [], topic = []) {
     dato.forEach(elem => {
       if (elem.topicID == topic[topic.indexOf(elem.topicID)]) {
-        console.log("si esta el id");
         return elem;
       }
     });
@@ -448,7 +477,7 @@ export class DataService {
             speakers: conference.speakers,
             location: conference.location,
             topic: conference.topic,
-            assistants : 0
+            assistants: 0
           })
           .then(a => {
             this.showNotification("Conferencia adicionada correctamente");
@@ -468,7 +497,7 @@ export class DataService {
       if (permission.val() !== null) {
         let date = conference.date.split("-");
         this.conferences
-          .update(conference.id,{
+          .update(conference.id, {
             title: conference.title,
             profilePic: conference.profilePic,
             shortDescription: conference.shortDescription,
@@ -646,7 +675,6 @@ export class DataService {
   }
 
   addLocation(location) {
-    console.log(location);
     let observer = this.authS.isAdmin().subscribe(permission => {
       if (permission.val() !== null) {
         this.location

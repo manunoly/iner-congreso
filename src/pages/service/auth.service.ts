@@ -12,6 +12,7 @@ import * as firebase from "firebase/app";
 @Injectable()
 export class AuthService {
   isAdminSingle: any;
+  NEW_USER: Boolean = true;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -24,8 +25,7 @@ export class AuthService {
       this.afAuth.auth
         .signInWithPopup(new firebase.auth.GoogleAuthProvider())
         .then(res => {
-          console.log(res);
-          this.showNotification("Bienvenido " + this.afAuth.auth.currentUser.displayName, 3000);
+          this.setUserData();
         })
         .catch(res => this.showNotification(res, 10000));
     } catch (err) {
@@ -38,8 +38,7 @@ export class AuthService {
       this.afAuth.auth
         .signInWithPopup(new firebase.auth.FacebookAuthProvider())
         .then(res => {
-          console.log(res);
-          this.showNotification("Bienvenido " + this.afAuth.auth.currentUser.displayName, 3000);
+          this.setUserData();
         })
         .catch(res => this.showNotification(res, 10000));
     } catch (err) {
@@ -52,8 +51,7 @@ export class AuthService {
       this.afAuth.auth
         .signInWithPopup(new firebase.auth.TwitterAuthProvider())
         .then(res => {
-          console.log(res);
-          this.showNotification("Bienvenido " + this.afAuth.auth.currentUser.displayName, 3000);
+          this.setUserData();
         })
         .catch(res => this.showNotification(res, 10000));
     } catch (err) {
@@ -63,6 +61,37 @@ export class AuthService {
 
   logout() {
     this.afAuth.auth.signOut();
+  }
+
+  setUserData() {
+    this.showNotification(
+      "Bienvenido " + this.afAuth.auth.currentUser.displayName,
+      2500
+    );
+    /*
+    let newUser = this.afDB.list("/user/" + this.afAuth.auth.currentUser.uid);
+    newUser.subscribe(userNewData => {
+      if (userNewData[0].name) {
+        this.NEW_USER = false;
+        this.showNotification(
+          "Bienvenido " + this.afAuth.auth.currentUser.displayName,
+          2500
+        );
+      } else {
+        this.afDB
+          .object("/user" + this.afAuth.auth.currentUser.uid)
+          .set({ name: this.afAuth.auth.currentUser.displayName })
+          .then(_ => {
+            this.showNotification(
+              "Bienvenido " + this.afAuth.auth.currentUser.displayName,
+              3000
+            );
+          })
+          .catch(err => {
+            this.showNotification(err);
+          });
+      }
+    }); */
   }
 
   getUser() {
@@ -126,15 +155,6 @@ export class AuthService {
         dataPromise(data);
       });
     });
-  }
-
-  createAdmin() {
-    console.log("Admin validation");
-    this.afDB.list("/admin", { preserveSnapshot: true }).subscribe(users => {
-      console.log(users);
-    });
-    //     subscribe(users => {
-    //       ["manunoly@gmail.com", "raul@gmail.com"]);
   }
 
   showNotification(message, time = 5000) {

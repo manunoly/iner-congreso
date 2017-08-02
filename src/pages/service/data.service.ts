@@ -30,32 +30,37 @@ export class DataService {
   ) {}
 
   loadData() {
-    this.afDB.list("/data").subscribe();
-    this.speakers = this.afDB.list("/data/speakers", {
-      query: {
-        orderByChild: "name"
-      }
-    });
-    this.conferences = this.afDB.list("/data/conferences", {
-      query: {
-        orderByChild: "date"
-      }
-    });
-    this.location = this.afDB.list("/data/location", {
-      query: {
-        orderByChild: "name"
-      }
-    });
-    this.topic = this.afDB.list("/data/topic", {
-      query: {
-        orderByChild: "topic"
-      }
-    });
-    this.showNotification(
-      "Usuario y Contraseña no son almacenadas por esta aplicación.",
-      5000
-    );
-    this.getFavoriteConferenceObj();
+    try {
+      this.afDB.list("/data").subscribe();
+      this.speakers = this.afDB.list("/data/speakers", {
+        query: {
+          orderByChild: "name"
+        }
+      });
+      this.conferences = this.afDB.list("/data/conferences", {
+        query: {
+          orderByChild: "date"
+        }
+      });
+      this.location = this.afDB.list("/data/location", {
+        query: {
+          orderByChild: "name"
+        }
+      });
+      this.topic = this.afDB.list("/data/topic", {
+        query: {
+          orderByChild: "topic"
+        }
+      });
+      this.showNotification(
+        "Usuario y Contraseña no son almacenadas por esta aplicación.",
+        5000
+      );
+      this.getFavoriteConferenceObj();
+    } catch (error) {
+      console.log(error);
+      this.showNotification("Ha ocurrido un error, contacte administrador");
+    }
   }
 
   /*  getFavoriteConference() {
@@ -74,7 +79,13 @@ export class DataService {
     this.authS.getUser().subscribe(user => {
       if (user) {
         this.userUid = user.uid;
-        this.favConfObj = this.afDB.list("/user/" + this.userUid + "/favorite");
+        this.favConfObj = this.afDB
+          .list("/user/" + this.userUid + "/favorite")
+          .catch(err => {
+            this.userUid = "";
+            this.favConf = [];
+            return [];
+          });
         this.favConfObj.subscribe(favConf => {
           this.favConf = [];
           if (favConf)

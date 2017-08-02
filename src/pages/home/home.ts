@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams } from "ionic-angular";
+import { NavController, NavParams, MenuController } from "ionic-angular";
 
 import { AuthService } from "./../service/auth.service";
 import { DataService } from "./../service/data.service";
@@ -17,10 +17,12 @@ export class HomePage {
   picture = "../../assets/icon/favicon.ico";
   user: any;
   isAdmin: any;
+  ManageSpeakerPage:ManageSpeakerPage;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public menuCtrl: MenuController,
     private authS: AuthService,
     private dataS: DataService
   ) {}
@@ -31,7 +33,10 @@ export class HomePage {
       if (user != null) {
         // this.displayName = user["email"].split("@")[0];
         this.displayName = user["displayName"];
-        if (user["photoURL"] != "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg")
+        if (
+          user["photoURL"] !=
+          "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg"
+        )
           this.picture = user["photoURL"];
       } else this.displayName = "Visitante";
     });
@@ -45,8 +50,12 @@ export class HomePage {
     this.dataS.loadData();
   }
 
+  openMenu() {
+    this.menuCtrl.open();
+  }
+
   ngAfterViewInit() {
-    !(function(d:any, s:any, id:any) {
+    !(function(d: any, s: any, id: any) {
       var js,
         fjs = d.getElementsByTagName(s)[0],
         p = /^http:/.test(d.location) ? "http" : "https";

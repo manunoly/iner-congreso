@@ -135,9 +135,18 @@ export class AuthService {
   isAdmin() {
     return this.afAuth.authState.flatMap(user => {
       if (user) {
-        return this.afDB.object("/admin/" + user.uid, {
-          preserveSnapshot: true
-        });
+        return this.afDB
+          .object("/admin/" + user.uid, {
+            preserveSnapshot: true
+          })
+          .catch(err => {
+            let obj = {
+              val: function() {
+                return null;
+              }
+            };
+            return Observable.of(obj);
+          });
       } else {
         let obj = {
           val: function() {

@@ -11,9 +11,9 @@ export class SlidePage {
   showSkip = true;
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
-  ionViewDidLoad() {
+/*   ionViewDidLoad() {
     console.log("ionViewDidLoad SlidePage");
-  }
+  } */
 
   onSlideChangeStart(slider: Slides) {
     this.showSkip = !slider.isEnd();

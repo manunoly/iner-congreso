@@ -1,12 +1,13 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams } from "ionic-angular";
+import { IonicPage,NavController, NavParams } from "ionic-angular";
 import { FormBuilder, Validators } from "@angular/forms";
 import { AlertController } from "ionic-angular";
 
 import { HomePage } from "./../home/home";
-import { DataService } from "./../service/data.service";
-import { AuthService } from "./../service/auth.service";
+import { DataProvider } from '../../providers/data';
+import { AuthProvider } from '../../providers/auth';
 
+@IonicPage()
 @Component({
   selector: "page-manage-conference",
   templateUrl: "manage-conference.html"
@@ -24,8 +25,8 @@ export class ManageConferencePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private dataS: DataService,
-    private authS: AuthService,
+    private dataS: DataProvider,
+    private authS: AuthProvider,
     private formBuilder: FormBuilder,
     public alertCtrl: AlertController
   ) {
@@ -310,3 +311,4 @@ export class ManageConferencePage {
     }
   }
 }
+

@@ -1,13 +1,19 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams, MenuController } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  MenuController
+} from "ionic-angular";
 
-import { AuthService } from "./../service/auth.service";
-import { DataService } from "./../service/data.service";
+import { DataProvider } from "../../providers/data";
+import { AuthProvider } from "../../providers/auth";
 import { ManageSpeakerPage } from "./../manage-speaker/manage-speaker";
 import { ManageConferencePage } from "./../manage-conference/manage-conference";
 import { ManageTopicPage } from "../manage-topic/manage-topic";
 import { ManageLocationPage } from "../manage-location/manage-location";
 
+@IonicPage()
 @Component({
   selector: "page-home",
   templateUrl: "home.html"
@@ -17,14 +23,14 @@ export class HomePage {
   picture = "../../assets/icon/favicon.ico";
   user: any;
   isAdmin: any;
-  ManageSpeakerPage:ManageSpeakerPage;
+  ManageSpeakerPage: ManageSpeakerPage;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public menuCtrl: MenuController,
-    private authS: AuthService,
-    private dataS: DataService
+    private authS: AuthProvider,
+    private dataS: DataProvider
   ) {}
 
   ionViewDidLoad() {

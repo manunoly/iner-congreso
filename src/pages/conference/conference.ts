@@ -1,15 +1,16 @@
 import { AboutPage } from "./../about/about";
 import { Component } from "@angular/core";
-import { NavController, NavParams } from "ionic-angular";
+import { NavController, NavParams, IonicPage } from "ionic-angular";
 import { FormControl } from "@angular/forms";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
-import { DataService } from "./../service/data.service";
-import { AuthService } from "./../service/auth.service";
 import { ItemSliding } from "ionic-angular";
 import { RatePage } from "./../rate/rate";
 import { PopoverController } from "ionic-angular";
 import "rxjs/add/operator/debounceTime";
+import { AuthProvider } from '../../providers/auth';
+import { DataProvider } from '../../providers/data';
 
+@IonicPage()
 @Component({
   selector: "page-conference",
   templateUrl: "conference.html"
@@ -32,8 +33,8 @@ export class ConferencePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private dataS: DataService,
-    private authS: AuthService,
+    private dataS: DataProvider,
+    private authS: AuthProvider,
     public popoverCtrl: PopoverController
   ) {
     this.searchControl = new FormControl();
@@ -126,3 +127,4 @@ export class ConferencePage {
     });
   }
 }
+

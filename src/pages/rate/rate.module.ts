@@ -9,8 +9,5 @@ import { RatePage } from './rate';
   imports: [
     IonicPageModule.forChild(RatePage),
   ],
-  exports: [
-    RatePage
-  ]
 })
 export class RatePageModule {}

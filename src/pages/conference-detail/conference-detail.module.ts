@@ -9,8 +9,5 @@ import { ConferenceDetailPage } from './conference-detail';
   imports: [
     IonicPageModule.forChild(ConferenceDetailPage),
   ],
-  exports: [
-    ConferenceDetailPage
-  ]
 })
 export class ConferenceDetailPageModule {}

@@ -1,13 +1,14 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams } from "ionic-angular";
+import { IonicPage,NavController, NavParams } from "ionic-angular";
 import { FormControl } from "@angular/forms";
 
 import { SpeakerDetailPage } from "./../speaker-detail/speaker-detail";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
-import { DataService } from "./../service/data.service";
-import { AuthService } from "./../service/auth.service";
+import { DataProvider } from '../../providers/data';
+import { AuthProvider } from '../../providers/auth';
 import "rxjs/add/operator/debounceTime";
 
+@IonicPage()
 @Component({
   selector: "page-speaker",
   templateUrl: "speaker.html"
@@ -22,8 +23,8 @@ export class SpeakerPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private dataS: DataService,
-    private authS: AuthService
+    private dataS: DataProvider,
+    private authS: AuthProvider
   ) {
     this.searchControl = new FormControl();
   }
@@ -63,3 +64,4 @@ export class SpeakerPage {
     this.speakers = this.dataS.filterSpeakers(this.searchTerm);
   }
 }
+

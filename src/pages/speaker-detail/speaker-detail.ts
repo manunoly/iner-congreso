@@ -1,9 +1,10 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
-import { DataService } from "./../service/data.service";
-import { AuthService } from "./../service/auth.service";
+import { DataProvider } from '../../providers/data';
+import { AuthProvider } from '../../providers/auth';
 
+@IonicPage()
 @Component({
   selector: "page-speaker-detail",
   templateUrl: "speaker-detail.html"
@@ -16,8 +17,8 @@ export class SpeakerDetailPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private dataS: DataService,
-    private authS: AuthService
+    private dataS: DataProvider,
+    private authS: AuthProvider
   ) { }
   /**
  * FIXME: Adicionar perfil de linkedin o pagina web de la persona y redes académicas (google scholar y demás).

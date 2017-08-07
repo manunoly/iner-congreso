@@ -9,8 +9,5 @@ import { SpeakerDetailPage } from './speaker-detail';
   imports: [
     IonicPageModule.forChild(SpeakerDetailPage),
   ],
-  exports: [
-    SpeakerDetailPage
-  ]
 })
 export class SpeakerDetailPageModule {}

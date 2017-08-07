@@ -2,16 +2,16 @@ import { Injectable } from "@angular/core";
 import { Platform, AlertController } from "ionic-angular";
 import { ToastController } from "ionic-angular";
 
-import "rxjs/Rx";
+import { Observable } from 'rxjs/Rx';
 
 import {
   AngularFireDatabase,
   FirebaseListObservable
 } from "angularfire2/database";
-import { AuthService } from "./auth.service";
+import { AuthProvider } from './auth';
 
 @Injectable()
-export class DataService {
+export class DataProvider {
   conferences: FirebaseListObservable<any>;
   speakers: FirebaseListObservable<any>;
   location: FirebaseListObservable<any>;
@@ -23,7 +23,7 @@ export class DataService {
 
   constructor(
     private afDB: AngularFireDatabase,
-    private authS: AuthService,
+    private authS: AuthProvider,
     public platform: Platform,
     public toastCtrl: ToastController,
     public alertCtrl: AlertController

@@ -1,6 +1,12 @@
 import { Injectable } from "@angular/core";
+// import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 
-import { Observable } from "rxjs/Observable";
+/* import "rxjs/add/operator/of";
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
+ */
 import { ToastController } from "ionic-angular";
 
 // import { Subscriber } from 'rxjs/Subscriber';
@@ -10,7 +16,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 import * as firebase from "firebase/app";
 
 @Injectable()
-export class AuthService {
+export class AuthProvider {
   isAdminSingle: any;
   NEW_USER: Boolean = true;
 
@@ -138,8 +144,7 @@ export class AuthService {
         return this.afDB
           .object("/admin/" + user.uid, {
             preserveSnapshot: true
-          })
-          .catch(err => {
+          }).catch(err => {
             let obj = {
               val: function() {
                 return null;
@@ -177,3 +182,4 @@ export class AuthService {
     toast.present();
   }
 }
+

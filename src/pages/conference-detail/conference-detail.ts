@@ -1,9 +1,10 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams, PopoverController } from "ionic-angular";
+import {  IonicPage,NavController, NavParams, PopoverController } from "ionic-angular";
 
-import { DataService } from "./../service/data.service";
+import { DataProvider } from '../../providers/data';
 import { SpeakerDetailPage } from "./../speaker-detail/speaker-detail";
 import { RatePage } from "../rate/rate";
+@IonicPage()
 @Component({
   selector: "page-conference-detail",
   templateUrl: "conference-detail.html"
@@ -15,7 +16,7 @@ export class ConferenceDetailPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private dataS: DataService,
+    private dataS: DataProvider,
     public popoverCtrl: PopoverController
   ) {}
 
@@ -52,3 +53,4 @@ export class ConferenceDetailPage {
     });
   }
 }
+

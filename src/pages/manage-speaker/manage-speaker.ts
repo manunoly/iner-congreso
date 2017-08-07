@@ -1,11 +1,12 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams } from "ionic-angular";
+import { IonicPage,NavController, NavParams } from "ionic-angular";
 import { FormBuilder, Validators } from "@angular/forms";
 
 import { HomePage } from "./../home/home";
-import { DataService } from "./../service/data.service";
-import { AuthService } from "./../service/auth.service";
+import { DataProvider } from '../../providers/data';
+import { AuthProvider } from '../../providers/auth';
 
+@IonicPage()
 @Component({
   selector: "page-manage-speaker",
   templateUrl: "manage-speaker.html"
@@ -21,8 +22,8 @@ export class ManageSpeakerPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private dataS: DataService,
-    private authS: AuthService,
+    private dataS: DataProvider,
+    private authS: AuthProvider,
     private formBuilder: FormBuilder
   ) {
     this.setSpeakerForm(undefined);

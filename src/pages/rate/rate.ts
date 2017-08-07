@@ -1,7 +1,9 @@
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Component } from "@angular/core";
 import { ViewController } from "ionic-angular";
-import { DataService } from "./../service/data.service";
+import { DataProvider } from '../../providers/data';
 
+@IonicPage()
 @Component({
   selector: "page-rate",
   templateUrl: "rate.html"
@@ -9,7 +11,7 @@ import { DataService } from "./../service/data.service";
 export class RatePage {
   rate: number = 5;
 
-  constructor(public viewCtrl: ViewController, private dataS: DataService) {}
+  constructor(public viewCtrl: ViewController, private dataS: DataProvider) {}
 
   ionViewDidLoad() {}
 
@@ -22,3 +24,4 @@ export class RatePage {
     this.viewCtrl.dismiss().catch(() => {});
   }
 }
+

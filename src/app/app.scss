@@ -1,0 +1,31 @@
+a {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.spinner-container {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+.toolbar-background {
+  background-color: transparent;
+}
+
+.md button {
+  text-transform: none;
+}
+
+.toast-message {
+  text-align: center;
+  background-color: darkgray;
+}
+
+.profilepicsize {
+  margin: auto;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 60px !important; //any size
+  max-height: 60px !important; //any size
+}

@@ -13,7 +13,10 @@ import { ManageConferencePage } from "./../manage-conference/manage-conference";
 import { ManageTopicPage } from "../manage-topic/manage-topic";
 import { ManageLocationPage } from "../manage-location/manage-location";
 
-@IonicPage()
+@IonicPage({
+  name: 'inicio',
+  segment: 'inicio'
+})
 @Component({
   selector: "page-home",
   templateUrl: "home.html"
@@ -34,30 +37,6 @@ export class HomePage {
   ) {}
 
   ionViewDidLoad() {
-    this.user = this.authS.getUser();
-    this.user.subscribe((user: Object) => {
-      if (user != null) {
-        // this.displayName = user["email"].split("@")[0];
-        this.displayName = user["displayName"];
-        if (
-          user["photoURL"] !=
-          "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg"
-        )
-          this.picture = user["photoURL"];
-      } else this.displayName = "Visitante";
-    });
-    this.authS.isAdmin().subscribe(permission => {
-      if (permission.val() !== null) {
-        this.isAdmin = true;
-      } else {
-        this.isAdmin = false;
-      }
-    });
-    this.dataS.loadData();
-  }
-
-  openMenu() {
-    this.menuCtrl.open();
   }
 
   ngAfterViewInit() {
@@ -72,36 +51,5 @@ export class HomePage {
         fjs.parentNode.insertBefore(js, fjs);
       }
     })(document, "script", "twitter-wjs");
-  }
-
-  signInWithGoogle() {
-    this.authS.loginGoogle();
-  }
-
-  signInWithFacebook() {
-    this.authS.loginFacebook();
-  }
-
-  signInWithTwitter() {
-    this.authS.loginTwitter();
-  }
-  signOut() {
-    this.authS.logout();
-  }
-
-  goToManageSpeaker() {
-    this.navCtrl.push(ManageSpeakerPage);
-  }
-
-  goToManageConference() {
-    this.navCtrl.push(ManageConferencePage);
-  }
-
-  goToManageLocation() {
-    this.navCtrl.push(ManageLocationPage);
-  }
-
-  goToManageTopic() {
-    this.navCtrl.push(ManageTopicPage);
   }
 }

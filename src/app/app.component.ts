@@ -2,6 +2,7 @@ import { Component, ViewChild } from "@angular/core";
 import { Platform, Nav } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
+import { AuthProvider } from "./../providers/auth";
 
 export interface PageInterface {
   title: string;
@@ -14,7 +15,13 @@ export interface PageInterface {
   templateUrl: "app.html"
 })
 export class MyApp {
-  rootPage: any = 'StartPage';
+  user: any;
+  isAdmin: any;
+  displayName = "Visitante";
+  picture = "../../assets/icon/favicon.ico";
+  userProfile: any;
+  rootPage: any = "NavegarPage";
+  // rootPage: any = 'StartPage';
 
   // Reference to the app's root nav
   @ViewChild(Nav) nav: Nav;
@@ -35,28 +42,44 @@ export class MyApp {
       icon: "calendar"
     },
     { title: "Temas", pageName: "TopicPage", icon: "school" },
-        {
+    {
       title: "Ponentes",
       pageName: "NavegarPage",
       tabComponent: "speakerPage",
       index: 2,
       icon: "contacts"
-    },    {
+    },
+    {
       title: "Nosotros",
       pageName: "NavegarPage",
       tabComponent: "AboutPage",
       index: 3,
       icon: "information-circle"
+    }
+  ];
+
+  adminPage: any = [
+    { title: "Ponentes", pageName: "ManageSpeakerPage", icon: "people" },
+    {
+      title: "Conferencias",
+      pageName: "ManageConferencePage",
+      icon: "calendar"
     },
-    { title: "Iniciar Sesión", pageName: "LoginPage", icon: "user" }
+    { title: "Lugares", pageName: "ManageLocationPage", icon: "locate" },
+    { title: "Temáticas", pageName: "ManageTopicPage", icon: "school" }
+  ];
+  loginPage: any = [
+    { title: "Iniciar Sesión", pageName: "LoginPage", icon: "person" }
   ];
 
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    private authS: AuthProvider
   ) {
     this.initializeApp();
+    this.checkUserStatus();
     // used for an example of ngFor and navigation
   }
 
@@ -66,6 +89,44 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+    });
+  }
+
+  signOut() {
+    this.authS.logout();
+  }
+
+  checkUserStatus() {
+    this.user = this.authS.getUser();
+    this.user.subscribe((user: Object) => {
+      if (user != null) {
+        // this.displayName = user["email"].split("@")[0];
+        this.displayName = user["displayName"];
+        if (
+          user["photoURL"] !=
+          "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg"
+        )
+          this.picture = user["photoURL"];
+        this.userProfile = {
+          title: "Perfil de Usuario",
+          pageName: "UserProfilePage",
+          icon: "person"
+        };
+      } else {
+        this.userProfile = {
+          title: "Iniciar Sesión",
+          pageName: "LoginPage",
+          icon: "person"
+        };
+        this.displayName = "Visitante";
+      }
+    });
+    this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
+      }
     });
   }
 
@@ -90,17 +151,19 @@ export class MyApp {
   isActive(page: PageInterface) {
     // Again the Tabs Navigation
     let childNav = this.nav.getActiveChildNav();
-
     if (childNav) {
-      if (childNav.getSelected() && childNav.getSelected().root === page.tabComponent) {
-        return 'primary';
+      if (
+        childNav.getSelected() &&
+        childNav.getSelected().root === page.tabComponent
+      ) {
+        return "primary";
       }
       return;
     }
 
     // Fallback needed when there is no active childnav (tabs not active)
     if (this.nav.getActive() && this.nav.getActive().name === page.pageName) {
-      return 'primary';
+      return "primary";
     }
     return;
   }

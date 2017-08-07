@@ -1,7 +1,33 @@
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
+<ion-title>Inicio de Sesión</ion-title>
 
-<ion-content padding>
-Login Page
-</ion-content>
+<div offset-md-2 col-md-8 padding>
+  <ion-card>
+    <ion-card-header text-center>
+      Autenticación
+    </ion-card-header>
+    <ion-card-content text-center padding>
+      <h3>
+        Esta Aplicación utiliza autenticación de terceros.
+      </h3>
+      <p>Usuario y Contraseña nunca son almacenados.</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h3 text-center padding>Iniciar con</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="profilepicsize">
+        <button color="light" ion-fab (click)="signInWithGoogle()" title="Iniciar con Google" ion-fab><ion-icon name="logo-google"></ion-icon></button>
+      </ion-col>
+      <ion-col class="profilepicsize">
+        <button color="light" ion-fab (click)="signInWithFacebook()" title="Iniciar con Facebook" ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+      </ion-col>
+      <ion-col class="profilepicsize">
+        <button small color="light" ion-fab (click)="signInWithTwitter()" title="Iniciar con Twitter" ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

@@ -1,14 +1,13 @@
+import { ToastController, LoadingController } from "ionic-angular";
 import { Injectable } from "@angular/core";
 // import { Observable } from "rxjs/Observable";
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
+import { Observable } from "rxjs/Rx";
+import "rxjs/add/operator/map";
 
 /* import "rxjs/add/operator/of";
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
  */
-import { ToastController } from "ionic-angular";
-
 // import { Subscriber } from 'rxjs/Subscriber';
 
 import { AngularFireAuth } from "angularfire2/auth";
@@ -23,17 +22,30 @@ export class AuthProvider {
   constructor(
     private afAuth: AngularFireAuth,
     private afDB: AngularFireDatabase,
+    public loadingCtrl: LoadingController,
     public toastCtrl: ToastController
   ) {}
-
+  showSpiner() {
+    let loader = this.loadingCtrl.create({
+      content: "Iniciando Sessión",
+      duration: 20000
+    });
+    return loader;
+  }
   loginGoogle() {
     try {
+      let spiner = this.showSpiner();
+      spiner.present();
       this.afAuth.auth
         .signInWithPopup(new firebase.auth.GoogleAuthProvider())
         .then(res => {
-          this.setUserData();
+          spiner.dismiss();
+          this.welcomeUser();
         })
-        .catch(res => this.showNotification(res, 10000));
+        .catch(res => {
+          spiner.dismiss();
+          this.showNotification(res, 10000);
+        });
     } catch (err) {
       console.log(err);
     }
@@ -41,12 +53,18 @@ export class AuthProvider {
 
   loginFacebook() {
     try {
+      let spiner = this.showSpiner();
+      spiner.present();
       this.afAuth.auth
         .signInWithPopup(new firebase.auth.FacebookAuthProvider())
         .then(res => {
-          this.setUserData();
+          spiner.dismiss();
+          this.welcomeUser();
         })
-        .catch(res => this.showNotification(res, 10000));
+        .catch(res => {
+          spiner.dismiss();
+          this.showNotification(res, 10000);
+        });
     } catch (err) {
       console.log(err);
     }
@@ -54,12 +72,18 @@ export class AuthProvider {
 
   loginTwitter() {
     try {
+      let spiner = this.showSpiner();
+      spiner.present();
       this.afAuth.auth
         .signInWithPopup(new firebase.auth.TwitterAuthProvider())
         .then(res => {
-          this.setUserData();
+          spiner.dismiss();
+          this.welcomeUser();
         })
-        .catch(res => this.showNotification(res, 10000));
+        .catch(res => {
+          spiner.dismiss();
+          this.showNotification(res, 10000);
+        });
     } catch (err) {
       console.log(err);
     }
@@ -69,7 +93,7 @@ export class AuthProvider {
     this.afAuth.auth.signOut();
   }
 
-  setUserData() {
+  welcomeUser() {
     this.showNotification(
       "Bienvenido " + this.afAuth.auth.currentUser.displayName,
       2500
@@ -144,7 +168,8 @@ export class AuthProvider {
         return this.afDB
           .object("/admin/" + user.uid, {
             preserveSnapshot: true
-          }).catch(err => {
+          })
+          .catch(err => {
             let obj = {
               val: function() {
                 return null;
@@ -182,4 +207,3 @@ export class AuthProvider {
     toast.present();
   }
 }
-

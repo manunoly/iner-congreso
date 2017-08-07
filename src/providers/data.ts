@@ -27,7 +27,9 @@ export class DataProvider {
     public platform: Platform,
     public toastCtrl: ToastController,
     public alertCtrl: AlertController
-  ) {}
+  ) {
+    this.loadData();
+  }
 
   loadData() {
     try {

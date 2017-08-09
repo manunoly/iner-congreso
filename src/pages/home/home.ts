@@ -14,8 +14,8 @@ import { ManageTopicPage } from "../manage-topic/manage-topic";
 import { ManageLocationPage } from "../manage-location/manage-location";
 
 @IonicPage({
-  name: 'inicio',
-  segment: 'inicio'
+  // name: 'inicio',
+  // segment: 'inicio'
 })
 @Component({
   selector: "page-home",

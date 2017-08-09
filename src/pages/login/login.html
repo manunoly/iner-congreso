@@ -12,22 +12,20 @@
       <p>Usuario y Contraseña nunca son almacenados.</p>
     </ion-card-content>
   </ion-card>
-  <ion-grid>
-    <ion-row>
-      <ion-col text-center>
-        <h3 text-center padding>Iniciar con</h3>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col class="profilepicsize">
-        <button color="light" ion-fab (click)="signInWithGoogle()" title="Iniciar con Google" ion-fab><ion-icon name="logo-google"></ion-icon></button>
-      </ion-col>
-      <ion-col class="profilepicsize">
-        <button color="light" ion-fab (click)="signInWithFacebook()" title="Iniciar con Facebook" ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
-      </ion-col>
-      <ion-col class="profilepicsize">
-        <button small color="light" ion-fab (click)="signInWithTwitter()" title="Iniciar con Twitter" ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-card-content text-center>
+    <br>
+    <div>
+      <h2>Iniciar con</h2>
+      <button ion-button large icon-only clear icon-only (click)="signInWithGoogle()" color="google">
+        <ion-icon name="logo-google"></ion-icon>
+      </button>
+      <button ion-button large icon-only clear icon-only (click)="signInWithFacebook()" color="facebook">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </button>
+      <button ion-button large icon-only clear icon-only (click)="signInWithTwitter()" color="twitter">
+        <ion-icon name="logo-twitter"></ion-icon>
+      </button>
+
+    </div>
+  </ion-card-content>
 </div>

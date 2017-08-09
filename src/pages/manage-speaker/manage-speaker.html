@@ -10,7 +10,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content *ngIf="isAuthenticated()">
+<ion-content *ngIf="isUserAuthenticated">
   <div offset-md-2 col-md-8 padding text-center>
     <div text-right>
       <button ion-button clear *ngIf="!showAddSpeaker" (click)="showAddSpeakerForm(true)">Adicionar Ponente</button>

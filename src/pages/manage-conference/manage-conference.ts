@@ -1,11 +1,10 @@
 import { Component } from "@angular/core";
-import { IonicPage,NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { FormBuilder, Validators } from "@angular/forms";
 import { AlertController } from "ionic-angular";
 
-import { HomePage } from "./../home/home";
-import { DataProvider } from '../../providers/data';
-import { AuthProvider } from '../../providers/auth';
+import { DataProvider } from "../../providers/data";
+import { AuthProvider } from "../../providers/auth";
 
 @IonicPage()
 @Component({
@@ -21,6 +20,7 @@ export class ManageConferencePage {
   showupdateConference = false;
   testCheckboxOpen = false;
   testCheckboxResult: any;
+  isUserAuthenticated = false;
 
   constructor(
     public navCtrl: NavController,
@@ -34,25 +34,36 @@ export class ManageConferencePage {
   }
 
   ionViewDidLoad() {
-    if (!this.isAuthenticated()) this.navCtrl.push(HomePage);
+    this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        this.isUserAuthenticated = true;
+      } else {
+        this.isUserAuthenticated = false;
+        this.navCtrl.push('start');
+      }
+    });
     this.conferences = this.dataS.filterConferences("");
     this.smallDevice = this.dataS.isSmallDevice();
   }
 
   removeConference(conferenceID) {
-    this.showupdateConference = false;
-    this.dataS.deleteConference(conferenceID);
+    if (this.isUserAuthenticated) {
+      this.showupdateConference = false;
+      this.dataS.deleteConference(conferenceID);
+    }
   }
 
   loadConferenceToEdit(conference) {
-    this.showupdateConference = true;
-    this.conferenceForm.reset();
-    this.showAddConferenceForm(true);
-    this.setConferenceForm(conference);
+    if (this.isUserAuthenticated) {
+      this.showupdateConference = true;
+      this.conferenceForm.reset();
+      this.showAddConferenceForm(true);
+      this.setConferenceForm(conference);
+    }
   }
 
   updateConference() {
-    if (this.conferenceForm.valid) {
+    if (this.conferenceForm.valid && this.isUserAuthenticated) {
       this.dataS.updateConference(this.conferenceForm.value);
       this.conferenceForm.reset();
       this.setConferenceForm(undefined);
@@ -61,12 +72,8 @@ export class ManageConferencePage {
     } else this.submitAttempt = true;
   }
 
-  isAuthenticated() {
-    return this.authS.isAuthenticated();
-  }
-
   addConference() {
-    if (this.conferenceForm.valid) {
+    if (this.conferenceForm.valid && this.isUserAuthenticated) {
       this.dataS.addConference(this.conferenceForm.value);
       this.conferenceForm.reset();
       this.setConferenceForm(undefined);
@@ -311,4 +318,3 @@ export class ManageConferencePage {
     }
   }
 }
-

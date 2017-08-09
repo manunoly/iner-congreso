@@ -6,6 +6,9 @@ import { MyApp } from "./app.component";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
+import { ConferenceDetailPage } from "../pages/conference-detail/conference-detail";
+import { SpeakerDetailPage } from './../pages/speaker-detail/speaker-detail';
+import { RatePage } from './../pages/rate/rate';
 import { DataProvider } from "../providers/data";
 import { AuthProvider } from "../providers/auth";
 
@@ -26,7 +29,7 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [MyApp],
+  declarations: [MyApp, ConferenceDetailPage, RatePage, SpeakerDetailPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
@@ -35,7 +38,7 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig)
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp],
+  entryComponents: [MyApp, ConferenceDetailPage, RatePage, SpeakerDetailPage],
   providers: [
     StatusBar,
     SplashScreen,

@@ -1,10 +1,8 @@
 import { Component } from "@angular/core";
-import { IonicPage,NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { FormBuilder, Validators } from "@angular/forms";
-
-import { HomePage } from "./../home/home";
-import { DataProvider } from '../../providers/data';
-import { AuthProvider } from '../../providers/auth';
+import { DataProvider } from "../../providers/data";
+import { AuthProvider } from "../../providers/auth";
 
 @IonicPage()
 @Component({
@@ -18,6 +16,7 @@ export class ManageSpeakerPage {
   showAddSpeaker = false;
   smallDevice: boolean;
   showupdateSpeaker = false;
+  isUserAuthenticated = false;
 
   constructor(
     public navCtrl: NavController,
@@ -30,28 +29,39 @@ export class ManageSpeakerPage {
   }
 
   ionViewDidLoad() {
-    if (!this.isAuthenticated()) this.navCtrl.push(HomePage);
+    this.authS.isAdmin().subscribe(permission => {
+      if (permission.val() !== null) {
+        this.isUserAuthenticated = true;
+      } else {
+        this.isUserAuthenticated = false;
+        this.navCtrl.push('start');
+      }
+    });
     this.speakers = this.dataS.filterSpeakers("");
     this.smallDevice = this.dataS.isSmallDevice();
   }
 
   removeSpeaker(speakerID) {
-    this.showupdateSpeaker = false;
-    this.dataS.deleteSpeaker(speakerID);
+    if (this.isUserAuthenticated) {
+      this.showupdateSpeaker = false;
+      this.dataS.deleteSpeaker(speakerID);
+    }
   }
 
   loadSpeakerToEdit(speaker) {
-    this.showupdateSpeaker = true;
-    this.speakerForm.reset();
-    this.showAddSpeakerForm(true);
-    this.setSpeakerForm(speaker);
+    if (this.isUserAuthenticated) {
+      this.showupdateSpeaker = true;
+      this.speakerForm.reset();
+      this.showAddSpeakerForm(true);
+      this.setSpeakerForm(speaker);
+    }
   }
   /**
  * FIXME: Adicionar perfil de linkedin o pagina web de la persona y redes académicas (google scholar y demás).
  *
  */
   updateSpeaker() {
-    if (this.speakerForm.valid) {
+    if (this.speakerForm.valid && this.isUserAuthenticated) {
       this.dataS.updateSpeaker(this.speakerForm.value);
       this.speakerForm.reset();
       this.setSpeakerForm(undefined);
@@ -60,12 +70,8 @@ export class ManageSpeakerPage {
     } else this.submitAttempt = true;
   }
 
-  isAuthenticated() {
-    return this.authS.isAuthenticated();
-  }
-
   addSpeaker() {
-    if (this.speakerForm.valid) {
+    if (this.speakerForm.valid && this.isUserAuthenticated) {
       this.dataS.addSpeaker(this.speakerForm.value);
       this.speakerForm.reset();
       this.setSpeakerForm(undefined);

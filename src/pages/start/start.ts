@@ -8,7 +8,7 @@ import { IonicPage, NavController } from 'ionic-angular';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({name: 'start'})
 @Component({
   selector: 'page-start',
   templateUrl: 'start.html',
@@ -19,7 +19,7 @@ export class StartPage {
   }
 
   ionViewDidLoad() {
-    console.log('Wellcome, Develop by manunoly :)');
+    console.log('Welcome, Develop by manunoly :)');
   }
 
     welcome() {

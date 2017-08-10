@@ -19,7 +19,7 @@ export class StartPage {
   }
 
   ionViewDidLoad() {
-    console.log('Welcome, Develop by manunoly :)');
+    console.log('Develop by manunoly :)');
   }
 
     welcome() {

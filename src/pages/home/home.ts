@@ -8,10 +8,6 @@ import {
 
 import { DataProvider } from "../../providers/data";
 import { AuthProvider } from "../../providers/auth";
-import { ManageSpeakerPage } from "./../manage-speaker/manage-speaker";
-import { ManageConferencePage } from "./../manage-conference/manage-conference";
-import { ManageTopicPage } from "../manage-topic/manage-topic";
-import { ManageLocationPage } from "../manage-location/manage-location";
 
 @IonicPage({
   // name: 'inicio',
@@ -26,7 +22,6 @@ export class HomePage {
   picture = "../../assets/icon/favicon.ico";
   user: any;
   isAdmin: any;
-  ManageSpeakerPage: ManageSpeakerPage;
 
   constructor(
     public navCtrl: NavController,

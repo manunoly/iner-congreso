@@ -57,7 +57,7 @@ export class ManageSpeakerPage {
     }
   }
   /**
- * FIXME: Adicionar perfil de linkedin o pagina web de la persona y redes académicas (google scholar y demás).
+ * FIXME: No se actualiza el titulo scholar linkedin twitter .
  *
  */
   updateSpeaker() {

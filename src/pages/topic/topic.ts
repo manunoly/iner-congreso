@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { DataProvider } from "../../providers/data";
 
 /**
  * Generated class for the TopicPage page.
@@ -10,16 +11,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-topic',
-  templateUrl: 'topic.html',
+  selector: "page-topic",
+  templateUrl: "topic.html"
 })
 export class TopicPage {
+  topics: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private dataS: DataProvider
+  ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TopicPage');
+    this.topics = this.dataS.getTopic();
   }
-
 }

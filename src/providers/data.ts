@@ -2,13 +2,13 @@ import { Injectable } from "@angular/core";
 import { Platform, AlertController } from "ionic-angular";
 import { ToastController } from "ionic-angular";
 
-import { Observable } from 'rxjs/Rx';
+import { Observable } from "rxjs/Rx";
 
 import {
   AngularFireDatabase,
   FirebaseListObservable
 } from "angularfire2/database";
-import { AuthProvider } from './auth';
+import { AuthProvider } from "./auth";
 
 @Injectable()
 export class DataProvider {
@@ -54,10 +54,6 @@ export class DataProvider {
           orderByChild: "topic"
         }
       });
-      this.showNotification(
-        "Usuario y Contraseña no son almacenadas por esta aplicación.",
-        5000
-      );
       this.getFavoriteConferenceObj();
     } catch (error) {
       console.log(error);

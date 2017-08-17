@@ -139,18 +139,19 @@ export class MyApp {
     }
 
     // The active child nav is our Tabs Navigation
-    if (this.nav.getActiveChildNav() && page.index != undefined) {
-      this.nav.getActiveChildNav().select(page.index);
+    if (this.nav.getActiveChildNavs()[0] && page.index != undefined) {
+      this.nav.getActiveChildNavs()[0].select(page.index);
     } else {
       // Tabs are not active, so reset the root page
       // In this case: moving to or from SpecialPage
-      this.nav.setRoot(page.pageName, params);
+      if (page.pageName) this.nav.setRoot(page.pageName, params);
+      else this.nav.setRoot("NavegarPage");
     }
   }
 
   isActive(page: PageInterface) {
     // Again the Tabs Navigation
-    let childNav = this.nav.getActiveChildNav();
+    let childNav = this.nav.getActiveChildNavs()[0];
     if (childNav) {
       if (
         childNav.getSelected() &&

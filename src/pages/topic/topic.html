@@ -1,7 +1,21 @@
-  <ion-navbar>
-    <ion-title>Temas</ion-title>
-  </ion-navbar>
+<ion-navbar>
+  <ion-title>Temas</ion-title>
+</ion-navbar>
 
-<ion-content padding>
-Temas
+<ion-content>
+  <h2 ion-text color="primary" text-center text-center>Temas</h2>
+  <hr>
+  <br>
+  <div offset-md-2 col-md-8 padding>
+    <ion-list>
+      <ion-item *ngFor="let topic of topics | async" text-wrap>
+        <ion-avatar item-start>
+          <img *ngIf="!topic.profilePic" src="./../../assets/icon/favicon.ico">
+          <img *ngIf="topic.profilePic" [src]="topic.profilePic">
+        </ion-avatar>
+        <h2>{{topic.topic}}</h2>
+        <p>{{topic.description}}</p>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

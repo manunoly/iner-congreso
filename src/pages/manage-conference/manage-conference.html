@@ -13,8 +13,8 @@
 <ion-content *ngIf="isUserAuthenticated">
   <div offset-md-2 col-md-8 padding text-center>
     <div text-right>
-      <button ion-button clear *ngIf="!showAddConference" (click)="showAddConferenceForm(true)">Adicionar Conferencia</button>
-      <button ion-button clear *ngIf="showAddConference" (click)="showAddConferenceForm(false)">Ocultar Adicionar</button>
+      <button ion-button clear tappable *ngIf="!showAddConference" (click)="showAddConferenceForm(true)">Adicionar Conferencia</button>
+      <button ion-button clear tappable *ngIf="showAddConference" (click)="showAddConferenceForm(false)">Ocultar Adicionar</button>
     </div>
 
     <div *ngIf="showAddConference">
@@ -111,7 +111,7 @@
         <button type="button" title="Editar" (click)="loadConferenceToEdit(conf)" item-end ion-button clear icon-only>
         <ion-icon name="create"></ion-icon>
       </button>
-        <button type="button" title="Eliminar" item-end (click)="removeConference(conf.$key)" item-end ion-button clear icon-only>
+        <button type="button" tappable title="Eliminar" item-end (click)="removeConference(conf.$key)" item-end ion-button clear icon-only>
         <ion-icon title="Eliminar" item-end name="trash"></ion-icon>
       </button>
       </ion-item>

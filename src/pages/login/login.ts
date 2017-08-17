@@ -24,14 +24,20 @@ export class LoginPage {
   ionViewDidLoad() {}
 
   signInWithGoogle() {
-    this.authS.loginGoogle();
+    this.authS.loginGoogle().then(respon => {
+      if (respon) this.navCtrl.push("NavegarPage");
+    });
   }
 
   signInWithFacebook() {
-    this.authS.loginFacebook();
+    this.authS.loginFacebook().then(respon => {
+      if (respon) this.navCtrl.push("NavegarPage");
+    });
   }
 
   signInWithTwitter() {
-    this.authS.loginTwitter();
+    this.authS.loginTwitter().then(respon => {
+      if (respon) this.navCtrl.push("NavegarPage");
+    });
   }
 }

@@ -36,11 +36,12 @@ export class AuthProvider {
     try {
       let spiner = this.showSpiner();
       spiner.present();
-      this.afAuth.auth
+      return this.afAuth.auth
         .signInWithPopup(new firebase.auth.GoogleAuthProvider())
         .then(res => {
           spiner.dismiss();
           this.welcomeUser();
+          return true;
         })
         .catch(res => {
           spiner.dismiss();
@@ -55,11 +56,12 @@ export class AuthProvider {
     try {
       let spiner = this.showSpiner();
       spiner.present();
-      this.afAuth.auth
+      return this.afAuth.auth
         .signInWithPopup(new firebase.auth.FacebookAuthProvider())
         .then(res => {
           spiner.dismiss();
           this.welcomeUser();
+          return true;
         })
         .catch(res => {
           spiner.dismiss();
@@ -74,11 +76,12 @@ export class AuthProvider {
     try {
       let spiner = this.showSpiner();
       spiner.present();
-      this.afAuth.auth
+      return this.afAuth.auth
         .signInWithPopup(new firebase.auth.TwitterAuthProvider())
         .then(res => {
           spiner.dismiss();
           this.welcomeUser();
+          return true;
         })
         .catch(res => {
           spiner.dismiss();
@@ -200,9 +203,9 @@ export class AuthProvider {
     let toast = this.toastCtrl.create({
       message: message,
       duration: time,
-      position: "top",
+      position: "top"
       // cssClass: "text-center toastStyle",
-      dismissOnPageChange: true
+      // dismissOnPageChange: true
     });
     toast.present();
   }

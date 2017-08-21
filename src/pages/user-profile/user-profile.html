@@ -1,18 +1,30 @@
-<!--
-  Generated template for the UserProfilePage page.
+<ion-navbar>
+  <ion-title>Perfil de Usuario</ion-title>
+</ion-navbar>
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>user-profile</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-Welcome Manu
+<ion-content>
+  <h2 ion-text color="primary" text-center text-center>Perfil de Usuario</h2>
+  <hr>
+  <br>
+  <ion-card *ngIf="user | async; let user">
+    <ion-item no-lines text-center>
+      <ion-card-header>
+        <ion-avatar>
+          <img [src]="user.photoURL">
+        </ion-avatar>
+        <h2>{{ user.displayName }}</h2>
+      </ion-card-header>
+      <ion-card-content text-center>
+        <p><b>Email: </b> {{ user.email }}</p>
+        <p><b>Autenticado con: </b> {{ user.providerData[0].providerId }}</p>
+        <br>
+      </ion-card-content>
+    </ion-item>
+  </ion-card>
+  <div text-center>
+    <button ion-button clear icon-start (click)="goToHomePage()">
+      <ion-icon name="home"></ion-icon>
+      Volver al Inicio
+    </button>
+  </div>
 </ion-content>

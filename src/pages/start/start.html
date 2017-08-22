@@ -4,15 +4,34 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Start</ion-title>
-  </ion-navbar>
-
-</ion-header>
+<ion-navbar>
+  <ion-title>Bienvenidos</ion-title>
+</ion-navbar>
 
 
-<ion-content padding>
-<button ion-button (click)="welcome()">welcome</button>
+<ion-content text-center>
+  <div offset-md-2 col-md-8 padding>
+    <ion-card>
+      <ion-card-header>
+        <h1 text-Primary>Bienvenidos</h1>
+      </ion-card-header>
+      <img style="margin: auto; width: 320px; height: 240px;" src="./../../assets/img/welcome.png">
+      <ion-card-content text-center>
+        <br>
+        <div>
+          <h2>Identifícate Utilizando</h2>
+          <p>Recomendamos los Servicios de Google</p>
+          <button ion-button large icon-only clear icon-only (click)="signInWithGoogle()" color="google">
+        <ion-icon name="logo-google"></ion-icon>
+      </button>
+          <button ion-button large icon-only clear icon-only (click)="signInWithFacebook()" color="facebook">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </button>
+          <button ion-button large icon-only clear icon-only (click)="signInWithTwitter()" color="twitter">
+        <ion-icon name="logo-twitter"></ion-icon>
+      </button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

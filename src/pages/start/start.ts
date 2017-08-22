@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
+import { AuthProvider } from "../../providers/auth";
 
 /**
  * Generated class for the StartPage page.
@@ -15,7 +16,8 @@ import { IonicPage, NavController } from 'ionic-angular';
 })
 export class StartPage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,
+    private authS: AuthProvider) {
   }
 
   ionViewDidLoad() {
@@ -24,5 +26,23 @@ export class StartPage {
 
     welcome() {
     this.navCtrl.setRoot('NavegarPage');
+  }
+
+  signInWithGoogle() {
+    this.authS.loginGoogle().then(respon => {
+      if (respon) this.navCtrl.push("NavegarPage");
+    });
+  }
+
+  signInWithFacebook() {
+    this.authS.loginFacebook().then(respon => {
+      if (respon) this.navCtrl.push("NavegarPage");
+    });
+  }
+
+  signInWithTwitter() {
+    this.authS.loginTwitter().then(respon => {
+      if (respon) this.navCtrl.push("NavegarPage");
+    });
   }
 }

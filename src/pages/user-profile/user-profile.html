@@ -6,20 +6,33 @@
   <h2 ion-text color="primary" text-center text-center>Perfil de Usuario</h2>
   <hr>
   <br>
-  <ion-card *ngIf="user | async; let user">
-    <ion-item no-lines text-center>
+  <ion-card>
+    <div></div>
+
+    <ion-item *ngIf="user | async; else notUser; let userD" no-lines text-center>
       <ion-card-header>
         <ion-avatar>
-          <img [src]="user.photoURL">
+          <img [src]="userD.photoURL">
         </ion-avatar>
-        <h2>{{ user.displayName }}</h2>
+        <h2>{{ userD.displayName }}</h2>
       </ion-card-header>
       <ion-card-content text-center>
-        <p><b>Email: </b> {{ user.email }}</p>
-        <p><b>Autenticado con: </b> {{ user.providerData[0].providerId }}</p>
+        <p><b>Email: </b> {{ userD.email }}</p>
+        <p><b>Autenticado con: </b> {{ userD.providerData[0].providerId }}</p>
         <br>
       </ion-card-content>
     </ion-item>
+    <ng-template #notUser>
+      <br>
+      <h2 text-center>Usted no esta Autenticado</h2>
+      <br>
+      <div text-center>
+        <button ion-button clear icon-start (click)="goToLoginPage()">
+          <ion-icon name="person"></ion-icon>
+          Autenticarse
+        </button>
+      </div>
+    </ng-template>
   </ion-card>
   <div text-center>
     <button ion-button clear icon-start (click)="goToHomePage()">

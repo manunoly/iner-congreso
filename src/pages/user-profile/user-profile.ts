@@ -23,6 +23,9 @@ export class UserProfilePage {
     this.user = this.authS.getUser();
   }
   goToHomePage(){
-    this.navCtrl.push("navegarPage");
+    this.navCtrl.push("NavegarPage");
+  }
+  goToLoginPage(){
+    this.navCtrl.push("LoginPage");
   }
 }

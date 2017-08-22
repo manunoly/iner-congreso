@@ -49,8 +49,8 @@
   </ion-content>
 </ion-menu>
 
-<ion-fab right top mini>
-  <button ion-fab color="primary" menuToggle><ion-icon name="menu"></ion-icon></button>
+<ion-fab right top>
+  <button [attr.mini]="small ? '' : null" ion-fab color="primary" menuToggle><ion-icon name="menu"></ion-icon></button>
 </ion-fab>
 <!-- main navigation -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

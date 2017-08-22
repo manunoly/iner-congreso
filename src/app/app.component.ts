@@ -1,8 +1,10 @@
 import { Component, ViewChild } from "@angular/core";
+import { NgClass } from '@angular/common';
 import { Platform, Nav } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { AuthProvider } from "./../providers/auth";
+import { DataProvider } from '../providers/data';
 
 export interface PageInterface {
   title: string;
@@ -21,6 +23,7 @@ export class MyApp {
   picture = "../../assets/icon/favicon.ico";
   userProfile: any;
   rootPage: any = "NavegarPage";
+  small: boolean = true;
   // rootPage: any = 'StartPage';
 
   // Reference to the app's root nav
@@ -76,10 +79,10 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    private authS: AuthProvider
+    private authS: AuthProvider,
+    private dataS: DataProvider
   ) {
     this.initializeApp();
-    this.checkUserStatus();
     // used for an example of ngFor and navigation
   }
 
@@ -89,11 +92,18 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.checkUserStatus();
+      this.isSmall();
     });
   }
 
   signOut() {
     this.authS.logout();
+  }
+
+  isSmall(){
+    this.small = this.dataS.isSmallDevice();
+    console.log(this.small);
   }
 
   checkUserStatus() {

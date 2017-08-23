@@ -23,7 +23,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCoXxPbY1k929LjgLeVIir3tk4TkXV3eeI",
   authDomain: "congreso-iner.firebaseapp.com",
   databaseURL: "https://congreso-iner.firebaseio.com",
-  // projectId: "congreso-iner",
+  projectId: "congreso-iner",
   storageBucket: "congreso-iner.appspot.com",
   messagingSenderId: "615072989154"
 };

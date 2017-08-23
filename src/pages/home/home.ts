@@ -6,8 +6,7 @@ import {
   MenuController
 } from "ionic-angular";
 
-import { DataProvider } from "../../providers/data";
-import { AuthProvider } from "../../providers/auth";
+// import { DataProvider } from "../../providers/data";
 
 @IonicPage({
   // name: 'inicio',
@@ -18,17 +17,11 @@ import { AuthProvider } from "../../providers/auth";
   templateUrl: "home.html"
 })
 export class HomePage {
-  displayName = "Visitante";
-  picture = "../../assets/icon/favicon.ico";
-  user: any;
-  isAdmin: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public menuCtrl: MenuController,
-    private authS: AuthProvider,
-    private dataS: DataProvider
+    public menuCtrl: MenuController
   ) {}
 
   ionViewDidLoad() {

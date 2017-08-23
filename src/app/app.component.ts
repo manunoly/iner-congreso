@@ -1,10 +1,9 @@
 import { Component, ViewChild } from "@angular/core";
-import { NgClass } from '@angular/common';
-import { Platform, Nav } from "ionic-angular";
+import { Platform, Nav, Events } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { AuthProvider } from "./../providers/auth";
-import { DataProvider } from '../providers/data';
+import { DataProvider } from "../providers/data";
 
 export interface PageInterface {
   title: string;
@@ -12,6 +11,7 @@ export interface PageInterface {
   tabComponent?: any;
   index?: number;
   icon: string;
+  fav: boolean;
 }
 @Component({
   templateUrl: "app.html"
@@ -35,29 +35,41 @@ export class MyApp {
       pageName: "NavegarPage",
       tabComponent: "HomePage",
       index: 0,
-      icon: "home"
+      icon: "home",
+      fav: false
     },
     {
       title: "Conferencias",
       pageName: "NavegarPage",
       tabComponent: "ConferencePage",
       index: 1,
-      icon: "calendar"
+      icon: "calendar",
+      fav: false
     },
-    { title: "Temas", pageName: "TopicPage", icon: "school" },
+    { title: "Temas", pageName: "TopicPage", icon: "school", fav: false },
     {
       title: "Ponentes",
       pageName: "NavegarPage",
       tabComponent: "speakerPage",
       index: 2,
-      icon: "contacts"
+      icon: "contacts",
+      fav: false
     },
     {
       title: "Nosotros",
       pageName: "NavegarPage",
       tabComponent: "AboutPage",
       index: 3,
-      icon: "information-circle"
+      icon: "information-circle",
+      fav: false
+    },
+    {
+      title: "Mi Calendario",
+      pageName: "NavegarPage",
+      tabComponent: "ConferencePage",
+      index: 1,
+      icon: "book",
+      fav: true
     }
   ];
 
@@ -68,7 +80,7 @@ export class MyApp {
       pageName: "ManageConferencePage",
       icon: "calendar"
     },
-    { title: "Lugares", pageName: "ManageLocationPage", icon: "locate" },
+    { title: "Locales", pageName: "ManageLocationPage", icon: "locate" },
     { title: "Temáticas", pageName: "ManageTopicPage", icon: "school" }
   ];
   loginPage: any = [
@@ -80,7 +92,8 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     private authS: AuthProvider,
-    private dataS: DataProvider
+    private dataS: DataProvider,
+    private events: Events
   ) {
     this.initializeApp();
     // used for an example of ngFor and navigation
@@ -101,7 +114,7 @@ export class MyApp {
     this.authS.logout();
   }
 
-  isSmall(){
+  isSmall() {
     this.small = this.dataS.isSmallDevice();
     console.log(this.small);
   }
@@ -146,6 +159,9 @@ export class MyApp {
     // The index is equal to the order of our tabs inside tabs.ts
     if (page.index) {
       params = { tabIndex: page.index };
+      if (page.fav) {
+        this.events.publish("myCalendar");
+      }
     }
 
     // The active child nav is our Tabs Navigation

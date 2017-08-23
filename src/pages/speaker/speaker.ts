@@ -5,7 +5,6 @@ import { FormControl } from "@angular/forms";
 import { SpeakerDetailPage } from "./../speaker-detail/speaker-detail";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
 import { DataProvider } from '../../providers/data';
-import { AuthProvider } from '../../providers/auth';
 import "rxjs/add/operator/debounceTime";
 
 @IonicPage()
@@ -24,7 +23,6 @@ export class SpeakerPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private dataS: DataProvider,
-    private authS: AuthProvider
   ) {
     this.searchControl = new FormControl();
   }

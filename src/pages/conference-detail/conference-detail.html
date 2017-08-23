@@ -1,13 +1,11 @@
 <ion-navbar>
-    <ion-title>Conference-detail</ion-title>
-  </ion-navbar>
+  <ion-title>Conferencia Detalles</ion-title>
+</ion-navbar>
 
-<ion-header>
-  <ion-navbar>
-    <h2 ion-text color="primary" text-center>Conferencia</h2>
-  </ion-navbar>
-</ion-header>
 <ion-content>
+  <h2 ion-text color="primary" text-center text-center>Conferencia Detalles</h2>
+  <hr>
+  <br>
   <div offset-md-2 col-md-8 padding>
     <div *ngFor="let conf of confence | async as list">
       <ion-item no-lines text-center text-wrap>
@@ -64,4 +62,3 @@
     </div>
   </div>
 </ion-content>
-

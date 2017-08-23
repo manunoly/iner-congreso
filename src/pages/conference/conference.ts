@@ -1,14 +1,19 @@
 import { AboutPage } from "./../about/about";
 import { Component } from "@angular/core";
-import { NavController, NavParams, IonicPage } from "ionic-angular";
+import {
+  NavController,
+  NavParams,
+  IonicPage,
+  Events,
+  PopoverController,
+  ItemSliding
+} from "ionic-angular";
 import { FormControl } from "@angular/forms";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
-import { ItemSliding } from "ionic-angular";
 import { RatePage } from "./../rate/rate";
-import { PopoverController } from "ionic-angular";
 import "rxjs/add/operator/debounceTime";
-import { AuthProvider } from '../../providers/auth';
-import { DataProvider } from '../../providers/data';
+import { AuthProvider } from "../../providers/auth";
+import { DataProvider } from "../../providers/data";
 
 @IonicPage()
 @Component({
@@ -35,7 +40,8 @@ export class ConferencePage {
     public navParams: NavParams,
     private dataS: DataProvider,
     private authS: AuthProvider,
-    public popoverCtrl: PopoverController
+    public popoverCtrl: PopoverController,
+    private events: Events
   ) {
     this.searchControl = new FormControl();
     this.dayControl = new FormControl();
@@ -43,8 +49,18 @@ export class ConferencePage {
     this.favorite = new FormControl();
   }
   ionViewDidLoad() {
+    setTimeout(() => {
+      this.events.subscribe("myCalendar", _ => {
+        console.log("Filtrar Conferencias");
+        this.conferences = this.dataS.filterConferences(
+          undefined,
+          undefined,
+          undefined,
+          true
+        );
+      });
+    });
     this.topics = this.dataS.getTopic();
-    this.setFilteredConferences();
     this.searchControl.valueChanges.debounceTime(400).subscribe(search => {
       this.searching = false;
       this.setFilteredConferences();
@@ -61,6 +77,7 @@ export class ConferencePage {
       this.searching = false;
       this.setFilteredConferences();
     });
+    this.setFilteredConferences();
   }
 
   onSearchInput() {
@@ -73,10 +90,11 @@ export class ConferencePage {
   }
 
   rateConference(myEvent, conferenceID, slidingItem) {
-    let popover = this.popoverCtrl.create(RatePage,{conferenceID:conferenceID});
+    let popover = this.popoverCtrl.create(RatePage, {
+      conferenceID: conferenceID
+    });
     popover.present({
       ev: myEvent
-
     });
     slidingItem.close();
   }
@@ -127,4 +145,3 @@ export class ConferencePage {
     });
   }
 }
-

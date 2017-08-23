@@ -1,16 +1,11 @@
-
-  <ion-navbar>
-    <ion-title>Ponentes</ion-title>
-  </ion-navbar>
-
-
-<ion-header>
-  <ion-navbar>
-    <h2 ion-text color="primary" text-center>Gestionar Ponenetes</h2>
-  </ion-navbar>
-</ion-header>
+<ion-navbar>
+  <ion-title>Ponentes</ion-title>
+</ion-navbar>
 
 <ion-content *ngIf="isUserAuthenticated">
+  <h2 ion-text color="primary" text-center text-center>Gestionar Ponentes</h2>
+  <hr>
+  <br>
   <div offset-md-2 col-md-8 padding text-center>
     <div text-right>
       <button ion-button clear *ngIf="!showAddSpeaker" (click)="showAddSpeakerForm(true)">Adicionar Ponente</button>
@@ -115,4 +110,3 @@
     </ion-list>
   </div>
 </ion-content>
-

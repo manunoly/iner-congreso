@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
-import { Platform, AlertController } from "ionic-angular";
-import { ToastController } from "ionic-angular";
+import { Platform, AlertController, ToastController } from "ionic-angular";
 
-import { Observable } from "rxjs/Rx";
+// import { Observable } from "rxjs/Rx";
 
 import {
   AngularFireDatabase,
@@ -296,9 +295,9 @@ export class DataProvider {
         searchTerm === "" &&
         dayLength == 0 &&
         topicLength > 0 &&
-        favorite
+        !favorite
       ) {
-        console.log("filtrar solo por tema y favo");
+        console.log("filtrar solo por tema");
         return this.conferences.map(data =>
           data.filter(dato =>
             dato.topic.some(
@@ -655,20 +654,37 @@ export class DataProvider {
             {
               text: "Eliminar",
               handler: () => {
-                this.speakers
-                  .remove(speakerID)
-                  .then(_ => {
-                    this.showNotification("Ponente Eliminado correctamente");
-                  })
-                  .catch(_ => {
-                    this.showNotification("No se pudo eliminar el Ponente");
-                  });
+                let tmpConfe = this.filterConferences(
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  speakerID
+                ).subscribe(cantConf => {
+                  if (cantConf.length == 0) {
+                    this.speakers
+                      .remove(speakerID)
+                      .then(_ => {
+                        this.showNotification(
+                          "Ponente Eliminado correctamente"
+                        );
+                      })
+                      .catch(_ => {
+                        this.showNotification("No se pudo eliminar el Ponente");
+                      });
+                  } else
+                    this.showNotification(
+                      "El Ponenete esta asociado a conferencias"
+                    );
+                  tmpConfe.unsubscribe();
+                });
               }
             }
           ]
         });
         alert.present();
       } else this.showNotification("No tiene permisos.");
+
       observer.unsubscribe();
     });
   }
@@ -742,14 +758,37 @@ export class DataProvider {
             {
               text: "Eliminar",
               handler: () => {
-                this.location
-                  .remove(locationID)
-                  .then(_ => {
-                    this.showNotification("Ponente Eliminado correctamente");
-                  })
-                  .catch(_ => {
-                    this.showNotification("No se pudo eliminar el Ponente");
-                  });
+                let tmpLocation = this.filterConferences(
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined
+                ).subscribe(cantConf => {
+                  try {
+                    cantConf.forEach(location => {
+                      if (location.location) {
+                        location.location.forEach(element => {
+                          if (element.locationID == locationID)
+                            throw location.title;
+                        });
+                      }
+                    });
+                    this.location
+                      .remove(locationID)
+                      .then(_ => {
+                        this.showNotification("Local eliminado correctamente");
+                      })
+                      .catch(_ => {
+                        this.showNotification("No se pudo eliminar el Local");
+                      });
+                  } catch (error) {
+                    this.showNotification(
+                      "El Local esta siendo utilizado por conferencias " + error
+                    );
+                  }
+                  tmpLocation.unsubscribe();
+                });
               }
             }
           ]
@@ -827,14 +866,28 @@ export class DataProvider {
             {
               text: "Eliminar",
               handler: () => {
-                this.topic
-                  .remove(topicID)
-                  .then(_ => {
-                    this.showNotification("Tema Eliminado correctamente");
-                  })
-                  .catch(_ => {
-                    this.showNotification("No se pudo eliminar el Tema");
-                  });
+                let tmpTopic = this.filterConferences(
+                  undefined,
+                  undefined,
+                  [topicID],
+                  undefined,
+                  undefined
+                ).subscribe(cantConf => {
+                  if (cantConf.length == 0) {
+                    this.topic
+                      .remove(topicID)
+                      .then(_ => {
+                        this.showNotification("Tema Eliminado correctamente");
+                      })
+                      .catch(_ => {
+                        this.showNotification("No se pudo eliminar el Tema");
+                      });
+                  } else
+                    this.showNotification(
+                      "El Tema es utilizado en las Conferencias"
+                    );
+                  tmpTopic.unsubscribe();
+                });
               }
             }
           ]

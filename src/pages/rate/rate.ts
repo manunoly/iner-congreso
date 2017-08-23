@@ -1,4 +1,4 @@
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 import { Component } from "@angular/core";
 import { ViewController } from "ionic-angular";
 import { DataProvider } from '../../providers/data';

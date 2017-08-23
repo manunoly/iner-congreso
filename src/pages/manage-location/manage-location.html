@@ -1,14 +1,13 @@
-<ion-title>Ubicación</ion-title>
-<ion-header>
-  <ion-navbar>
-    <h2 ion-text color="primary" text-center>Gestionar Locales</h2>
-  </ion-navbar>
-</ion-header>
-
+<ion-navbar>
+  <ion-title>Locales</ion-title>
+</ion-navbar>
 <ion-content *ngIf="isUserAuthenticated">
+  <h2 ion-text color="primary" text-center text-center>Gestionar Locales</h2>
+  <hr>
+  <br>
   <div offset-md-2 col-md-8 padding text-center>
     <div text-right>
-      <button ion-button clear tappable *ngIf="!showAddLocation" (click)="showAddLocationForm(true)">Adicionar Lugar</button>
+      <button ion-button clear tappable *ngIf="!showAddLocation" (click)="showAddLocationForm(true)">Adicionar Local</button>
       <button ion-button clear tappable *ngIf="showAddLocation" (click)="showAddLocationForm(false)">Ocultar Adicionar</button>
     </div>
     <div *ngIf="showAddLocation">
@@ -53,7 +52,8 @@
         <button type="button" title="Editar" (click)="loadLocationToEdit(location)" item-end ion-button clear icon-only>
         <ion-icon name="create"></ion-icon>
       </button>
-        <button type="button" tappable title="Eliminar" item-end (click)="removeLocation(location.$key)" item-end ion-button clear icon-only>
+        <button type="button" tappable title="Eliminar" item-end (click)="removeLocation(location.$key)" item-end ion-button clear
+          icon-only>
         <ion-icon title="Eliminar" item-end name="trash"></ion-icon>
       </button>
       </ion-item>

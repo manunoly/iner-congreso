@@ -226,43 +226,29 @@ export class DataProvider {
 
   filterConferences(
     searchTerm = "",
-    day = [],
+    day = 0,
     topic = [],
     favorite = false,
     speakerID = ""
   ) {
+    console.log(day);
     if (!speakerID) {
-      let dayLength = day.length;
       let topicLength = topic.length;
-      if (searchTerm === "" && dayLength == 0 && topicLength == 0 && !favorite)
+      if (searchTerm === "" && day == 0 && topicLength == 0 && !favorite) {
+        console.log("Todas las Confe");
         return this.conferences;
-      else if (
-        searchTerm === "" &&
-        dayLength == 0 &&
-        topicLength == 0 &&
-        favorite
-      )
+      } else if (searchTerm === "" && day == 0 && topicLength == 0 && favorite)
         return this.conferences.map(data =>
           data.filter(dato => this.favConf.indexOf(dato.$key) != -1)
         );
-      else if (
-        searchTerm != "" &&
-        dayLength == 0 &&
-        topicLength == 0 &&
-        !favorite
-      ) {
+      else if (searchTerm != "" && day == 0 && topicLength == 0 && !favorite) {
         console.log("filtrar solo por texto conf");
         return this.conferences.map(data =>
           data.filter(dato =>
             dato.title.toLowerCase().includes(searchTerm.toLowerCase())
           )
         );
-      } else if (
-        searchTerm != "" &&
-        dayLength == 0 &&
-        topicLength == 0 &&
-        favorite
-      ) {
+      } else if (searchTerm != "" && day == 0 && topicLength == 0 && favorite) {
         console.log("filtrar por texto conf y fav");
         return this.conferences.map(data =>
           data.filter(
@@ -273,27 +259,27 @@ export class DataProvider {
         );
       } else if (
         searchTerm === "" &&
-        dayLength > 0 &&
+        day > 0 &&
         topicLength == 0 &&
         !favorite
       ) {
         console.log("filtrar solo por dia");
         return this.conferences.map(data =>
-          data.filter(dato => dato.day == day[day.indexOf(dato.day)])
+          data.filter(dato => dato.day == day)
         );
       } else if (
         searchTerm === "" &&
-        dayLength > 0 &&
+        day > 0 &&
         topicLength == 0 &&
         !favorite
       ) {
         console.log("filtrar solo por dia y fav");
         return this.conferences.map(data =>
-          data.filter(dato => dato.day == day[day.indexOf(dato.day)])
+          data.filter(dato => dato.day == day)
         );
       } else if (
         searchTerm === "" &&
-        dayLength == 0 &&
+        day == 0 &&
         topicLength > 0 &&
         !favorite
       ) {
@@ -307,12 +293,7 @@ export class DataProvider {
             )
           )
         );
-      } else if (
-        searchTerm === "" &&
-        dayLength == 0 &&
-        topicLength > 0 &&
-        favorite
-      ) {
+      } else if (searchTerm === "" && day == 0 && topicLength > 0 && favorite) {
         console.log("filtrar solo por tema y fav");
         return this.conferences.map(data =>
           data.filter(
@@ -322,41 +303,26 @@ export class DataProvider {
               ) && this.favConf.indexOf(dato.$key) != -1
           )
         );
-      } else if (
-        searchTerm != "" &&
-        dayLength > 0 &&
-        topicLength == 0 &&
-        !favorite
-      ) {
+      } else if (searchTerm != "" && day > 0 && topicLength == 0 && !favorite) {
         console.log("filtrar solo por dia y texto");
         return this.conferences.map(data =>
           data.filter(
             dato =>
               dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-              dato.day === day[day.indexOf(dato.day)]
+              dato.day === day
           )
         );
-      } else if (
-        searchTerm != "" &&
-        dayLength > 0 &&
-        topicLength == 0 &&
-        favorite
-      ) {
+      } else if (searchTerm != "" && day > 0 && topicLength == 0 && favorite) {
         console.log("filtrar solo por dia y texto y fav");
         return this.conferences.map(data =>
           data.filter(
             dato =>
               dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-              dato.day === day[day.indexOf(dato.day)] &&
+              dato.day === day &&
               this.favConf.indexOf(dato.$key) != -1
           )
         );
-      } else if (
-        searchTerm != "" &&
-        dayLength == 0 &&
-        topicLength > 0 &&
-        !favorite
-      ) {
+      } else if (searchTerm != "" && day == 0 && topicLength > 0 && !favorite) {
         console.log("filtrar solo por texto y tematica");
         return this.conferences.map(data =>
           data.filter(
@@ -367,12 +333,7 @@ export class DataProvider {
               )
           )
         );
-      } else if (
-        searchTerm != "" &&
-        dayLength == 0 &&
-        topicLength > 0 &&
-        favorite
-      ) {
+      } else if (searchTerm != "" && day == 0 && topicLength > 0 && favorite) {
         console.log("filtrar solo por texto y tematica y fav");
         return this.conferences.map(data =>
           data.filter(
@@ -384,27 +345,17 @@ export class DataProvider {
               this.favConf.indexOf(dato.$key) != -1
           )
         );
-      } else if (
-        searchTerm === "" &&
-        dayLength > 0 &&
-        topicLength > 0 &&
-        !favorite
-      ) {
+      } else if (searchTerm === "" && day > 0 && topicLength > 0 && !favorite) {
         console.log("filtrar solo por dia y tema");
         return this.conferences.map(data =>
           data.filter(
             dato =>
               dato.topic.some(
                 elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
-              ) && dato.day == day[day.indexOf(dato.day)]
+              ) && dato.day == day
           )
         );
-      } else if (
-        searchTerm === "" &&
-        dayLength > 0 &&
-        topicLength > 0 &&
-        favorite
-      ) {
+      } else if (searchTerm === "" && day > 0 && topicLength > 0 && favorite) {
         console.log("filtrar solo por dia y tema y fav");
         return this.conferences.map(data =>
           data.filter(
@@ -412,39 +363,29 @@ export class DataProvider {
               dato.topic.some(
                 elem => elem.topicID == topic[topic.indexOf(elem.topicID)]
               ) &&
-              dato.day == day[day.indexOf(dato.day)] &&
+              dato.day == day &&
               this.favConf.indexOf(dato.$key) != -1
           )
         );
-      } else if (
-        searchTerm != "" &&
-        dayLength > 0 &&
-        topicLength > 0 &&
-        !favorite
-      ) {
+      } else if (searchTerm != "" && day > 0 && topicLength > 0 && !favorite) {
         console.log("filtrar por texto, dia y tema");
         return this.conferences.map(data =>
           data.filter(
             dato =>
               dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-              dato.day == day[day.indexOf(dato.day)] &&
+              dato.day == day &&
               dato.topic.some(
                 elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
               )
           )
         );
-      } else if (
-        searchTerm != "" &&
-        dayLength > 0 &&
-        topicLength > 0 &&
-        favorite
-      ) {
+      } else if (searchTerm != "" && day > 0 && topicLength > 0 && favorite) {
         console.log("filtrar por texto, dia y tema y fav");
         return this.conferences.map(data =>
           data.filter(
             dato =>
               dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-              dato.day == day[day.indexOf(dato.day)] &&
+              dato.day == day &&
               dato.topic.some(
                 elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
               ) &&

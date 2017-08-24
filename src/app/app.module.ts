@@ -9,6 +9,7 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { ConferenceDetailPage } from "../pages/conference-detail/conference-detail";
 import { SpeakerDetailPage } from './../pages/speaker-detail/speaker-detail';
 import { RatePage } from './../pages/rate/rate';
+import { FilterTopicPage } from '../pages/filter-topic/filter-topic';
 import { DataProvider } from "../providers/data";
 import { AuthProvider } from "../providers/auth";
 
@@ -29,7 +30,7 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [MyApp, ConferenceDetailPage, RatePage, SpeakerDetailPage],
+  declarations: [MyApp, ConferenceDetailPage, RatePage, FilterTopicPage, SpeakerDetailPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
@@ -38,7 +39,7 @@ const firebaseConfig = {
     AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, ConferenceDetailPage, RatePage, SpeakerDetailPage],
+  entryComponents: [MyApp, ConferenceDetailPage, RatePage, FilterTopicPage, SpeakerDetailPage],
   providers: [
     StatusBar,
     SplashScreen,

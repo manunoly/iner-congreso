@@ -1,3 +1,4 @@
+import { FilterTopicPage } from './../filter-topic/filter-topic';
 import { AboutPage } from "./../about/about";
 import { Component } from "@angular/core";
 import {
@@ -29,11 +30,12 @@ export class ConferencePage {
   topicControl: FormControl;
   favorite: FormControl;
   searching: any = false;
-  filterDay = [];
   filterTopic = [];
   search: boolean = true;
   favConf = [];
   conferencesFavorite: boolean = false;
+  day: number = 0;
+  excludeTracks: any;
 
   constructor(
     public navCtrl: NavController,
@@ -118,16 +120,17 @@ export class ConferencePage {
   }
 
   reset() {
-    this.conferences = this.dataS.filterConferences();
-    this.filterDay = [];
     this.filterTopic = [];
     this.searchTerm = "";
+    this.day = 0;
+    this.conferencesFavorite = false;
+    this.conferences = this.dataS.filterConferences();
   }
 
   setFilteredConferences() {
     this.conferences = this.dataS.filterConferences(
       this.searchTerm,
-      this.filterDay,
+      this.day,
       this.filterTopic,
       this.conferencesFavorite
     );
@@ -143,5 +146,19 @@ export class ConferencePage {
     this.navCtrl.push(AboutPage, {
       item: item
     });
+  }
+
+  popFilterTopic() {
+    // this.sectionTopic.open();
+/*     let modal = this.popoverCtrl.create(FilterTopicPage,{topics: this.filterTopic});
+    modal.present({
+      ev: myEvent
+    });
+    modal.onDidDismiss((data: any[]) => {
+      if (data) {
+        console.log("data");
+        console.log(data);
+      }
+    }); */
   }
 }

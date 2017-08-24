@@ -39,10 +39,10 @@ export class SpeakerDetailPage {
 
   getConference() {
     let objConf = this.dataS.filterConferences(
-      "",
-      [],
-      [],
-      false,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
       this.speakerID
     ).subscribe(conf => {
       let speakerConf = [];

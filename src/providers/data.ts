@@ -231,7 +231,6 @@ export class DataProvider {
     favorite = false,
     speakerID = ""
   ) {
-    console.log(day);
     if (!speakerID) {
       let topicLength = topic.length;
       if (searchTerm === "" && day == 0 && topicLength == 0 && !favorite) {
@@ -288,8 +287,7 @@ export class DataProvider {
           data.filter(dato =>
             dato.topic.some(
               elem =>
-                elem.topicID === topic[topic.indexOf(elem.topicID)] &&
-                this.favConf.indexOf(dato.$key) != -1
+                elem.topicID === topic[topic.indexOf(elem.topicID)]
             )
           )
         );

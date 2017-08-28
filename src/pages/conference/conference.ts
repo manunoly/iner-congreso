@@ -1,4 +1,4 @@
-import { FilterTopicPage } from './../filter-topic/filter-topic';
+import { FilterTopicPage } from "./../filter-topic/filter-topic";
 import { AboutPage } from "./../about/about";
 import { Component } from "@angular/core";
 import {
@@ -7,7 +7,8 @@ import {
   IonicPage,
   Events,
   PopoverController,
-  ItemSliding
+  ItemSliding,
+  Item
 } from "ionic-angular";
 import { FormControl } from "@angular/forms";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
@@ -36,6 +37,7 @@ export class ConferencePage {
   conferencesFavorite: boolean = false;
   day: number = 0;
   excludeTracks: any;
+  activeItemSliding: ItemSliding = null;
 
   constructor(
     public navCtrl: NavController,
@@ -53,7 +55,9 @@ export class ConferencePage {
   ionViewDidLoad() {
     setTimeout(() => {
       this.events.subscribe("myCalendar", _ => {
-        console.log("Filtrar Conferencias");
+        console.log(
+          "Filtrar Conferencias desde comp conferencias ionViewDidLoad"
+        );
         this.conferences = this.dataS.filterConferences(
           undefined,
           undefined,
@@ -107,27 +111,49 @@ export class ConferencePage {
 
   addFavorite(conferenceID, slidingItem: ItemSliding) {
     this.dataS.addFavorite(conferenceID);
-    slidingItem.close();
   }
 
-  removeFavorite(conferenceID) {
+  removeFavorite(conferenceID, slidingItem) {
     this.dataS.removeFavorite(conferenceID);
-    // console.log(conferenceID);
+  }
+
+  openOption(itemSlide: ItemSliding, item: Item) {
+    console.log("opening item slide..");
+
+    this.activeItemSliding = itemSlide;
+
+    let swipeAmount = 194; //set your required swipe amount
+
+    itemSlide.startSliding(swipeAmount);
+    itemSlide.moveSliding(swipeAmount);
+
+    itemSlide.setElementClass("active-options-right", true);
+    itemSlide.setElementClass("active-swipe-right", true);
+
+    item.setElementStyle("transition", null);
+    item.setElementStyle(
+      "transform",
+      "translate3d(-" + swipeAmount + "px, 0px, 0px)"
+    );
   }
 
   showHideSearch() {
     this.search = !this.search;
   }
 
-  reset() {
-    this.filterTopic = [];
+  filterAll() {
     this.searchTerm = "";
     this.day = 0;
+    this.filterTopic = [];
     this.conferencesFavorite = false;
-    this.conferences = this.dataS.filterConferences();
+    this.setFilteredConferences();
   }
 
   setFilteredConferences() {
+    console.log(this.searchTerm);
+    console.log(this.day);
+    console.log(this.filterTopic);
+    console.log(this.conferencesFavorite);
     this.conferences = this.dataS.filterConferences(
       this.searchTerm,
       this.day,
@@ -148,17 +174,25 @@ export class ConferencePage {
     });
   }
 
-  popFilterTopic() {
-    // this.sectionTopic.open();
-/*     let modal = this.popoverCtrl.create(FilterTopicPage,{topics: this.filterTopic});
-    modal.present({
-      ev: myEvent
+  popFilterTopic(myEvent) {
+    let modal = this.popoverCtrl.create(FilterTopicPage, {
+      topics: this.filterTopic
     });
+    modal
+      .present({
+        ev: myEvent
+      })
+      .then(_ => {})
+      .catch(_ => {});
     modal.onDidDismiss((data: any[]) => {
       if (data) {
-        console.log("data");
-        console.log(data);
+        this.searching = true;
+        this.filterTopic = data;
+        this.setFilteredConferences();
+        setTimeout(() => {
+          this.searching = false;
+        });
       }
-    }); */
+    });
   }
 }

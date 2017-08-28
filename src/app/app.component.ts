@@ -116,7 +116,6 @@ export class MyApp {
 
   isSmall() {
     this.small = this.dataS.isSmallDevice();
-    console.log(this.small);
   }
 
   checkUserStatus() {

@@ -6,54 +6,56 @@
   <h2 ion-text color="primary" text-center text-center>Conferencias</h2>
   <hr>
   <div offset-md-2 col-md-8 padding>
-    <ion-segment color="dark" [(ngModel)]="day" [formControl]="dayControl" (ionChange)="onSearchInput()">
-      <ion-segment-button value=0>
-        <div color="">Todos</div>
-      </ion-segment-button>
-      <ion-segment-button value=20>
-        20
-      </ion-segment-button>
-      <ion-segment-button value=21>
-        21
-      </ion-segment-button>
-      <ion-segment-button value=22>
-        22
-      </ion-segment-button>
-    </ion-segment>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="popFilterTopic($event)">
+    <ion-card>
+      <ion-row>
+        <ion-col col-10>
+          <ion-segment color="dark" [(ngModel)]="day" [formControl]="dayControl" (ionChange)="onSearchInput()">
+            <ion-segment-button value=0>
+              Días
+            </ion-segment-button>
+            <ion-segment-button value=20>
+              20
+            </ion-segment-button>
+            <ion-segment-button value=21>
+              21
+            </ion-segment-button>
+            <ion-segment-button value=22>
+              22
+            </ion-segment-button>
+          </ion-segment>
+        </ion-col>
+        <ion-col col-1>
+          <ion-buttons text-center>
+            <button ion-button icon-only (click)="popFilterTopic($event)">
           <ion-icon name="options"></ion-icon>
         </button>
-    </ion-buttons>
-    <!--<ion-item float-end col-6 col-sm-4>-->
-    <ion-list no-lines float-right text-right>
-      <ion-item [hidden]="!isAuthenticated()">
-        <ion-label>Mi Calendario</ion-label>
-        <ion-checkbox [(ngModel)]="conferencesFavorite" [formControl]="favorite" (ionChange)="onSearchInput()"></ion-checkbox>
-      </ion-item>
-      <ion-item>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+      <!--<ion-item float-end col-6 col-sm-4>-->
+      <ion-list no-lines float-right text-right>
+        <ion-item [hidden]="!isAuthenticated()">
+          <ion-label>Mi Calendario</ion-label>
+          <ion-checkbox [(ngModel)]="conferencesFavorite" [formControl]="favorite" (ionChange)="onSearchInput()"></ion-checkbox>
+        </ion-item>
+        <!--       <ion-item>
         <button item-end ion-button icon-left color="light" round small (click)="showHideSearch()"><ion-icon name="search"></ion-icon>Filtros</button>
-      </ion-item>
-    </ion-list>
-    <ion-card [hidden]="search">
+      </ion-item> -->
+      </ion-list>
       <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
-      <ion-item>
-        <ion-label>Temas</ion-label>
-        <ion-select multiple="true" [(ngModel)]="filterTopic" [formControl]="dayControl" (ionChange)="onSearchInput()">
-          <ion-option *ngFor="let topic of topics | async" [value]="topic.$key" [selected]="true">{{topic.topic}}</ion-option>
-        </ion-select>
+      <!--     <ion-card [hidden]="search">
+    </ion-card> -->
+      <ion-item *ngIf="searching" class="spinner-container">
+        <ion-spinner></ion-spinner>
       </ion-item>
     </ion-card>
-    <ion-item *ngIf="searching" class="spinner-container">
-      <ion-spinner></ion-spinner>
-    </ion-item>
     <ion-list *ngIf="conferences | async; let conferencesD">
       <span #item *ngFor='let conference of (conferences | async); let i = index'>
         <ion-list-header text-color="primary" no-lines *ngIf="i == 0 || conference.day !== conferencesD[i - 1].day">
           Día {{ conference.day }}
         </ion-list-header>
         <ion-item-sliding #slidingItem>
-          <ion-item text-wrap>
+          <ion-item #item (click)="openOption(slidingItem, item)" text-wrap>
             <ion-avatar item-start>
               <img *ngIf="!conference.profilePic" src="./../../assets/icon/favicon.ico">
               <img *ngIf="conference.profilePic" [src]="conference.profilePic">

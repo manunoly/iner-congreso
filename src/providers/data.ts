@@ -101,6 +101,11 @@ export class DataProvider {
     if (this.favConf.indexOf(conferenceID) != -1) return true;
   }
 
+  hasFavoriteConference() {
+    if (this.favConf.length > 0) return true;
+    else return false;
+  }
+
   addFavorite(conferenceID) {
     if (this.userUid) {
       if (this.favConf.indexOf(conferenceID) == -1) {
@@ -286,8 +291,7 @@ export class DataProvider {
         return this.conferences.map(data =>
           data.filter(dato =>
             dato.topic.some(
-              elem =>
-                elem.topicID === topic[topic.indexOf(elem.topicID)]
+              elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
             )
           )
         );

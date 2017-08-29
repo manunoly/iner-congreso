@@ -38,6 +38,7 @@ export class ConferencePage {
   day: number = 0;
   excludeTracks: any;
   activeItemSliding: ItemSliding = null;
+  hasFavorite = false;
 
   constructor(
     public navCtrl: NavController,
@@ -66,7 +67,7 @@ export class ConferencePage {
         );
       });
     });
-    this.topics = this.dataS.getTopic();
+    // this.topics = this.dataS.getTopic();
     this.searchControl.valueChanges.debounceTime(400).subscribe(search => {
       this.searching = false;
       this.setFilteredConferences();
@@ -83,6 +84,7 @@ export class ConferencePage {
       this.searching = false;
       this.setFilteredConferences();
     });
+    this.hasFavorite = this.dataS.hasFavoriteConference();
     this.setFilteredConferences();
   }
 
@@ -118,12 +120,9 @@ export class ConferencePage {
   }
 
   openOption(itemSlide: ItemSliding, item: Item) {
-    console.log("opening item slide..");
-
+    this.dataS.showNotification("Deslice hacia la Izquierda");
     this.activeItemSliding = itemSlide;
-
-    let swipeAmount = 194; //set your required swipe amount
-
+    let swipeAmount = 125; //set your required swipe amount
     itemSlide.startSliding(swipeAmount);
     itemSlide.moveSliding(swipeAmount);
 

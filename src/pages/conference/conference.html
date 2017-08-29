@@ -50,12 +50,12 @@
       </ion-item>
     </ion-card>
     <ion-list *ngIf="conferences | async; let conferencesD">
-      <span #item *ngFor='let conference of (conferences | async); let i = index'>
+      <span #item *ngFor='let conference of (conferences | async); let i = index; let first = first; let last = last'>
         <ion-list-header text-color="primary" no-lines *ngIf="i == 0 || conference.day !== conferencesD[i - 1].day">
           Día {{ conference.day }}
         </ion-list-header>
         <ion-item-sliding #slidingItem>
-          <ion-item #item (click)="openOption(slidingItem, item)" text-wrap>
+          <ion-item #item text-wrap>
             <ion-avatar item-start>
               <img *ngIf="!conference.profilePic" src="./../../assets/icon/favicon.ico">
               <img *ngIf="conference.profilePic" [src]="conference.profilePic">
@@ -77,9 +77,13 @@
                   {{ location.name }}
               </p>
             </div>
-  <p>{{ conference.shortDescription }}</p>
-  </ion-item>
-  <ion-item-options side="right">
+            <p>{{ conference.shortDescription }}</p>
+
+            <button *ngIf="(first || last) && !hasFavorite" data-toggle="Deslizar Izquierda" (click)="openOption(slidingItem, item)" item-end ion-button clear icon-only>
+              <ion-icon name="return-left"></ion-icon>
+            </button>
+          </ion-item>
+        <ion-item-options side="right">
     <button (click)="addFavorite(conference.$key, slidingItem)" item-end ion-button clear>
       <ion-icon name="star"></ion-icon>
       Asistiré

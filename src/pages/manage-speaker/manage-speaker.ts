@@ -90,7 +90,6 @@ export class ManageSpeakerPage {
           "Manuel Almaguer",
           Validators.compose([
             Validators.maxLength(100),
-            Validators.pattern("[a-zA-Z ]*"),
             Validators.required
           ])
         ],
@@ -144,7 +143,6 @@ export class ManageSpeakerPage {
           speaker.name,
           Validators.compose([
             Validators.maxLength(100),
-            Validators.pattern("[a-zA-Z ]*"),
             Validators.required
           ])
         ],

@@ -149,10 +149,6 @@ export class ConferencePage {
   }
 
   setFilteredConferences() {
-    console.log(this.searchTerm);
-    console.log(this.day);
-    console.log(this.filterTopic);
-    console.log(this.conferencesFavorite);
     this.conferences = this.dataS.filterConferences(
       this.searchTerm,
       this.day,

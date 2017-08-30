@@ -62,6 +62,7 @@ export class ManageSpeakerPage {
  */
   updateSpeaker() {
     if (this.speakerForm.valid && this.isUserAuthenticated) {
+      console.log(this.speakerForm.value);
       this.dataS.updateSpeaker(this.speakerForm.value);
       this.speakerForm.reset();
       this.setSpeakerForm(undefined);
@@ -86,8 +87,8 @@ export class ManageSpeakerPage {
     if (speaker === undefined) {
       this.speakerForm = this.formBuilder.group({
         name: [
-          // "",
-          "Manuel Almaguer",
+          "",
+          // "Manuel Almaguer",
           Validators.compose([
             Validators.maxLength(100),
             Validators.required
@@ -102,8 +103,8 @@ export class ManageSpeakerPage {
           ])
         ],
         degree: [
-          // "",
-          "Ing. Sistemas",
+          "",
+          // "Ing. Sistemas",
           Validators.compose([Validators.maxLength(100), Validators.required])
         ],
         googleScholar: [
@@ -126,13 +127,13 @@ export class ManageSpeakerPage {
           Validators.compose([Validators.maxLength(100), Validators.required])
         ],
         shortAbout: [
-          // "",
-          "Ing. Sistemas",
+          "",
+          // "Ing. Sistemas",
           Validators.compose([Validators.maxLength(1000), Validators.required])
         ],
         about: [
-          // "",
-          "Ing. Sistemas",
+          "",
+          // "Ing. Sistemas",
           Validators.compose([Validators.maxLength(10000), Validators.required])
         ]
       });
@@ -143,7 +144,6 @@ export class ManageSpeakerPage {
           speaker.name,
           Validators.compose([
             Validators.maxLength(100),
-            Validators.pattern("[a-zA-Z ]*"),
             Validators.required
           ])
         ],

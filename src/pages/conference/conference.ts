@@ -1,5 +1,5 @@
 import { FilterTopicPage } from "./../filter-topic/filter-topic";
-import { AboutPage } from "./../about/about";
+// import { AboutPage } from "./../about/about";
 import { Component } from "@angular/core";
 import {
   NavController,
@@ -163,11 +163,11 @@ export class ConferencePage {
     });
   }
 
-  itemTapped(event, item) {
+/*   itemTapped(event, item) {
     this.navCtrl.push(AboutPage, {
       item: item
     });
-  }
+  } */
 
   popFilterTopic(myEvent) {
     let modal = this.popoverCtrl.create(FilterTopicPage, {

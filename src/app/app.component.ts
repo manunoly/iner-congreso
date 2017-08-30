@@ -81,7 +81,9 @@ export class MyApp {
       icon: "calendar"
     },
     { title: "Locales", pageName: "ManageLocationPage", icon: "locate" },
-    { title: "Temáticas", pageName: "ManageTopicPage", icon: "school" }
+    { title: "Temáticas", pageName: "ManageTopicPage", icon: "school" },
+    { title: "Asistentes", pageName: "ConferenceAlertPage", icon: "information-circle" }
+
   ];
   loginPage: any = [
     { title: "Iniciar Sesión", pageName: "LoginPage", icon: "person" }

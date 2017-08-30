@@ -564,6 +564,10 @@ export class DataProvider {
         this.speakers
           .update(speaker.id, {
             name: speaker.name,
+            degree: speaker.degree,
+            googleScholar: speaker.googleScholar,
+            linkedin: speaker.linkedin,
+            twitter: speaker.twitter,
             profilePic: speaker.profilePic,
             shortAbout: speaker.shortAbout,
             about: speaker.about,

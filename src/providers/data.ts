@@ -178,6 +178,10 @@ export class DataProvider {
     return this.smallDevice;
   }
 
+  deviceSize() {
+    return this.platform.width();
+  }
+
   getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);

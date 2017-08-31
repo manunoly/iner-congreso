@@ -1,49 +1,6 @@
-<ion-title>Inicio</ion-title>
+<ion-title>Congreso INER 2017</ion-title>
 
 <ion-content text-center>
-  <div offset-md-2 col-md-8 padding>
-    <img src="./../../assets/img/idi_.png">
-    <p> Congreso Investigación Desarrollo e Innovación en Sostenibilidad Energética 2017</p>
-
-    <ion-card>
-      <ion-card-header>
-        Congreso INER 2017
-      </ion-card-header>
-      <ion-card-content>
-        <p>
-          Es el tercer evento internacional organizado por el INER que se realizará bajo el marco del Innovative Smart Grid Technologies
-          (ISGTLA) desarrollado por el Institute of Electrical and Electronics Engineers (IEEE) Power and Energy Society
-          (PES) capítulo Ecuador.
-        </p>
-        <p>
-          El encuentro se llevará a cabo el 20, 21 y 22 de septiembre de 2017 en el JW Marriott Hotel de la ciudad de Quito.
-        </p>
-        <p>
-          Esperamos que al evento se den cita instituciones y personas comprometidas con el desarrollo de la investigación científica
-          y el avance tecnológico, que promuevan el uso racional de la energía y el desarrollo de nuevas fuentes limpias
-          y renovables.
-        </p>
-        <p>
-          En este contexto, damos la bienvenida a todos los interesados a participar de esta iniciativa única en el Ecuador. Esperamos
-          que sea una experiencia beneficiosa para quienes asistan.
-        </p>
-      </ion-card-content>
-    </ion-card>
-    <ion-grid>
-      <ion-item float-end item-end no-lines>
-        <!--Timeline Button -->
-        <a float-end href="https://twitter.com/intent/tweet?button_hashtag=INER_EC" class="twitter-hashtag-button" data-show-count="false">Tweet #INER_EC</a>
-      </ion-item>
-      <ion-row>
-        <ion-col col-md-6>
-          <!--Ultimos Twit from INER_EC -->
-          <a class="twitter-timeline" height="600px" tweet-limit="10" href="https://twitter.com/INER_EC">Tweets by INER_EC</a>
-        </ion-col>
-        <ion-col col-md-6 style="max-height: 600px">
-          <!--Ultimos Twit from hasgtag inercongres FIXME: data-tweet-limit=5 en twitter arreglar el contenido cuando me digan el hash del congreso-->
-          <a class="twitter-timeline" data-height="600px" href="https://twitter.com/hashtag/angular4" data-widget-id="887705957941354496">#Iner_EC Tweets</a>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+    <img *ngIf="small" alt="INER Ecuador" src="./../../assets/img/portadilla_vertical.jpg" class="slide-image"/>
+    <img *ngIf="!small" alt="INER Ecuador" src="./../../assets/img/portadilla_horizontal.jpg" class="slide-image"/>
 </ion-content>

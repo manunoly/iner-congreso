@@ -11,26 +11,34 @@
           <ion-list-header text-color="primary" no-lines *ngIf="i == 0 || conference.day !== conferencesD[i - 1].day">
             Día {{ conference.day }}
           </ion-list-header>
-          <div *ngIf="first" float-rigth>
-            <a>Capacidad</a>
-            <a>Asistentes</a>
+  <ion-item #item text-wrap>
+    <ion-avatar item-start>
+      <img *ngIf="!conference.profilePic" src="./../../assets/icon/favicon.ico">
+      <img *ngIf="conference.profilePic" [src]="conference.profilePic">
+    </ion-avatar>
+    <a (click)="goToConferenceDetail(conference.$key)">{{ conference.title }}</a>
+    <p>Hora: {{conference.timeStart }} - {{ conference.timeEnd }}</p>
+    <div *ngIf="conference.location.length">
+        <div *ngIf="first" item-end>
+            <ion-row xs-2>
+              <ion-col text-center>Cap</ion-col>
+              <ion-col text-center>Asist</ion-col>
+            </ion-row>
           </div>
-            <ion-item #item text-wrap>
-              <ion-avatar item-start>
-                <img *ngIf="!conference.profilePic" src="./../../assets/icon/favicon.ico">
-                <img *ngIf="conference.profilePic" [src]="conference.profilePic">
-              </ion-avatar>
-              <a (click)="goToConferenceDetail(conference.$key)">{{ conference.title }}</a>
-              <p>Hora: {{conference.timeStart }} - {{ conference.timeEnd }}</p>
-              <div *ngIf="conference.location.length" >
-                <h3 class="h3">Ubicación: </h3>
-                <p *ngFor="let location of conference.location">
-                    {{ location.name }}
-                </p>
-              </div>
-              <p>{{ conference.shortDescription }}</p>
-            </ion-item>
-    </span>
-    </ion-list>
+      <h3 class="h3">Ubicación: </h3>
+      <span *ngFor="let location of conference.location">
+        {{ location.name }}
+        <div float-right>
+            <ion-row xs-2>
+              <ion-col text-center>{{location.capacity}}</ion-col>
+              <ion-col text-center>{{location.capacity}}</ion-col>
+            </ion-row>
+          </div>
+      </span>
+  </div>
+  <p>{{ conference.shortDescription }}</p>
+  </ion-item>
+  </span>
+  </ion-list>
   </div>
 </ion-content>

@@ -29,4 +29,7 @@ export class HomePage {
   ionViewDidLoad(){
     this.small = this.dataS.isSmallDevice();
    }
+   /**
+    * TODO: Fix color
+    */
 }

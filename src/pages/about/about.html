@@ -22,9 +22,9 @@
     </ion-slide>
     <ion-slide text-wrap>
       <ion-content>
-        <div style="max-width: 800px; margin: 0 auto; padding-top: 10%;">
+        <div style="max-width: 600px; margin: 0 auto; padding-top: 10%;">
           <h2>Resultados de Gestión de Conocimiento</h2>
-          <ion-list>
+          <ion-list no-lines>
             <ion-item>
               <ion-avatar item-start>
                 <img src="./../../assets/img/iconografía/publicaciones_ico.png">
@@ -59,7 +59,63 @@
         </div>
       </ion-content>
     </ion-slide>
-
+    <ion-slide>
+      <div *ngIf="!small" style="max-width: 400px; margin: 0 auto; padding-top: 10%;">
+        <h2 color="dark">Redes Sociales</h2>
+        <ion-row>
+          <ion-col>
+            <ion-avatar>
+              <a target="_blank" href="https://www.youtube.com/channel/UCOGPbqL4SSAuVGoURUBqJ_Q">
+              <img src="./../../assets/img/redes_sociales/youtube_logo.png">
+            </a>
+            </ion-avatar>
+          </ion-col>
+          <ion-col>
+            <ion-avatar>
+              <a target="_blank" href="https://www.facebook.com/INEREcuador/">
+                <img src="./../../assets/img/redes_sociales/facebook_logo.png">
+              </a>
+            </ion-avatar>
+          </ion-col>
+          <ion-col>
+            <ion-avatar>
+              <a target="_blank" href="https://twitter.com/INER_EC">
+                <img src="./../../assets/img/redes_sociales/twitter_logo.png">
+              </a>
+            </ion-avatar>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div *ngIf="small" style="max-width: 350px; margin: 0 auto; padding-top: 20%;">
+        <h2 style="color: #9bbe54"><b>Redes Sociales</b></h2>
+        <ion-list no-lines>
+          <ion-item>
+            <ion-avatar item-start>
+              <a target="_blank" href="https://www.youtube.com/channel/UCOGPbqL4SSAuVGoURUBqJ_Q">
+                <img src="./../../assets/img/redes_sociales/youtube_logo.png">
+              </a>
+            </ion-avatar>
+            <a target="_blank" href="https://www.youtube.com/channel/UCOGPbqL4SSAuVGoURUBqJ_Q">Canal Youtube INER</a>
+          </ion-item>
+          <ion-item>
+            <ion-avatar item-start>
+              <a target="_blank" href="https://www.facebook.com/INEREcuador/">
+                <img src="./../../assets/img/redes_sociales/facebook_logo.png">
+              </a>
+            </ion-avatar>
+            <a target="_blank" href="https://www.facebook.com/INEREcuador/">Facebook INER</a>
+          </ion-item>
+          <ion-item>
+            <ion-avatar item-start>
+              <a target="_blank" href="https://twitter.com/INER_EC">
+                  <img src="./../../assets/img/redes_sociales/twitter_logo.png">
+              </a>
+            </ion-avatar>
+            <a target="_blank" href="https://twitter.com/INER_EC">Twitter INER</a>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-slide>
     <ion-slide>
       <ion-content>
         <ion-grid>

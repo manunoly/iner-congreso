@@ -120,7 +120,7 @@ export class ConferencePage {
   }
 
   openOption(itemSlide: ItemSliding, item: Item) {
-    this.dataS.showNotification("Deslice hacia la Izquierda");
+    this.dataS.showNotification("Deslice hacia la Izquierda para mostrar estas opciones");
     this.activeItemSliding = itemSlide;
     let swipeAmount = 125; //set your required swipe amount
     itemSlide.startSliding(swipeAmount);

@@ -10,6 +10,9 @@
       <span #item *ngFor='let conference of (conferences | async); let i = index; let first = first'>
           <ion-list-header text-color="primary" no-lines *ngIf="i == 0 || conference.day !== conferencesD[i - 1].day">
             Día {{ conference.day }}
+            <div float-right xs-1>
+                <h2 color="dark"><b>Cap Asist</b></h2>
+            </div>
           </ion-list-header>
   <ion-item #item text-wrap>
     <ion-avatar item-start>
@@ -19,24 +22,18 @@
     <a (click)="goToConferenceDetail(conference.$key)">{{ conference.title }}</a>
     <p>Hora: {{conference.timeStart }} - {{ conference.timeEnd }}</p>
     <div *ngIf="conference.location.length">
-        <div *ngIf="first" item-end>
-            <ion-row xs-2>
-              <ion-col text-center>Cap</ion-col>
-              <ion-col text-center>Asist</ion-col>
-            </ion-row>
-          </div>
       <h3 class="h3">Ubicación: </h3>
       <span *ngFor="let location of conference.location">
         {{ location.name }}
         <div float-right>
-            <ion-row xs-2>
-              <ion-col text-center>{{location.capacity}}</ion-col>
-              <ion-col text-center>{{location.capacity}}</ion-col>
-            </ion-row>
-          </div>
+          <ion-row xs-2>
+            <ion-col>{{location.capacity}}</ion-col>
+            <ion-col>{{conference.assistants}}</ion-col>
+          </ion-row>
+        </div>
       </span>
   </div>
-  <p>{{ conference.shortDescription }}</p>
+  <!-- <p>{{ conference.shortDescription }}</p> -->
   </ion-item>
   </span>
   </ion-list>

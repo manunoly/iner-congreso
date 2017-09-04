@@ -1,10 +1,11 @@
 <ion-menu side="right" [content]="content">
-  <ion-header style="background-color: blue">
+  <ion-header style="background-color:#1da1f4">
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-title text-center>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
+    <br>
     <div text-center *ngIf="isAdmin; then login else notLogin"></div>
     <ng-template #login>
       <ion-list>

@@ -3,7 +3,7 @@
 </ion-navbar>
 
 <ion-content *ngIf="isUserAuthenticated">
-  <h2 ion-text color="primary" text-center text-center>Gestionar Temáticas</h2>
+  <h2 ion-text color="secondary" text-center text-center>Gestionar Temáticas</h2>
   <hr>
   <br>
   <div offset-md-2 col-md-8 padding text-center>
@@ -30,8 +30,8 @@
             <ion-input formControlName="description" type="text"></ion-input>
           </ion-item>
           <br>
-          <button *ngIf="!showupdateTopic" type="button" ion-button color="primary" (click)="addTopic()">Adicionar</button>
-          <button *ngIf="showupdateTopic" type="button" ion-button color="primary" (click)="updateTopic()">Actualizar</button>
+          <button *ngIf="!showupdateTopic" type="button" ion-button color="secondary" (click)="addTopic()">Adicionar</button>
+          <button *ngIf="showupdateTopic" type="button" ion-button color="secondary" (click)="updateTopic()">Actualizar</button>
         </form>
         <br>
       </ion-list>

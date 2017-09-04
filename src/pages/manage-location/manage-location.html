@@ -2,7 +2,7 @@
   <ion-title>Locales</ion-title>
 </ion-navbar>
 <ion-content *ngIf="isUserAuthenticated">
-  <h2 ion-text color="primary" text-center text-center>Gestionar Locales</h2>
+  <h2 ion-text color="secondary" text-center text-center>Gestionar Locales</h2>
   <hr>
   <br>
   <div offset-md-2 col-md-8 padding text-center>
@@ -33,8 +33,8 @@
             <ion-input formControlName="capacity" type="number"></ion-input>
           </ion-item>
           <br>
-          <button *ngIf="!showupdateLocation" type="button" ion-button color="primary" (click)="addLocation()">Adicionar</button>
-          <button *ngIf="showupdateLocation" type="button" ion-button color="primary" (click)="updateLocation()">Actualizar</button>
+          <button *ngIf="!showupdateLocation" type="button" ion-button color="secondary" (click)="addLocation()">Adicionar</button>
+          <button *ngIf="showupdateLocation" type="button" ion-button color="secondary" (click)="updateLocation()">Actualizar</button>
         </form>
         <br>
       </ion-list>

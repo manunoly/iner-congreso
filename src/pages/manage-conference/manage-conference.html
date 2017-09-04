@@ -3,7 +3,7 @@
 </ion-navbar>
 
 <ion-content *ngIf="isUserAuthenticated">
-    <h2 ion-text color="primary" text-center text-center>Gestionar Conferencias</h2>
+    <h2 ion-text color="secondary" text-center text-center>Gestionar Conferencias</h2>
     <hr>
     <br>
   <div offset-md-2 col-md-8 padding text-center>
@@ -85,8 +85,8 @@
           </ion-item>
 
           <br>
-          <button *ngIf="!showupdateConference" type="button" ion-button color="primary" (click)="addConference()">Adicionar</button>
-          <button *ngIf="showupdateConference" type="button" ion-button color="primary" (click)="updateConference()">Actualizar</button>
+          <button *ngIf="!showupdateConference" type="button" ion-button color="secondary" (click)="addConference()">Adicionar</button>
+          <button *ngIf="showupdateConference" type="button" ion-button color="secondary" (click)="updateConference()">Actualizar</button>
         </form>
         <br>
       </ion-list>

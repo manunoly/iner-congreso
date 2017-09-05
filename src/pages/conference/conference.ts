@@ -39,6 +39,7 @@ export class ConferencePage {
   excludeTracks: any;
   activeItemSliding: ItemSliding = null;
   hasFavorite = false;
+  congreso = "";
 
   constructor(
     public navCtrl: NavController,
@@ -149,6 +150,7 @@ export class ConferencePage {
   }
 
   setFilteredConferences() {
+    console.log(this.congreso);
     this.conferences = this.dataS.filterConferences(
       this.searchTerm,
       this.day,

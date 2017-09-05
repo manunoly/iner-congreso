@@ -5,8 +5,34 @@
 <ion-content>
   <h2 ion-text color="secondary" text-center text-center>Conferencias</h2>
   <hr>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="congreso" color="secondary">
+      <ion-segment-button value="camera">
+        <ion-icon name="camera"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="bookmark">
+        <ion-icon name="bookmark"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
   <div offset-md-2 col-md-8 padding>
     <ion-card>
+      <ion-row>
+        <ion-col>
+          <ion-segment color="dark" [(ngModel)]="congreso" [formControl]="dayControl" (ionChange)="onSearchInput()">
+            <ion-segment-button color="primary" value="">
+              Todas
+            </ion-segment-button>
+            <hr>
+            <ion-segment-button value="iner">
+              INER
+            </ion-segment-button>
+            <ion-segment-button value="iee">
+              IEEE
+            </ion-segment-button>
+          </ion-segment>
+        </ion-col>
+      </ion-row>
       <ion-row>
         <ion-col col-10>
           <ion-segment color="dark" [(ngModel)]="day" [formControl]="dayControl" (ionChange)="onSearchInput()">

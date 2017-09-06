@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SpeakerDetailPage } from './speaker-detail';
 
@@ -11,3 +11,4 @@ import { SpeakerDetailPage } from './speaker-detail';
   ],
 })
 export class SpeakerDetailPageModule {}
+ */

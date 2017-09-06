@@ -6,12 +6,12 @@ import { MyApp } from "./app.component";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
-import { ConferenceDetailPage } from "../pages/conference-detail/conference-detail";
+import { ConferenceDetailPage } from "./../pages/conference-detail/conference-detail";
 import { SpeakerDetailPage } from './../pages/speaker-detail/speaker-detail';
 import { RatePage } from './../pages/rate/rate';
-import { FilterTopicPage } from '../pages/filter-topic/filter-topic';
-import { DataProvider } from "../providers/data";
-import { AuthProvider } from "../providers/auth";
+import { FilterTopicPage } from './../pages/filter-topic/filter-topic';
+import { AuthProvider } from "./../providers/auth";
+import { DataProvider } from "./../providers/data";
 
 //firebase
 import { AngularFireModule } from "angularfire2";

@@ -2,8 +2,8 @@ import { Component, ViewChild } from "@angular/core";
 import { Platform, Nav, Events } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
+import { DataProvider } from "./../providers/data";
 import { AuthProvider } from "./../providers/auth";
-import { DataProvider } from "../providers/data";
 
 export interface PageInterface {
   title: string;
@@ -20,7 +20,7 @@ export class MyApp {
   user: any;
   isAdmin: any;
   displayName = "Visitante";
-  picture = "../../assets/icon/favicon.ico";
+  picture = "./../../assets/icon/favicon.ico";
   userProfile: any;
   rootPage: any = "NavegarPage";
   small: boolean = true;

@@ -4,8 +4,19 @@
   </ion-navbar>
 <ion-content>
   <h2 ion-text color="secondary" text-center text-center>Ponentes</h2>
-  <hr>
-
+  <ion-toolbar>
+      <ion-segment [(ngModel)]="congreso"  [formControl]="congresoControl" (ionChange)="onSearchInput()" color="secondary">
+        <ion-segment-button value="INER">
+          <span item-end>INER</span>
+        </ion-segment-button>
+        <ion-segment-button value="">
+          Todos
+        </ion-segment-button>
+        <ion-segment-button value="IEEE">
+          IEEE
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
   <div offset-md-2 col-md-8 padding>
     <p *ngFor="let item of speaker | async as list">
       {{ item.name }} {{ item.shortAbout }}

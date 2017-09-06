@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
 import {  IonicPage,NavController, NavParams, PopoverController } from "ionic-angular";
 
-import { DataProvider } from '../../providers/data';
+import { DataProvider } from './../../providers//data';
 import { SpeakerDetailPage } from "./../speaker-detail/speaker-detail";
-import { RatePage } from "../rate/rate";
-@IonicPage()
+import { RatePage } from "./../rate/rate";
+
+// @IonicPage()
 @Component({
   selector: "page-conference-detail",
   templateUrl: "conference-detail.html"

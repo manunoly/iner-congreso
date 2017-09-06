@@ -2,9 +2,9 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { FormBuilder, Validators } from "@angular/forms";
 import { AlertController } from "ionic-angular";
-
-import { DataProvider } from "../../providers/data";
-import { AuthProvider } from "../../providers/auth";
+import { CongresoValidator } from "./congreso-validator";
+import { DataProvider } from "./../../providers/data";
+import { AuthProvider } from "./../../providers/auth";
 
 @IonicPage()
 @Component({
@@ -39,7 +39,7 @@ export class ManageConferencePage {
         this.isUserAuthenticated = true;
       } else {
         this.isUserAuthenticated = false;
-        this.navCtrl.push('start');
+        this.navCtrl.push("start");
       }
     });
     this.conferences = this.dataS.filterConferences("");
@@ -226,6 +226,10 @@ export class ManageConferencePage {
           "",
           Validators.compose([Validators.maxLength(300), Validators.required])
         ],
+        congreso: [
+          "IEEE",
+          Validators.compose([Validators.required, CongresoValidator.isValid])
+        ],
         date: [
           "2017-09-20",
           Validators.compose([Validators.maxLength(20), Validators.required])
@@ -273,6 +277,10 @@ export class ManageConferencePage {
         title: [
           conference.title,
           Validators.compose([Validators.maxLength(300), Validators.required])
+        ],
+        congreso: [
+          conference.congreso,
+          Validators.compose([CongresoValidator.isValid, Validators.required])
         ],
         date: [
           conference.date.split(" ")[0],

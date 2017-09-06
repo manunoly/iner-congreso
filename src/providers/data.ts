@@ -238,25 +238,61 @@ export class DataProvider {
     day = 0,
     topic = [],
     favorite = false,
-    speakerID = ""
+    speakerID = "",
+    congreso = ""
   ) {
     if (!speakerID) {
       let topicLength = topic.length;
-      if (searchTerm === "" && day == 0 && topicLength == 0 && !favorite) {
+      if (
+        !searchTerm &&
+        day == 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        !congreso
+      ) {
         console.log("Todas las Confe");
         return this.conferences;
-      } else if (searchTerm === "" && day == 0 && topicLength == 0 && favorite)
+      } else if (
+        !searchTerm &&
+        day == 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        congreso
+      ) {
+        console.log("Todas las Confe IEE o INER");
+        return this.conferences.map(data =>
+          data.filter(dato => dato.congreso == congreso)
+        );
+      } else if (
+        !searchTerm &&
+        day == 0 &&
+        topicLength == 0 &&
+        favorite &&
+        !congreso
+      )
         return this.conferences.map(data =>
           data.filter(dato => this.favConf.indexOf(dato.$key) != -1)
         );
-      else if (searchTerm != "" && day == 0 && topicLength == 0 && !favorite) {
+      else if (
+        searchTerm &&
+        day == 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        !congreso
+      ) {
         console.log("filtrar solo por texto conf");
         return this.conferences.map(data =>
           data.filter(dato =>
             dato.title.toLowerCase().includes(searchTerm.toLowerCase())
           )
         );
-      } else if (searchTerm != "" && day == 0 && topicLength == 0 && favorite) {
+      } else if (
+        searchTerm &&
+        day == 0 &&
+        topicLength == 0 &&
+        favorite &&
+        !congreso
+      ) {
         console.log("filtrar por texto conf y fav");
         return this.conferences.map(data =>
           data.filter(
@@ -266,30 +302,33 @@ export class DataProvider {
           )
         );
       } else if (
-        searchTerm === "" &&
+        !searchTerm &&
         day > 0 &&
         topicLength == 0 &&
-        !favorite
+        !favorite &&
+        !congreso
       ) {
         console.log("filtrar solo por dia");
         return this.conferences.map(data =>
           data.filter(dato => dato.day == day)
         );
       } else if (
-        searchTerm === "" &&
+        !searchTerm &&
         day > 0 &&
         topicLength == 0 &&
-        !favorite
+        !favorite &&
+        !congreso
       ) {
         console.log("filtrar solo por dia y fav");
         return this.conferences.map(data =>
           data.filter(dato => dato.day == day)
         );
       } else if (
-        searchTerm === "" &&
+        !searchTerm &&
         day == 0 &&
         topicLength > 0 &&
-        !favorite
+        !favorite &&
+        !congreso
       ) {
         console.log("filtrar solo por tema");
         return this.conferences.map(data =>
@@ -299,7 +338,13 @@ export class DataProvider {
             )
           )
         );
-      } else if (searchTerm === "" && day == 0 && topicLength > 0 && favorite) {
+      } else if (
+        !searchTerm &&
+        day == 0 &&
+        topicLength > 0 &&
+        favorite &&
+        !congreso
+      ) {
         console.log("filtrar solo por tema y fav");
         return this.conferences.map(data =>
           data.filter(
@@ -309,7 +354,13 @@ export class DataProvider {
               ) && this.favConf.indexOf(dato.$key) != -1
           )
         );
-      } else if (searchTerm != "" && day > 0 && topicLength == 0 && !favorite) {
+      } else if (
+        searchTerm &&
+        day > 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        !congreso
+      ) {
         console.log("filtrar solo por dia y texto");
         return this.conferences.map(data =>
           data.filter(
@@ -318,7 +369,13 @@ export class DataProvider {
               dato.day === day
           )
         );
-      } else if (searchTerm != "" && day > 0 && topicLength == 0 && favorite) {
+      } else if (
+        searchTerm &&
+        day > 0 &&
+        topicLength == 0 &&
+        favorite &&
+        !congreso
+      ) {
         console.log("filtrar solo por dia y texto y fav");
         return this.conferences.map(data =>
           data.filter(
@@ -328,7 +385,13 @@ export class DataProvider {
               this.favConf.indexOf(dato.$key) != -1
           )
         );
-      } else if (searchTerm != "" && day == 0 && topicLength > 0 && !favorite) {
+      } else if (
+        searchTerm &&
+        day == 0 &&
+        topicLength > 0 &&
+        !favorite &&
+        !congreso
+      ) {
         console.log("filtrar solo por texto y tematica");
         return this.conferences.map(data =>
           data.filter(
@@ -339,7 +402,13 @@ export class DataProvider {
               )
           )
         );
-      } else if (searchTerm != "" && day == 0 && topicLength > 0 && favorite) {
+      } else if (
+        searchTerm &&
+        day == 0 &&
+        topicLength > 0 &&
+        favorite &&
+        !congreso
+      ) {
         console.log("filtrar solo por texto y tematica y fav");
         return this.conferences.map(data =>
           data.filter(
@@ -351,7 +420,13 @@ export class DataProvider {
               this.favConf.indexOf(dato.$key) != -1
           )
         );
-      } else if (searchTerm === "" && day > 0 && topicLength > 0 && !favorite) {
+      } else if (
+        !searchTerm &&
+        day > 0 &&
+        topicLength > 0 &&
+        !favorite &&
+        !congreso
+      ) {
         console.log("filtrar solo por dia y tema");
         return this.conferences.map(data =>
           data.filter(
@@ -361,7 +436,13 @@ export class DataProvider {
               ) && dato.day == day
           )
         );
-      } else if (searchTerm === "" && day > 0 && topicLength > 0 && favorite) {
+      } else if (
+        !searchTerm &&
+        day > 0 &&
+        topicLength > 0 &&
+        favorite &&
+        !congreso
+      ) {
         console.log("filtrar solo por dia y tema y fav");
         return this.conferences.map(data =>
           data.filter(
@@ -373,7 +454,13 @@ export class DataProvider {
               this.favConf.indexOf(dato.$key) != -1
           )
         );
-      } else if (searchTerm != "" && day > 0 && topicLength > 0 && !favorite) {
+      } else if (
+        searchTerm &&
+        day > 0 &&
+        topicLength > 0 &&
+        !favorite &&
+        !congreso
+      ) {
         console.log("filtrar por texto, dia y tema");
         return this.conferences.map(data =>
           data.filter(
@@ -385,7 +472,13 @@ export class DataProvider {
               )
           )
         );
-      } else if (searchTerm != "" && day > 0 && topicLength > 0 && favorite) {
+      } else if (
+        searchTerm &&
+        day > 0 &&
+        topicLength > 0 &&
+        favorite &&
+        !congreso
+      ) {
         console.log("filtrar por texto, dia y tema y fav");
         return this.conferences.map(data =>
           data.filter(
@@ -398,15 +491,249 @@ export class DataProvider {
               this.favConf.indexOf(dato.$key) != -1
           )
         );
+      } else if (
+        searchTerm &&
+        day == 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        congreso
+      ) {
+        // anadiendo filtro por congreso
+        console.log("filtrar solo por texto conf y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.congreso == congreso
+          )
+        );
+      } else if (
+        searchTerm &&
+        day == 0 &&
+        topicLength == 0 &&
+        favorite &&
+        congreso
+      ) {
+        console.log("filtrar por texto conf y fav y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              this.favConf.indexOf(dato.$key) != -1 &&
+              dato.congreso == congreso
+          )
+        );
+      } else if (
+        !searchTerm &&
+        day > 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        congreso
+      ) {
+        console.log("filtrar solo por dia y Congreso");
+        return this.conferences.map(dato =>
+          dato.filter(dato => dato.day == day && dato.congreso == congreso)
+        );
+      } else if (
+        !searchTerm &&
+        day > 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        congreso
+      ) {
+        console.log("filtrar solo por dia y fav y Congreso");
+        return this.conferences.map(data =>
+          data.filter(dato => dato.day == day && dato.congreso == congreso)
+        );
+      } else if (
+        !searchTerm &&
+        day == 0 &&
+        topicLength > 0 &&
+        !favorite &&
+        congreso
+      ) {
+        console.log("filtrar solo por tema y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              ) && dato.congreso == congreso
+          )
+        );
+      } else if (
+        !searchTerm &&
+        day == 0 &&
+        topicLength > 0 &&
+        favorite &&
+        congreso
+      ) {
+        console.log("filtrar solo por tema y fav y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              ) &&
+              this.favConf.indexOf(dato.$key) != -1 &&
+              dato.congreso == congreso
+          )
+        );
+      } else if (
+        searchTerm &&
+        day > 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        congreso
+      ) {
+        console.log("filtrar solo por dia y texto y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.day === day &&
+              dato.congreso == congreso
+          )
+        );
+      } else if (
+        searchTerm &&
+        day > 0 &&
+        topicLength == 0 &&
+        favorite &&
+        congreso
+      ) {
+        console.log("filtrar solo por dia y texto y fav y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.day === day &&
+              this.favConf.indexOf(dato.$key) != -1 &&
+              dato.congreso == congreso
+          )
+        );
+      } else if (
+        searchTerm &&
+        day == 0 &&
+        topicLength > 0 &&
+        !favorite &&
+        congreso
+      ) {
+        console.log("filtrar solo por texto y tematica y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.congreso == congreso &&
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              )
+          )
+        );
+      } else if (
+        searchTerm &&
+        day == 0 &&
+        topicLength > 0 &&
+        favorite &&
+        congreso
+      ) {
+        console.log("filtrar solo por texto y tematica y fav y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              ) &&
+              this.favConf.indexOf(dato.$key) != -1 &&
+              dato.congreso == congreso
+          )
+        );
+      } else if (
+        !searchTerm &&
+        day > 0 &&
+        topicLength > 0 &&
+        !favorite &&
+        congreso
+      ) {
+        console.log("filtrar solo por dia y tema y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              ) &&
+              dato.day == day &&
+              dato.congreso == congreso
+          )
+        );
+      } else if (
+        !searchTerm &&
+        day > 0 &&
+        topicLength > 0 &&
+        favorite &&
+        congreso
+      ) {
+        console.log("filtrar solo por dia y tema y fav y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.topic.some(
+                elem => elem.topicID == topic[topic.indexOf(elem.topicID)]
+              ) &&
+              dato.day == day &&
+              this.favConf.indexOf(dato.$key) != -1 &&
+              dato.congreso == congreso
+          )
+        );
+      } else if (
+        searchTerm &&
+        day > 0 &&
+        topicLength > 0 &&
+        !favorite &&
+        congreso
+      ) {
+        console.log("filtrar por texto, dia y tema y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.day == day &&
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              ) &&
+              dato.congreso == congreso
+          )
+        );
+      } else if (
+        searchTerm &&
+        day > 0 &&
+        topicLength > 0 &&
+        favorite &&
+        congreso
+      ) {
+        console.log("filtrar por texto, dia y tema y fav y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.day == day &&
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              ) &&
+              this.favConf.indexOf(dato.$key) != -1 &&
+              dato.congreso == congreso
+          )
+        );
       }
-    } else {
+    } else if (speakerID != "") {
       console.log("Conf para speaker");
       return this.conferences.map(data =>
         data.filter(dato =>
           dato.speakers.some(elem => elem.speakerID === speakerID)
         )
       );
-    }
+    } else return this.conferences;
   }
 
   filterConference(conferenceID) {
@@ -422,6 +749,7 @@ export class DataProvider {
         this.conferences
           .push({
             title: conference.title,
+            congreso: conference.congreso,
             profilePic: conference.profilePic,
             shortDescription: conference.shortDescription,
             description: conference.description,
@@ -454,6 +782,7 @@ export class DataProvider {
         this.conferences
           .update(conference.id, {
             title: conference.title,
+            congreso: conference.congreso,
             profilePic: conference.profilePic,
             shortDescription: conference.shortDescription,
             description: conference.description,
@@ -521,13 +850,28 @@ export class DataProvider {
     );
   }
 
-  filterSpeakers(searchTerm) {
-    if (searchTerm === "") return this.speakers;
-    return this.speakers.map(data =>
-      data.filter(dato =>
-        dato.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
+  filterSpeakers(searchTerm = "", congreso = "") {
+    if (!searchTerm && !congreso) {
+      return this.speakers;
+    } else if (searchTerm && !congreso) {
+      return this.speakers.map(data =>
+        data.filter(dato =>
+          dato.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    } else if (!searchTerm && congreso) {
+      return this.speakers.map(data =>
+        data.filter(dato => dato.congreso == congreso)
+      );
+    } else if (searchTerm && congreso)
+      return this.speakers.map(data =>
+        data.filter(
+          dato =>
+            dato.congreso == congreso &&
+            dato.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    return this.speakers;
   }
 
   addSpeaker(speaker) {
@@ -536,6 +880,7 @@ export class DataProvider {
         this.speakers
           .push({
             name: speaker.name,
+            congreso: speaker.congreso,
             degree: speaker.degree,
             googleScholar: speaker.googleScholar,
             linkedin: speaker.linkedin,
@@ -562,12 +907,30 @@ export class DataProvider {
     });
   }
 
+/*   foceUpdateSpeaker() {
+    this.filterSpeakers().subscribe(sp => {
+      sp.forEach(element => {
+        this.speakers
+          .update(element.$key, {
+            congreso: "INER"
+          })
+          .then(_ => {
+            console.log("Ponente actualizado correctamente"+element.name);
+          })
+          .catch(_ => {
+            this.showNotification("El Ponente no pudo ser actualizado");
+          });
+      });
+    });
+  } */
+
   updateSpeaker(speaker) {
     let observer = this.authS.isAdmin().subscribe(permission => {
       if (permission.val() !== null) {
         this.speakers
           .update(speaker.id, {
             name: speaker.name,
+            congreso: speaker.congreso,            
             degree: speaker.degree,
             googleScholar: speaker.googleScholar,
             linkedin: speaker.linkedin,

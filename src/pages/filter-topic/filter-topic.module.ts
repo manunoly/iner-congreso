@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { FilterTopicPage } from './filter-topic';
 
@@ -11,3 +11,4 @@ import { FilterTopicPage } from './filter-topic';
   ],
 })
 export class FilterTopicPageModule {}
+ */

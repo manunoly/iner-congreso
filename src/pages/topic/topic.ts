@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
-import { DataProvider } from "../../providers/data";
+import { DataProvider } from "./../../providers/data";
 
 /**
  * Generated class for the TopicPage page.

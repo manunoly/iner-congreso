@@ -14,8 +14,8 @@ import { FormControl } from "@angular/forms";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
 import { RatePage } from "./../rate/rate";
 import "rxjs/add/operator/debounceTime";
-import { AuthProvider } from "../../providers/auth";
-import { DataProvider } from "../../providers/data";
+import { AuthProvider } from "./../../providers/auth";
+import { DataProvider } from "./../../providers/data";
 
 @IonicPage()
 @Component({
@@ -30,6 +30,7 @@ export class ConferencePage {
   dayControl: FormControl;
   topicControl: FormControl;
   favorite: FormControl;
+  congresoControl: FormControl;
   searching: any = false;
   filterTopic = [];
   search: boolean = true;
@@ -53,6 +54,7 @@ export class ConferencePage {
     this.dayControl = new FormControl();
     this.topicControl = new FormControl();
     this.favorite = new FormControl();
+    this.congresoControl = new FormControl();    
   }
   ionViewDidLoad() {
     setTimeout(() => {
@@ -64,7 +66,9 @@ export class ConferencePage {
           undefined,
           undefined,
           undefined,
-          true
+          true,
+          undefined,
+          undefined
         );
       });
     });
@@ -85,9 +89,14 @@ export class ConferencePage {
       this.searching = false;
       this.setFilteredConferences();
     });
+    this.congresoControl.valueChanges.debounceTime(400).subscribe(search => {
+      this.searching = false;
+      this.setFilteredConferences();
+    });
     this.hasFavorite = this.dataS.hasFavoriteConference();
     this.setFilteredConferences();
   }
+  
 
   onSearchInput() {
     this.searching = true;
@@ -155,7 +164,9 @@ export class ConferencePage {
       this.searchTerm,
       this.day,
       this.filterTopic,
-      this.conferencesFavorite
+      this.conferencesFavorite,
+      undefined,
+      this.congreso
     );
   }
 

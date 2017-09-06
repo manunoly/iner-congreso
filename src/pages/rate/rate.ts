@@ -1,9 +1,9 @@
 import { IonicPage } from 'ionic-angular';
 import { Component } from "@angular/core";
 import { ViewController } from "ionic-angular";
-import { DataProvider } from '../../providers/data';
+import { DataProvider } from './../../providers//data';
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: "page-rate",
   templateUrl: "rate.html"

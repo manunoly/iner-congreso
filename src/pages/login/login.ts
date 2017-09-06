@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
-import { AuthProvider } from "../../providers/auth";
+import { AuthProvider } from "./../../providers/auth";
 
 /**
  * Generated class for the LoginPage page.

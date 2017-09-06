@@ -4,7 +4,7 @@ import { FormControl } from "@angular/forms";
 
 import { SpeakerDetailPage } from "./../speaker-detail/speaker-detail";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
-import { DataProvider } from '../../providers/data';
+import { DataProvider } from './../../providers/data';
 import "rxjs/add/operator/debounceTime";
 
 @IonicPage()
@@ -17,19 +17,26 @@ export class SpeakerPage {
   speaker: any;
   searchTerm: string = "";
   searchControl: FormControl;
+  congresoControl: FormControl;  
   searching: any = false;
-
+  congreso = "";
+  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private dataS: DataProvider,
   ) {
     this.searchControl = new FormControl();
+    this.congresoControl = new FormControl();    
   }
 
   ionViewDidLoad() {
     this.setFilteredSpeakers();
     this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
+      this.searching = false;
+      this.setFilteredSpeakers();
+    });
+    this.congresoControl.valueChanges.debounceTime(400).subscribe(search => {
       this.searching = false;
       this.setFilteredSpeakers();
     });
@@ -59,7 +66,7 @@ export class SpeakerPage {
   }
 
   setFilteredSpeakers() {
-    this.speakers = this.dataS.filterSpeakers(this.searchTerm);
+    this.speakers = this.dataS.filterSpeakers(this.searchTerm,this.congreso);
   }
 }
 

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ConferenceDetailPage } from './conference-detail';
 
@@ -10,4 +10,4 @@ import { ConferenceDetailPage } from './conference-detail';
     IonicPageModule.forChild(ConferenceDetailPage),
   ],
 })
-export class ConferenceDetailPageModule {}
+export class ConferenceDetailPageModule {} */

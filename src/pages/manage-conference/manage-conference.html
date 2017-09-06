@@ -3,9 +3,9 @@
 </ion-navbar>
 
 <ion-content *ngIf="isUserAuthenticated">
-    <h2 ion-text color="secondary" text-center text-center>Gestionar Conferencias</h2>
-    <hr>
-    <br>
+  <h2 ion-text color="secondary" text-center text-center>Gestionar Conferencias</h2>
+  <hr>
+  <br>
   <div offset-md-2 col-md-8 padding text-center>
     <div text-right>
       <button ion-button clear tappable *ngIf="!showAddConference" (click)="showAddConferenceForm(true)">Adicionar Conferencia</button>
@@ -23,8 +23,12 @@
             <ion-input formControlName="title" type="text"></ion-input>
           </ion-item>
           <ion-item>
+            <ion-label>Congreso:</ion-label>
+            <ion-input formControlName="congreso" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
             <ion-label>Fecha</ion-label>
-            <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" formControlName="date" dayValues="20,21,22" monthValues="09"
+            <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" formControlName="date" dayValues="19,20,21,22" monthValues="09"
               yearValues="2017">
             </ion-datetime>
           </ion-item>

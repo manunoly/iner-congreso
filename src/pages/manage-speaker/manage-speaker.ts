@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { FormBuilder, Validators } from "@angular/forms";
-import { DataProvider } from "../../providers/data";
-import { AuthProvider } from "../../providers/auth";
+import { DataProvider } from "./../../providers/data";
+import { AuthProvider } from "./../../providers/auth";
+import { CongresoValidator } from "./../manage-conference/congreso-validator";
 
 @IonicPage()
 @Component({
@@ -34,7 +35,7 @@ export class ManageSpeakerPage {
         this.isUserAuthenticated = true;
       } else {
         this.isUserAuthenticated = false;
-        this.navCtrl.push('start');
+        this.navCtrl.push("start");
       }
     });
     this.speakers = this.dataS.filterSpeakers("");
@@ -89,10 +90,12 @@ export class ManageSpeakerPage {
         name: [
           "",
           // "Manuel Almaguer",
-          Validators.compose([
-            Validators.maxLength(100),
-            Validators.required
-          ])
+          Validators.compose([Validators.maxLength(100), Validators.required])
+        ],
+        congreso: [
+          "IEEE",
+          // "Manuel Almaguer",
+          Validators.compose([Validators.required, CongresoValidator.isValid])
         ],
         profilePic: [
           "./../../assets/icon/favicon.ico",
@@ -142,10 +145,11 @@ export class ManageSpeakerPage {
         id: [speaker.$key],
         name: [
           speaker.name,
-          Validators.compose([
-            Validators.maxLength(100),
-            Validators.required
-          ])
+          Validators.compose([Validators.maxLength(100), Validators.required])
+        ],
+        congreso: [
+          speaker.congreso,
+          Validators.compose([Validators.required, CongresoValidator.isValid])
         ],
         profilePic: [
           speaker.profilePic,

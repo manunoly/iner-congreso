@@ -725,6 +725,36 @@ export class DataProvider {
               dato.congreso == congreso
           )
         );
+      }  else if (
+        !searchTerm &&
+        day > 0 &&
+        topicLength == 0 &&
+        favorite &&
+        congreso
+      ) {
+        console.log("filtrar por dia y fav y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.day == day &&
+              this.favConf.indexOf(dato.$key) != -1 &&
+              dato.congreso == congreso
+          )
+        );
+      }else if (
+        !searchTerm &&
+        day == 0 &&
+        topicLength === 0 &&
+        favorite &&
+        congreso
+      ) {
+        console.log("filtrar por fav y Congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              this.favConf.indexOf(dato.$key) != -1 && dato.congreso == congreso
+          )
+        );
       }
     } else if (speakerID != "") {
       console.log("Conf para speaker");
@@ -907,7 +937,7 @@ export class DataProvider {
     });
   }
 
-/*   foceUpdateSpeaker() {
+  /*   foceUpdateSpeaker() {
     this.filterSpeakers().subscribe(sp => {
       sp.forEach(element => {
         this.speakers
@@ -930,7 +960,7 @@ export class DataProvider {
         this.speakers
           .update(speaker.id, {
             name: speaker.name,
-            congreso: speaker.congreso,            
+            congreso: speaker.congreso,
             degree: speaker.degree,
             googleScholar: speaker.googleScholar,
             linkedin: speaker.linkedin,

@@ -1,5 +1,5 @@
 {
-    "name": "iner-congreso-2017",
+    "name": "congreso-2017",
     "version": "0.0.1",
     "author": "Manuel Almaguer",
     "homepage": "http://ionicframework.com/",
@@ -24,7 +24,7 @@
         "@ionic-native/splash-screen": "3.12.1",
         "@ionic-native/status-bar": "3.12.1",
         "@ionic/storage": "2.0.1",
-        "angularfire2": "^4.0.0-rc.2",
+        "angularfire2": "^4.0.0-rc.1",
         "cordova-android": "^6.2.3",
         "cordova-browser": "^4.1.0",
         "cordova-ios": "^4.4.0",

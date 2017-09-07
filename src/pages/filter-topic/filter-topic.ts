@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, ViewController } from "ionic-angular";
+import { ViewController } from "ionic-angular";
 import { DataProvider } from "./../../providers/data";
 
 /**

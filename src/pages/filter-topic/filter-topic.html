@@ -9,15 +9,16 @@
     </ion-item>
   </ion-list>
 
+<ion-buttons text-center>
+    <button ion-button color="secondary" (click)="applyFilters()" strong>Filtrar</button>
+    <button ion-button color="dark" (click)="dismiss()">Cancel</button>
+  </ion-buttons>
+
   <div text-center>
     <button ion-button clear color="dark" (click)="resetFilters()">
       Reiniciar Filtros
     </button>
   </div>
-
-  <ion-buttons text-center>
-    <button ion-button clear color="dark" (click)="dismiss()">Cancel</button>
-    <button ion-button clear color="dark" (click)="applyFilters()" strong>Filtrar</button>
-  </ion-buttons>
-
+  <br>
+  <br>
 </ion-content>

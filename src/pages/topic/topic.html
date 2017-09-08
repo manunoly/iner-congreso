@@ -13,7 +13,7 @@
           <img *ngIf="!topic.profilePic" src="./../../assets/icon/favicon.ico">
           <img *ngIf="topic.profilePic" [src]="topic.profilePic">
         </ion-avatar>
-        <h2>{{topic.topic}}</h2>
+        <a>{{topic.topic}}</a>
         <p>{{topic.description}}</p>
       </ion-item>
     </ion-list>

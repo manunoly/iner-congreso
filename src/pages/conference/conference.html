@@ -77,7 +77,7 @@
               <button *ngIf="isFavorite(conference.$key)" data-toggle="Eliminar de Favoritas" (click)="removeFavorite(conference.$key)" item-end ion-button clear icon-only>
                 <ion-icon name="star"></ion-icon>
               </button>
-              <h3><a color="#232e48" (click)="goToConferenceDetail(conference.$key)">{{ conference.title }}</a></h3>
+              <a (click)="goToConferenceDetail(conference.$key)">{{ conference.title }}</a>
               <p>Hora: {{conference.timeStart }} - {{ conference.timeEnd }}</p>
               <div *ngIf="conference.topic.length" >
                 <h3>Tema</h3>
@@ -92,7 +92,7 @@
                 </p>
               </div>
               <p>{{ conference.shortDescription }}</p>
-  
+
               <button *ngIf="(first || last) && !hasFavorite" data-toggle="Deslizar Izquierda" (click)="openOption(slidingItem, item)" item-end ion-button clear icon-only>
                 <ion-icon name="return-left"></ion-icon>
               </button>

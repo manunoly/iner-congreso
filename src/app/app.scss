@@ -30,7 +30,13 @@ a {
   max-height: 60px !important; //any size
 }
 
-h2, h1, h3 {
+h2,
+h1,
+h3 {
   color: #232e48;
   font-weight: bold;
+}
+a {
+  font-size: 18px;
+  color: #232e48;
 }

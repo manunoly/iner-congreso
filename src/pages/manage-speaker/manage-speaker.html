@@ -66,8 +66,8 @@
           </ion-select>
         </ion-item>-->
           <br>
-          <button *ngIf="!showupdateSpeaker" tappable type="button" ion-button color="secondary" (click)="addSpeaker()">Adicionar</button>
-          <button *ngIf="showupdateSpeaker" tappable type="button" ion-button color="secondary" (click)="updateSpeaker()">Actualizar</button>
+          <button *ngIf="!showupdateSpeaker"  type="button" ion-button color="secondary" (click)="addSpeaker()">Adicionar</button>
+          <button *ngIf="showupdateSpeaker" type="button" ion-button color="secondary" (click)="updateSpeaker()">Actualizar</button>
         </form>
         <br>
       </ion-list>
@@ -86,7 +86,7 @@
         <button type="button" title="Editar" (click)="loadSpeakerToEdit(speak)" item-end ion-button clear icon-only>
         <ion-icon name="create"></ion-icon>
       </button>
-        <button tappable type="button" title="Eliminar" item-end (click)="removeSpeaker(speak.$key)" item-end ion-button clear icon-only>
+        <button type="button" title="Eliminar" item-end (click)="removeSpeaker(speak.$key)" item-end ion-button clear icon-only>
         <ion-icon title="Eliminar" item-end name="trash"></ion-icon>
       </button>
       </ion-item>

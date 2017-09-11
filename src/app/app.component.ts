@@ -17,7 +17,6 @@ export interface PageInterface {
   templateUrl: "app.html"
 })
 export class MyApp {
-  user: any;
   isAdmin: any;
   displayName = "Visitante";
   picture = "./../../assets/icon/favicon.ico";
@@ -82,8 +81,11 @@ export class MyApp {
     },
     { title: "Locales", pageName: "ManageLocationPage", icon: "locate" },
     { title: "Temáticas", pageName: "ManageTopicPage", icon: "school" },
-    { title: "Asistentes", pageName: "ConferenceAlertPage", icon: "information-circle" }
-
+    {
+      title: "Asistentes",
+      pageName: "ConferenceAlertPage",
+      icon: "information-circle"
+    }
   ];
   loginPage: any = [
     { title: "Iniciar Sesión", pageName: "LoginPage", icon: "person" }
@@ -121,8 +123,7 @@ export class MyApp {
   }
 
   checkUserStatus() {
-    this.user = this.authS.getUser();
-    this.user.subscribe((user: Object) => {
+    this.authS.getUser().subscribe((user: Object) => {
       if (user != null) {
         // this.displayName = user["email"].split("@")[0];
         this.displayName = user["displayName"];
@@ -151,6 +152,19 @@ export class MyApp {
       } else {
         this.isAdmin = false;
       }
+    });
+    setTimeout(() => {
+      this.events.subscribe("login", _ => {
+        console.log("go to home page");
+        this.openPage({
+          title: "Inicio",
+          pageName: "NavegarPage",
+          tabComponent: "HomePage",
+          index: 0,
+          icon: "home",
+          fav: false
+        });
+      });
     });
   }
 

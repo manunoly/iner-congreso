@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController,Events, NavParams } from "ionic-angular";
 import { AuthProvider } from "./../../providers/auth";
 
 /**
@@ -18,14 +18,19 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private authS: AuthProvider
+    private authS: AuthProvider,
+    private events: Events
   ) {}
 
   ionViewDidLoad() {}
 
   signInWithGoogle() {
     this.authS.loginGoogle().then(respon => {
-      if (respon) this.navCtrl.push("NavegarPage");
+      this.events.publish("login");
+    /*   if (respon) {
+        this.navCtrl.setRoot("NavegarPage");
+        this.navCtrl.popToRoot();
+      } */
     });
   }
 

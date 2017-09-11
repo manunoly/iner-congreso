@@ -6,7 +6,7 @@
   </ion-header>
   <ion-content>
     <br>
-    <div text-center *ngIf="isAdmin; then login else notLogin"></div>
+    <div text-center *ngIf="displayName != 'Visitante'; then login else notLogin"></div>
     <ng-template #login>
       <ion-list>
         <ion-avatar class="profilepicsize">

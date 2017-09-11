@@ -30,7 +30,10 @@ export class StartPage {
 
   signInWithGoogle() {
     this.authS.loginGoogle().then(respon => {
-      if (respon) this.navCtrl.push("NavegarPage");
+      if (respon)
+        this.navCtrl.popToRoot();
+      // this.navCtrl.push("NavegarPage");
+
     });
   }
 

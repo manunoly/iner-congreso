@@ -27,7 +27,7 @@ export class AuthProvider {
   ) {}
   showSpiner() {
     let loader = this.loadingCtrl.create({
-      content: "Iniciando Sessión",
+      content: "Iniciando Sesión",
       duration: 20000
     });
     return loader;

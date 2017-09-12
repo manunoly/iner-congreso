@@ -1,31 +1,36 @@
 <ion-title>Inicio de Sesión</ion-title>
-
-<div offset-md-2 col-md-8 padding>
-  <ion-card>
-    <ion-card-header text-center>
-      Autenticación
-    </ion-card-header>
-    <ion-card-content text-center padding>
-      <h2>
-        Esta Aplicación utiliza autenticación de terceros.
-      </h2>
-      <p>Usuario y Contraseña nunca son almacenados.</p>
-      <p>Recomendamos los Servicios de Google</p>
-    </ion-card-content>
-  </ion-card>
-  <ion-card-content text-center>
-    <br>
-    <div>
-      <h2>Iniciar con</h2>
-      <button ion-button large icon-only clear icon-only (click)="signInWithGoogle()" color="google">
+<ion-content padding>
+  <div offset-md-2 col-md-8 padding>
+    <ion-card>
+      <br>
+      <h1 text-center>
+        Autenticación
+      </h1>
+      <ion-card-content text-center padding>
+        <h2>
+          Esta Aplicación utiliza autenticación de terceros.
+        </h2>
+        <p>Usuario y Contraseña nunca son almacenados.</p>
+        <p>Recomendamos los Servicios de Google</p>
+      </ion-card-content>
+      <ion-card-content text-center>
+        <br>
+        <div>
+          <h1 color="secondary">Iniciar con</h1>
+          <button ion-button large icon-only clear icon-only (click)="signInWithGoogle()" color="google">
         <ion-icon name="logo-google"></ion-icon>
       </button>
-      <button ion-button large icon-only clear icon-only (click)="signInWithFacebook()" color="facebook">
+          <button ion-button large icon-only clear icon-only (click)="signInWithFacebook()" color="facebook">
         <ion-icon name="logo-facebook"></ion-icon>
       </button>
-      <button ion-button large icon-only clear icon-only (click)="signInWithTwitter()" color="twitter">
+          <button ion-button large icon-only clear icon-only (click)="signInWithTwitter()" color="twitter">
         <ion-icon name="logo-twitter"></ion-icon>
       </button>
-    </div>
-  </ion-card-content>
-</div>
+        </div>
+        <button ion-button block (click)="dismiss()" color="secundary">
+      Cerrar
+    </button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

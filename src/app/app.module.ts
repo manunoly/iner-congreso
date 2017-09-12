@@ -7,9 +7,10 @@ import { MyApp } from "./app.component";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { ConferenceDetailPage } from "./../pages/conference-detail/conference-detail";
-import { SpeakerDetailPage } from './../pages/speaker-detail/speaker-detail';
-import { RatePage } from './../pages/rate/rate';
-import { FilterTopicPage } from './../pages/filter-topic/filter-topic';
+import { SpeakerDetailPage } from "./../pages/speaker-detail/speaker-detail";
+import { RatePage } from "./../pages/rate/rate";
+import { FilterTopicPage } from "./../pages/filter-topic/filter-topic";
+import { LoginPage } from "./../pages/login/login";
 import { AuthProvider } from "./../providers/auth";
 import { DataProvider } from "./../providers/data";
 
@@ -30,7 +31,14 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [MyApp, ConferenceDetailPage, RatePage, FilterTopicPage, SpeakerDetailPage],
+  declarations: [
+    MyApp,
+    ConferenceDetailPage,
+    RatePage,
+    LoginPage,
+    FilterTopicPage,
+    SpeakerDetailPage
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
@@ -39,7 +47,14 @@ const firebaseConfig = {
     AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, ConferenceDetailPage, RatePage, FilterTopicPage, SpeakerDetailPage],
+  entryComponents: [
+    MyApp,
+    ConferenceDetailPage,
+    RatePage,
+    LoginPage,
+    FilterTopicPage,
+    SpeakerDetailPage
+  ],
   providers: [
     StatusBar,
     SplashScreen,

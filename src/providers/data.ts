@@ -1,5 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Platform, AlertController, ToastController } from "ionic-angular";
+import {
+  Platform,
+  ModalController,
+  AlertController,
+  ToastController
+} from "ionic-angular";
 
 // import { Observable } from "rxjs/Rx";
 
@@ -8,6 +13,7 @@ import {
   FirebaseListObservable
 } from "angularfire2/database";
 import { AuthProvider } from "./auth";
+import { LoginPage } from "./../pages/login/login";
 
 @Injectable()
 export class DataProvider {
@@ -25,7 +31,8 @@ export class DataProvider {
     private authS: AuthProvider,
     public platform: Platform,
     public toastCtrl: ToastController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    private modalCtrl: ModalController
   ) {
     this.loadData();
   }
@@ -137,7 +144,10 @@ export class DataProvider {
           });
       } else
         this.showNotification("La Conferencia ya se encuentra en favoritas");
-    } else this.showNotification("Debe identificarse primero");
+    } else {
+      this.showNotification("Debe identificarse primero");
+      this.loginUser();
+    }
   }
 
   removeFavorite(conferenceID) {
@@ -167,7 +177,10 @@ export class DataProvider {
           });
       } else
         this.showNotification("La Conferencia no se encuentra en favoritas");
-    } else this.showNotification("Debe identificarse primero");
+    } else {
+      this.showNotification("Debe identificarse primero");
+      this.loginUser();
+    }
   }
 
   isSmallDevice() {
@@ -230,7 +243,10 @@ export class DataProvider {
             conference.unsubscribe();
           });
       });
-    } else this.showNotification("Debe identificarse primero");
+    } else {
+      this.showNotification("Debe identificarse primero");
+      this.loginUser();
+    }
   }
 
   filterConferences(
@@ -725,7 +741,7 @@ export class DataProvider {
               dato.congreso == congreso
           )
         );
-      }  else if (
+      } else if (
         !searchTerm &&
         day > 0 &&
         topicLength == 0 &&
@@ -741,7 +757,7 @@ export class DataProvider {
               dato.congreso == congreso
           )
         );
-      }else if (
+      } else if (
         !searchTerm &&
         day == 0 &&
         topicLength === 0 &&
@@ -1251,5 +1267,9 @@ export class DataProvider {
       dismissOnPageChange: true
     });
     toast.present();
+  }
+  loginUser() {
+    let userModal = this.modalCtrl.create(LoginPage);
+    userModal.present();
   }
 }

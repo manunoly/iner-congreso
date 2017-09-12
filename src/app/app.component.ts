@@ -1,9 +1,10 @@
 import { Component, ViewChild } from "@angular/core";
-import { Platform, Nav, Events } from "ionic-angular";
+import { Platform, Nav, ModalController, Events } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { DataProvider } from "./../providers/data";
 import { AuthProvider } from "./../providers/auth";
+import { LoginPage } from './../pages/login/login';
 
 export interface PageInterface {
   title: string;
@@ -97,7 +98,8 @@ export class MyApp {
     public splashScreen: SplashScreen,
     private authS: AuthProvider,
     private dataS: DataProvider,
-    private events: Events
+    private events: Events,
+    private modalCtrl: ModalController
   ) {
     this.initializeApp();
     // used for an example of ngFor and navigation
@@ -112,6 +114,11 @@ export class MyApp {
       this.checkUserStatus();
       this.isSmall();
     });
+  }
+
+  loginUser(){
+    let userModal = this.modalCtrl.create(LoginPage);
+    userModal.present();
   }
 
   signOut() {
@@ -152,19 +159,6 @@ export class MyApp {
       } else {
         this.isAdmin = false;
       }
-    });
-    setTimeout(() => {
-      this.events.subscribe("login", _ => {
-        console.log("go to home page");
-        this.openPage({
-          title: "Inicio",
-          pageName: "NavegarPage",
-          tabComponent: "HomePage",
-          index: 0,
-          icon: "home",
-          fav: false
-        });
-      });
     });
   }
 

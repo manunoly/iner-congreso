@@ -19,17 +19,11 @@ import { DataProvider } from './../../providers/data';
 })
 export class HomePage {
   small: boolean;
-  constructor(private dataS: DataProvider) /*
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public menuCtrl: MenuController */
+  constructor(private dataS: DataProvider)
   {
   }
 
   ionViewDidLoad(){
     this.small = this.dataS.isSmallDevice();
    }
-   /**
-    * TODO: Fix color
-    */
 }

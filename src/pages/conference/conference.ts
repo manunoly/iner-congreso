@@ -6,7 +6,7 @@ import {
   NavParams,
   IonicPage,
   Events,
-  PopoverController,
+  ModalController,
   ItemSliding,
   Item
 } from "ionic-angular";
@@ -47,14 +47,14 @@ export class ConferencePage {
     public navParams: NavParams,
     private dataS: DataProvider,
     private authS: AuthProvider,
-    public popoverCtrl: PopoverController,
+    public popoverCtrl: ModalController,
     private events: Events
   ) {
     this.searchControl = new FormControl();
     this.dayControl = new FormControl();
     this.topicControl = new FormControl();
     this.favorite = new FormControl();
-    this.congresoControl = new FormControl();    
+    this.congresoControl = new FormControl();
   }
   ionViewDidLoad() {
     setTimeout(() => {
@@ -96,7 +96,7 @@ export class ConferencePage {
     this.hasFavorite = this.dataS.hasFavoriteConference();
     this.setFilteredConferences();
   }
-  
+
 
   onSearchInput() {
     this.searching = true;

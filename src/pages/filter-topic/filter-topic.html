@@ -1,6 +1,15 @@
 <ion-content padding>
-  <h2 ion-text color="secondary" text-center>Filtrar Temas</h2>
+  <h2 ion-text text-center>Filtrar Temas</h2>
   <hr>
+  <div text-center>
+    <button ion-button clear color="dark" (click)="resetFilters()">
+      Reiniciar Filtros
+    </button>
+  </div>
+  <ion-buttons text-center>
+    <button ion-button (click)="applyFilters()" strong>Filtrar</button>
+    <button ion-button color="favorite" (click)="dismiss()">Cancel</button>
+  </ion-buttons>
   <ion-list text-wrap>
     <ion-item *ngFor="let topic of topics">
       <span item-start class="dot"></span>
@@ -9,16 +18,6 @@
     </ion-item>
   </ion-list>
 
-<ion-buttons text-center>
-    <button ion-button color="secondary" (click)="applyFilters()" strong>Filtrar</button>
-    <button ion-button color="dark" (click)="dismiss()">Cancel</button>
-  </ion-buttons>
-
-  <div text-center>
-    <button ion-button clear color="dark" (click)="resetFilters()">
-      Reiniciar Filtros
-    </button>
-  </div>
   <br>
   <br>
 </ion-content>

@@ -1,5 +1,9 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController,Events, NavParams } from "ionic-angular";
+import {
+  NavController,
+  NavParams,
+  ViewController
+} from "ionic-angular";
 import { AuthProvider } from "./../../providers/auth";
 
 /**
@@ -8,8 +12,6 @@ import { AuthProvider } from "./../../providers/auth";
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-
-@IonicPage()
 @Component({
   selector: "page-login",
   templateUrl: "login.html"
@@ -19,30 +21,45 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private authS: AuthProvider,
-    private events: Events
+    public viewCtrl: ViewController
   ) {}
 
   ionViewDidLoad() {}
 
   signInWithGoogle() {
-    this.authS.loginGoogle().then(respon => {
-      this.events.publish("login");
-    /*   if (respon) {
-        this.navCtrl.setRoot("NavegarPage");
-        this.navCtrl.popToRoot();
-      } */
-    });
+    this.authS
+      .loginGoogle()
+      .then(respon => {
+        this.dismiss();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   signInWithFacebook() {
-    this.authS.loginFacebook().then(respon => {
-      if (respon) this.navCtrl.push("NavegarPage");
-    });
+    this.authS
+      .loginFacebook()
+      .then(respon => {
+        this.dismiss();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   signInWithTwitter() {
-    this.authS.loginTwitter().then(respon => {
-      if (respon) this.navCtrl.push("NavegarPage");
-    });
+    this.authS
+      .loginTwitter()
+      .then(respon => {
+        this.dismiss();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss(undefined);
   }
 }

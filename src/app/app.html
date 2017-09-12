@@ -24,9 +24,9 @@
     </ng-template>
     <ng-template #notLogin>
       <ion-list>
-        <button clear ion-item menuClose *ngFor="let p of loginPage" (click)="openPage(p)">
+        <button clear ion-item menuClose (click)="loginUser()">
            <ion-icon item-start name="person"></ion-icon>
-          {{ p.title }}
+           Iniciar Sesión
         </button>
       </ion-list>
     </ng-template>

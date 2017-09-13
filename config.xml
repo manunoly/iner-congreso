@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="congreso.INER.IEEE" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>CongresoINER-IEEE</name>
+<widget id="Congreso.INER.IEEE" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Congreso.INER.IEEE</name>
     <description>Congreso Iner - IEEE 2017 en Quito, Ecuador</description>
     <author email="manunoly@gmail.com" href="https://github.com/manunoly">manunoly: Manuel Almaguer</author>
     <content src="index.html" />

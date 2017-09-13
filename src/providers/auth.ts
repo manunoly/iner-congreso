@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 // import { Observable } from "rxjs/Observable";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
+import { Platform } from "ionic-angular";
 
 /* import "rxjs/add/operator/of";
 import 'rxjs/add/observable/of';
@@ -23,7 +24,8 @@ export class AuthProvider {
     private afAuth: AngularFireAuth,
     private afDB: AngularFireDatabase,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public platform: Platform
   ) {}
   showSpiner() {
     let loader = this.loadingCtrl.create({
@@ -34,19 +36,35 @@ export class AuthProvider {
   }
   loginGoogle() {
     try {
-      let spiner = this.showSpiner();
-      spiner.present();
-      return this.afAuth.auth
-        .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-        .then(res => {
-          spiner.dismiss();
-          this.welcomeUser();
-          return true;
-        })
-        .catch(res => {
-          spiner.dismiss();
-          this.showNotification(res, 10000);
-        });
+      if (this.platform.is("core") || this.platform.is("mobileweb")) {
+        let spiner = this.showSpiner();
+        spiner.present();
+        return this.afAuth.auth
+          .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+          .then(res => {
+            spiner.dismiss();
+            this.welcomeUser();
+            return true;
+          })
+          .catch(res => {
+            spiner.dismiss();
+            this.showNotification(res, 10000);
+          });
+      } else {
+        let spiner = this.showSpiner();
+        spiner.present();
+        return this.afAuth.auth
+          .signInWithRedirect(new firebase.auth.GoogleAuthProvider())
+          .then(res => {
+            spiner.dismiss();
+            this.welcomeUser();
+            return true;
+          })
+          .catch(res => {
+            spiner.dismiss();
+            this.showNotification(res, 10000);
+          });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -54,19 +72,35 @@ export class AuthProvider {
 
   loginFacebook() {
     try {
-      let spiner = this.showSpiner();
-      spiner.present();
-      return this.afAuth.auth
-        .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-        .then(res => {
-          spiner.dismiss();
-          this.welcomeUser();
-          return true;
-        })
-        .catch(res => {
-          spiner.dismiss();
-          this.showNotification(res, 10000);
-        });
+      if (this.platform.is("core") || this.platform.is("mobileweb")) {
+        let spiner = this.showSpiner();
+        spiner.present();
+        return this.afAuth.auth
+          .signInWithPopup(new firebase.auth.FacebookAuthProvider())
+          .then(res => {
+            spiner.dismiss();
+            this.welcomeUser();
+            return true;
+          })
+          .catch(res => {
+            spiner.dismiss();
+            this.showNotification(res, 10000);
+          });
+      } else {
+        let spiner = this.showSpiner();
+        spiner.present();
+        return this.afAuth.auth
+          .signInWithRedirect(new firebase.auth.FacebookAuthProvider())
+          .then(res => {
+            spiner.dismiss();
+            this.welcomeUser();
+            return true;
+          })
+          .catch(res => {
+            spiner.dismiss();
+            this.showNotification(res, 10000);
+          });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -74,19 +108,35 @@ export class AuthProvider {
 
   loginTwitter() {
     try {
-      let spiner = this.showSpiner();
-      spiner.present();
-      return this.afAuth.auth
-        .signInWithPopup(new firebase.auth.TwitterAuthProvider())
-        .then(res => {
-          spiner.dismiss();
-          this.welcomeUser();
-          return true;
-        })
-        .catch(res => {
-          spiner.dismiss();
-          this.showNotification(res, 10000);
-        });
+      if (this.platform.is("core") || this.platform.is("mobileweb")) {
+        let spiner = this.showSpiner();
+        spiner.present();
+        return this.afAuth.auth
+          .signInWithRedirect(new firebase.auth.TwitterAuthProvider())
+          .then(res => {
+            spiner.dismiss();
+            this.welcomeUser();
+            return true;
+          })
+          .catch(res => {
+            spiner.dismiss();
+            this.showNotification(res, 10000);
+          });
+      } else {
+        let spiner = this.showSpiner();
+        spiner.present();
+        return this.afAuth.auth
+          .signInWithRedirect(new firebase.auth.TwitterAuthProvider())
+          .then(res => {
+            spiner.dismiss();
+            this.welcomeUser();
+            return true;
+          })
+          .catch(res => {
+            spiner.dismiss();
+            this.showNotification(res, 10000);
+          });
+      }
     } catch (err) {
       console.log(err);
     }

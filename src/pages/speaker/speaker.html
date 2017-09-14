@@ -5,7 +5,7 @@
 <ion-content>
   <h2 ion-text color="secondary" text-center text-center>Ponentes</h2>
   <ion-toolbar>
-      <ion-segment [(ngModel)]="congreso"  [formControl]="congresoControl" (ionChange)="onSearchInput()" color="secondary">
+      <ion-segment [(ngModel)]="congreso"  [formControl]="congresoControl" color="secondary">
         <ion-segment-button value="INER">
           <span item-end>INER</span>
         </ion-segment-button>
@@ -21,9 +21,9 @@
     <p *ngFor="let item of speaker | async as list">
       {{ item.name }} {{ item.shortAbout }}
     </p>
-    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl"></ion-searchbar>
 
-    <div *ngIf="searching" class="spinner-container">
+    <div *ngIf="!(speakers | async)" class="spinner-container">
       <ion-spinner></ion-spinner>
     </div>
 

@@ -59,7 +59,7 @@
       <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
       <!--     <ion-card [hidden]="search">
       </ion-card> -->
-      <ion-item *ngIf="searching" class="spinner-container">
+      <ion-item *ngIf="!(conferences | async)" class="spinner-container">
         <ion-spinner></ion-spinner>
       </ion-item>
     </ion-card>
@@ -71,7 +71,7 @@
           <ion-item-sliding #slidingItem>
             <ion-item #item text-wrap>
               <ion-avatar item-start>
-                <img *ngIf="!conference.profilePic" src="./../../assets/icon/favicon.ico">
+                <img *ngIf="!conference.profilePic" src="assets/icon/favicon.ico">
                 <img *ngIf="conference.profilePic" [src]="conference.profilePic">
               </ion-avatar>
               <button *ngIf="isFavorite(conference.$key)" data-toggle="Eliminar de Favoritas" (click)="removeFavorite(conference.$key)" item-end ion-button clear icon-only>

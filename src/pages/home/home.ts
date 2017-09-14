@@ -20,9 +20,7 @@ import { DataProvider } from './../../providers/data';
 export class HomePage {
   small: boolean;
   constructor(private dataS: DataProvider)
-  {
-  }
-
+  {}
   ionViewDidLoad(){
     this.small = this.dataS.isSmallDevice();
    }

@@ -16,7 +16,7 @@
           </ion-list-header>
         <ion-item #item text-wrap>
           <ion-avatar item-start>
-            <img *ngIf="!conference.profilePic" src="./../../assets/icon/favicon.ico">
+            <img *ngIf="!conference.profilePic" src="assets/icon/favicon.ico">
             <img *ngIf="conference.profilePic" [src]="conference.profilePic">
           </ion-avatar>
           <a (click)="goToConferenceDetail(conference.$key)">{{ conference.title }}</a>

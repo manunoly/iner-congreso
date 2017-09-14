@@ -11,77 +11,82 @@
 <ion-content no-bounce>
   <ion-slides #slides autoplay="4000" loop="true" (ionSlideWillChange)="onSlideChangeStart($event)" pager>
     <ion-slide>
-      <div style="padding-top:5%">
-        <img alt="INER Ecuador" src="./../../assets/img/logo_INER.png" class="slide-image" />
-      </div>
-      <div *ngIf="!small" style="max-width: 400px; margin: 0 auto; padding-top: 5%;">
-        <h2>Siguenos</h2>
-        <ion-row>
-          <ion-col>
-            <ion-avatar>
+      <ion-content>
+        <img *ngIf="small" alt="INER Ecuador" src="assets/img/logos-vertical.jpg" class="slide-image"/>
+        <img *ngIf="!small" alt="INER Ecuador" src="assets/img/logos-horizontal.jpg" class="slide-image"/>
+        <!--   <div *ngIf="!small" style="max-width: 400px; margin: 0 auto; padding-top: 5%;">
+          <h2>Siguenos</h2>
+          <ion-row>
+            <ion-col>
+              <ion-avatar>
+                <a target="_blank" href="https://www.youtube.com/channel/UCOGPbqL4SSAuVGoURUBqJ_Q">
+                <button ion-button large icon-only clear icon-only color="google">
+                  <ion-icon name="logo-google"></ion-icon>
+                </button>
+              </a>
+              </ion-avatar>
+            </ion-col>
+            <ion-col>
+              <ion-avatar>
+                <a target="_blank" href="https://www.facebook.com/INEREcuador/">
+                <button ion-button large icon-only clear icon-only color="facebook">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </button>
+              </a>
+              </ion-avatar>
+            </ion-col>
+            <ion-col>
+              <ion-avatar>
+                <a target="_blank" href="https://twitter.com/INER_EC">
+                <button ion-button large icon-only clear icon-only color="twitter">
+                  <ion-icon name="logo-twitter"></ion-icon>
+                </button>
+              </a>
+              </ion-avatar>
+            </ion-col>
+          </ion-row>
+        </div>
+        <div *ngIf="small" style="max-width: 350px; margin: 0 auto; padding-top: 5%;">
+          <h2>Siguenos</h2>
+          <ion-row>
+            <ion-col>
               <a target="_blank" href="https://www.youtube.com/channel/UCOGPbqL4SSAuVGoURUBqJ_Q">
                 <button ion-button large icon-only clear icon-only color="google">
                   <ion-icon name="logo-google"></ion-icon>
                 </button>
               </a>
-            </ion-avatar>
-          </ion-col>
-          <ion-col>
-            <ion-avatar>
+            </ion-col>
+            <ion-col>
               <a target="_blank" href="https://www.facebook.com/INEREcuador/">
                 <button ion-button large icon-only clear icon-only color="facebook">
                   <ion-icon name="logo-facebook"></ion-icon>
                 </button>
               </a>
-            </ion-avatar>
-          </ion-col>
-          <ion-col>
-            <ion-avatar>
+            </ion-col>
+            <ion-col>
               <a target="_blank" href="https://twitter.com/INER_EC">
                 <button ion-button large icon-only clear icon-only color="twitter">
                   <ion-icon name="logo-twitter"></ion-icon>
                 </button>
               </a>
-            </ion-avatar>
-          </ion-col>
-        </ion-row>
-      </div>
-      <div *ngIf="small" style="max-width: 350px; margin: 0 auto; padding-top: 5%;">
-        <h2>Siguenos</h2>
-        <ion-row>
-          <ion-col>
-              <a target="_blank" href="https://www.youtube.com/channel/UCOGPbqL4SSAuVGoURUBqJ_Q">
-                <button ion-button large icon-only clear icon-only color="google">
-                  <ion-icon name="logo-google"></ion-icon>
-                </button>
-              </a>
-          </ion-col>
-          <ion-col>
-              <a target="_blank" href="https://www.facebook.com/INEREcuador/">
-                <button ion-button large icon-only clear icon-only color="facebook">
-                  <ion-icon name="logo-facebook"></ion-icon>
-                </button>
-              </a>
-          </ion-col>
-          <ion-col>
-              <a target="_blank" href="https://twitter.com/INER_EC">
-                <button ion-button large icon-only clear icon-only color="twitter">
-                  <ion-icon name="logo-twitter"></ion-icon>
-                </button>
-              </a>
-          </ion-col>
-        </ion-row>
-      </div>
+            </ion-col>
+          </ion-row>
+        </div> -->
+      </ion-content>
     </ion-slide>
     <ion-slide>
-      <h2>Ámbitos de Acción</h2>
-      <img *ngIf="small" alt="INER Ecuador" src="./../../assets/img/ambitos_accion_vertical.png" class="slide-image" />
-      <img *ngIf="!small" alt="INER Ecuador" src="./../../assets/img/ambitos_accion_horizontal.png" class="slide-image" />
+      <ion-content>
+        <h2>Ámbitos de Acción</h2>
+        <img *ngIf="small" alt="INER Ecuador" src="assets/img/ambitos_accion_vertical.png" class="slide-image" />
+        <img *ngIf="!small" alt="INER Ecuador" src="assets/img/ambitos_accion_horizontal.png" class="slide-image" />
+      </ion-content>
     </ion-slide>
     <ion-slide>
-      <h2>Líneas de Investigación</h2>
-      <img *ngIf="small" alt="INER Ecuador" src="./../../assets/img/lineas_investigacion_vertical.png" class="slide-image" />
-      <img *ngIf="!small" alt="INER Ecuador" src="./../../assets/img/lineas_investigacion_horizontal.png" class="slide-image" />
+      <ion-content>
+        <h2>Líneas de Investigación</h2>
+        <img *ngIf="small" alt="INER Ecuador" src="assets/img/lineas_investigacion_vertical.png" class="slide-image" />
+        <img *ngIf="!small" alt="INER Ecuador" src="assets/img/lineas_investigacion_horizontal.png" class="slide-image" />
+      </ion-content>
     </ion-slide>
     <ion-slide text-wrap>
       <ion-content>
@@ -89,25 +94,25 @@
           <h2>Resultados de Gestión de Conocimiento</h2>
           <ion-list no-lines>
             <ion-item>
-              <img float-left style="width: 122px; height: 81px; padding: 5px 5px 5px 5px" src="./../../assets/img/iconografía/publicaciones_ico.png">
+              <img float-left style="width: 122px; height: 81px; padding: 5px 5px 5px 5px" src="assets/img/iconografía/publicaciones_ico.png">
               <h2 [attr.padding-top]="!small ? '40px' : '16px'"> 78 artículos publicados</h2>
             </ion-item>
             <ion-item>
-              <img float-left style="width: 122px; height: 81px; padding: 5px 5px 5px 5px" src="./../../assets/img/iconografía/laboratorios_ico.png">
+              <img float-left style="width: 122px; height: 81px; padding: 5px 5px 5px 5px" src="assets/img/iconografía/laboratorios_ico.png">
               <h2 [attr.padding-top]="!small ? '20px' : null"> 4 laboratorios de investigación científica implementados</h2>
             </ion-item>
             <ion-item>
-              <img float-left style="width: 122px; height: 81px; padding: 5px 5px 5px 5px" src="./../../assets/img/iconografía/prototipos_ico.png">
+              <img float-left style="width: 122px; height: 81px; padding: 5px 5px 5px 5px" src="assets/img/iconografía/prototipos_ico.png">
               <div [attr.padding-top]="!small ? '40px' : '16px'">
                 <h2> 5 prototipos desarrollados</h2>
               </div>
             </ion-item>
             <ion-item>
-              <img float-left style="width: 122px; height: 81px; padding: 5px 5px 5px 5px" src="./../../assets/img/iconografía/patentes_ico.png">
+              <img float-left style="width: 122px; height: 81px; padding: 5px 5px 5px 5px" src="assets/img/iconografía/patentes_ico.png">
               <h2 [attr.padding-top]="!small ? '40px' : null"> 1 patente otorgada y 6 solicitudes de patentes ingresadas</h2>
             </ion-item>
             <ion-item>
-              <img float-left style="width: 122px; height: 81px; padding: 5px 5px 5px 5px" src="./../../assets/img/iconografía/articulos.png">
+              <img float-left style="width: 122px; height: 81px; padding: 5px 5px 5px 5px" src="assets/img/iconografía/articulos.png">
               <h2 [attr.padding-top]="!small ? '20px' : null"> 16 citas de artículos del INER realizadas en distintos países del mundo</h2>
             </ion-item>
           </ion-list>

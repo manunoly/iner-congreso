@@ -20,7 +20,7 @@ export interface PageInterface {
 export class MyApp {
   isAdmin: any;
   displayName = "Visitante";
-  picture = "./../../assets/icon/favicon.ico";
+  picture = "assets/icon/favicon.ico";
   userProfile: any;
   rootPage: any = "NavegarPage";
   small: boolean = true;

@@ -243,7 +243,7 @@ export class ManageConferencePage {
           Validators.compose([Validators.maxLength(10), Validators.required])
         ],
         profilePic: [
-          "./../../assets/icon/favicon.ico",
+          "assets/icon/favicon.ico",
           Validators.compose([
             ,
             Validators.maxLength(1000),
@@ -252,23 +252,23 @@ export class ManageConferencePage {
         ],
         location: [
           "",
-          Validators.compose([Validators.maxLength(100), Validators.required])
+          Validators.compose([Validators.maxLength(100)])
         ],
         topic: [
           "",
-          Validators.compose([Validators.maxLength(100), Validators.required])
+          Validators.compose([Validators.maxLength(100)])
         ],
         speakers: [
           "",
-          Validators.compose([Validators.maxLength(500), Validators.required])
+          Validators.compose([Validators.maxLength(500)])
         ],
         shortDescription: [
           "",
-          Validators.compose([Validators.maxLength(1000), Validators.required])
+          Validators.compose([Validators.maxLength(1000)])
         ],
         description: [
           "",
-          Validators.compose([Validators.maxLength(10000), Validators.required])
+          Validators.compose([Validators.maxLength(10000)])
         ]
       });
     } else {
@@ -304,23 +304,23 @@ export class ManageConferencePage {
         ],
         location: [
           conference.location,
-          Validators.compose([Validators.maxLength(100), Validators.required])
+          Validators.compose([Validators.maxLength(100)])
         ],
         topic: [
           conference.topic,
-          Validators.compose([Validators.maxLength(100), Validators.required])
+          Validators.compose([Validators.maxLength(100)])
         ],
         speakers: [
           conference.speakers,
-          Validators.compose([Validators.maxLength(500), Validators.required])
+          Validators.compose([Validators.maxLength(500)])
         ],
         shortDescription: [
           conference.shortDescription,
-          Validators.compose([Validators.maxLength(1000), Validators.required])
+          Validators.compose([Validators.maxLength(1000)])
         ],
         description: [
           conference.description,
-          Validators.compose([Validators.maxLength(10000), Validators.required])
+          Validators.compose([Validators.maxLength(10000)])
         ]
       });
     }

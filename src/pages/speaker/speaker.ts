@@ -17,34 +17,28 @@ export class SpeakerPage {
   speaker: any;
   searchTerm: string = "";
   searchControl: FormControl;
-  congresoControl: FormControl;  
-  searching: any = false;
+  congresoControl: FormControl;
   congreso = "";
-  
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private dataS: DataProvider,
   ) {
     this.searchControl = new FormControl();
-    this.congresoControl = new FormControl();    
+    this.congresoControl = new FormControl();
   }
 
   ionViewDidLoad() {
     this.setFilteredSpeakers();
-    this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
-      this.searching = false;
+    this.searchControl.valueChanges.subscribe(search => {
       this.setFilteredSpeakers();
     });
-    this.congresoControl.valueChanges.debounceTime(400).subscribe(search => {
-      this.searching = false;
+    this.congresoControl.valueChanges.subscribe(search => {
       this.setFilteredSpeakers();
     });
   }
 
-  onSearchInput() {
-    this.searching = true;
-  }
 
   goToSpeakerDetail(speakerID: any) {
     this.navCtrl.push(SpeakerDetailPage, {

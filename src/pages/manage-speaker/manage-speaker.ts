@@ -98,7 +98,7 @@ export class ManageSpeakerPage {
           Validators.compose([Validators.required, CongresoValidator.isValid])
         ],
         profilePic: [
-          "./../../assets/icon/favicon.ico",
+          "assets/icon/favicon.ico",
           Validators.compose([
             ,
             Validators.maxLength(1000),
@@ -111,33 +111,33 @@ export class ManageSpeakerPage {
           Validators.compose([Validators.maxLength(100), Validators.required])
         ],
         googleScholar: [
-          // "",
-          "https://scholar.google.es/citations?view_op=metrics_intro&hl=es",
+          "",
+          // "https://scholar.google.es/citations?view_op=metrics_intro&hl=es",
           Validators.compose([Validators.maxLength(1000)])
         ],
         linkedin: [
-          // "",
-          "https://www.linkedin.com/in/manunoly/",
+          "",
+          // "https://www.linkedin.com/in/manunoly/",
           Validators.compose([Validators.maxLength(1000)])
         ],
         twitter: [
-          // "",
-          "https://twitter.com/manunoly",
+          "",
+          // "https://twitter.com/manunoly",
           Validators.compose([Validators.maxLength(1000)])
         ],
         email: [
-          "iner@iner.ec",
-          Validators.compose([Validators.maxLength(100), Validators.required])
+          "",
+          Validators.compose([Validators.maxLength(100)])
         ],
         shortAbout: [
           "",
           // "Ing. Sistemas",
-          Validators.compose([Validators.maxLength(1000), Validators.required])
+          Validators.compose([Validators.maxLength(1000)])
         ],
         about: [
           "",
           // "Ing. Sistemas",
-          Validators.compose([Validators.maxLength(10000), Validators.required])
+          Validators.compose([Validators.maxLength(10000)])
         ]
       });
     } else {
@@ -177,15 +177,15 @@ export class ManageSpeakerPage {
         ],
         email: [
           speaker.email,
-          Validators.compose([Validators.maxLength(100), Validators.required])
+          Validators.compose([Validators.maxLength(100)])
         ],
         shortAbout: [
           speaker.shortAbout,
-          Validators.compose([Validators.maxLength(1000), Validators.required])
+          Validators.compose([Validators.maxLength(1000)])
         ],
         about: [
           speaker.about,
-          Validators.compose([Validators.maxLength(10000), Validators.required])
+          Validators.compose([Validators.maxLength(10000)])
         ]
       });
     }

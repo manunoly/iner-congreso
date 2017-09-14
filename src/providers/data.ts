@@ -332,12 +332,14 @@ export class DataProvider {
         !searchTerm &&
         day > 0 &&
         topicLength == 0 &&
-        !favorite &&
+        favorite &&
         !congreso
       ) {
         console.log("filtrar solo por dia y fav");
         return this.conferences.map(data =>
-          data.filter(dato => dato.day == day)
+          data.filter(
+            dato => dato.day == day && this.favConf.indexOf(dato.$key) != -1
+          )
         );
       } else if (
         !searchTerm &&
@@ -779,7 +781,8 @@ export class DataProvider {
           dato.speakers.some(elem => elem.speakerID === speakerID)
         )
       );
-    } else return this.conferences;
+    }
+    return this.conferences;
   }
 
   filterConference(conferenceID) {
@@ -953,21 +956,26 @@ export class DataProvider {
     });
   }
 
-  /*   foceUpdateSpeaker() {
-    this.filterSpeakers().subscribe(sp => {
-      sp.forEach(element => {
-        this.speakers
-          .update(element.$key, {
-            congreso: "INER"
-          })
-          .then(_ => {
-            console.log("Ponente actualizado correctamente"+element.name);
-          })
-          .catch(_ => {
-            this.showNotification("El Ponente no pudo ser actualizado");
-          });
+  /* foceUpdateSpeaker() {
+    try {
+      this.getTopic().subscribe(sp => {
+        sp.forEach(element => {
+          this.topic
+            .update(element.$key, {
+              profilePic: "assets/icon/favicon.ico"
+            })
+            .then(_ => {
+              console.log("actualizado correctamente" + element.title);
+            })
+            .catch(_ => {
+              this.showNotification("no pudo ser actualizado");
+            });
+          // throw element.title;
+        });
       });
-    });
+    } catch (error) {
+      console.log(error);
+    }
   } */
 
   updateSpeaker(speaker) {

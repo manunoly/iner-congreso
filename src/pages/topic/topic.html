@@ -10,7 +10,7 @@
     <ion-list>
       <ion-item *ngFor="let topic of topics | async" text-wrap>
         <ion-avatar item-start>
-          <img *ngIf="!topic.profilePic" src="./../../assets/icon/favicon.ico">
+          <img *ngIf="!topic.profilePic" src="assets/icon/favicon.ico">
           <img *ngIf="topic.profilePic" [src]="topic.profilePic">
         </ion-avatar>
         <a>{{topic.topic}}</a>

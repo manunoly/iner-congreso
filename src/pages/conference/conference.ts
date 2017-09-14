@@ -73,23 +73,23 @@ export class ConferencePage {
       });
     });
     // this.topics = this.dataS.getTopic();
-    this.searchControl.valueChanges.debounceTime(400).subscribe(search => {
+    this.searchControl.valueChanges.subscribe(search => {
       this.searching = false;
       this.setFilteredConferences();
     });
-    this.dayControl.valueChanges.debounceTime(400).subscribe(search => {
+    this.dayControl.valueChanges.subscribe(search => {
       this.searching = false;
       this.setFilteredConferences();
     });
-    this.topicControl.valueChanges.debounceTime(400).subscribe(search => {
+    this.topicControl.valueChanges.subscribe(search => {
       this.searching = false;
       this.setFilteredConferences();
     });
-    this.favorite.valueChanges.debounceTime(400).subscribe(search => {
+    this.favorite.valueChanges.subscribe(search => {
       this.searching = false;
       this.setFilteredConferences();
     });
-    this.congresoControl.valueChanges.debounceTime(400).subscribe(search => {
+    this.congresoControl.valueChanges.subscribe(search => {
       this.searching = false;
       this.setFilteredConferences();
     });

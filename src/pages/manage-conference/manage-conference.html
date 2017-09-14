@@ -101,7 +101,7 @@
       </ion-list-header>
       <ion-item *ngFor="let conf of conferences | async">
         <ion-avatar [hidden]='smallDevice' item-start>
-          <img *ngIf="!conf.profilePic" src="./../../assets/icon/favicon.ico">
+          <img *ngIf="!conf.profilePic" src="assets/icon/favicon.ico">
           <img *ngIf="conf.profilePic" [src]="conf.profilePic">
         </ion-avatar>
         <!--<span class=".visible-md-*" [hidden]="isSM ? true : false"> {{ speak.degree }}</span> {{ speak.name }}-->

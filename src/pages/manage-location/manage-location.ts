@@ -90,7 +90,7 @@ export class ManageLocationPage {
           Validators.compose([Validators.maxLength(100), Validators.required])
         ],
         profilePic: [
-          "./../../assets/icon/favicon.ico",
+          "assets/icon/favicon.ico",
           Validators.compose([
             ,
             Validators.maxLength(1000),

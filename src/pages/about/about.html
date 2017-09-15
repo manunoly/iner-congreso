@@ -9,88 +9,188 @@
 </ion-navbar>
 
 <ion-content no-bounce>
-  <ion-slides #slides autoplay="4000" loop="true" (ionSlideWillChange)="onSlideChangeStart($event)" pager>
+  <ion-slides #slides autoplay="4000" loop="true" (ionSlideWillChange)="onSlideChangeStart($event)" pager text-center text-justify>
     <ion-slide>
       <ion-content>
-        <img *ngIf="small" alt="INER Ecuador" src="assets/img/logos-vertical.jpg" class="slide-image"/>
-        <img *ngIf="!small" alt="INER Ecuador" src="assets/img/logos-horizontal.jpg" class="slide-image"/>
-        <!--   <div *ngIf="!small" style="max-width: 400px; margin: 0 auto; padding-top: 5%;">
-          <h2>Siguenos</h2>
-          <ion-row>
-            <ion-col>
-              <ion-avatar>
-                <a target="_blank" href="https://www.youtube.com/channel/UCOGPbqL4SSAuVGoURUBqJ_Q">
-                <button ion-button large icon-only clear icon-only color="google">
-                  <ion-icon name="logo-google"></ion-icon>
-                </button>
-              </a>
-              </ion-avatar>
-            </ion-col>
-            <ion-col>
-              <ion-avatar>
-                <a target="_blank" href="https://www.facebook.com/INEREcuador/">
-                <button ion-button large icon-only clear icon-only color="facebook">
-                  <ion-icon name="logo-facebook"></ion-icon>
-                </button>
-              </a>
-              </ion-avatar>
-            </ion-col>
-            <ion-col>
-              <ion-avatar>
-                <a target="_blank" href="https://twitter.com/INER_EC">
-                <button ion-button large icon-only clear icon-only color="twitter">
-                  <ion-icon name="logo-twitter"></ion-icon>
-                </button>
-              </a>
-              </ion-avatar>
-            </ion-col>
-          </ion-row>
+        <img alt="MEER" src="assets/img/meer.png" class="slide-image" />
+      </ion-content>
+    </ion-slide>
+    <ion-slide>
+      <ion-content>
+        <img src="assets/img/pes_isgtla.png" class="slide-image" />
+      </ion-content>
+    </ion-slide>
+    <ion-slide>
+      <ion-content style="max-width: 800px; margin: 0 auto; padding-top: 5%;">
+        <!-- <h2>Ámbitos de Acción</h2> -->
+        <!-- <img *ngIf="small" alt="INER Ecuador" src="assets/img/ambitos_accion_vertical.png" class="slide-image" />
+        <img *ngIf="!small" alt="INER Ecuador" src="assets/img/ambitos_accion_horizontal.png" class="slide-image" /> -->
+        <div float-left>
+          <img style="float:left; height:124px; width:124px" src="assets/img/ieee.png">
         </div>
-        <div *ngIf="small" style="max-width: 350px; margin: 0 auto; padding-top: 5%;">
-          <h2>Siguenos</h2>
+        <div float-right>
+          <img style="float:right; height:124px; width:124px" src="assets/img/ieeee.png">
+        </div>
+        <br>
+        <div style="clear: both" text-wrap text-justify>
+          <p>
+            The Power and Energy Society (PES) Chapter of the Institute of Electrical and Electronics Engineers (IEEE) Ecuador Section
+            is the host of the 2017 IEEE PES Conference on Innovative Smart Grid Technologies Latin America (ISGT-LA 2017)
+            that takes place from September 19 to September 23, 2017 in Quito, Ecuador.
+          </p>
+          <p>
+            The Conference is a forum for the participants to discuss “Opportunities and Challenges of the Power Industry towards Management
+            Systems Integration”. The aim of the Conference is to join researchers and practitioners from industry and academy
+            and to provide them with a platform to report on recent developments, achievements, deployments, technology trends
+            and research results, as well as initiatives related to Smart Grids. The Conference features plenary sessions,
+            panels, technical papers, industry exhibitions, workshops, tutorials by experts on smart grid applications, and
+            technical visits. The main addressed are current issues arising from the operation and control of smart grids,
+            such as smart management systems, grid integration of renewable energy resources, power system stability, demand
+            response and management, energy efficiency, storage devices, smart metering, smart mobility, smart building,
+            smart cities, information technologies (IT), signal processing, intelligent control, among others.
+          </p>
+          <p>
+            The interest of IEEE PES Ecuador Chapter is to provide scientific and engineering information on electric power and energy
+            for the betterment of the Ecuadorian and Latin American society, and to offer a preferred professional development
+            source for our members. Therefore, the organization of the IEEE PES ISGT-LA 2017 has the aim of not only sharing
+            the smart grid state-of-the-art worldwide advances to the Ecuadorian scientific community, but also to show the
+            Ecuador’s most remarkable smart grid developments in Generation, Transmission and Distribution to the world scientific
+            community. Among these developments are the construction of significant power infrastructure (e.g. large Hydroelectric
+            Power Plants and a 500-kV Transmission Line) and the implementation of state-of-the-art technology for the intelligent
+            monitoring and control of both transmission and distribution systems, (e.g. a Wide Area Monitoring System WAMS,
+            a Special Protection Scheme for ensuring the system integrity SPS, and a whole set of sophisticated hardware
+            and software that makes up an Integrated Distribution Management System SIGDE).
+          </p>
+        </div>
+      </ion-content>
+    </ion-slide>
+    <ion-slide>
+      <ion-content text-center style="max-width: 800px; margin: 0 auto; padding-top: 5%;">
+        <div float-left>
+          <img style="float:left; height:124px; width:124px" src="assets/img/ieee.png">
+        </div>
+        <div float-right>
+          <img style="float:right; height:124px; width:124px" src="assets/img/ieeee.png">
+        </div>
+        <br>
+        <p style="clear: both" text-wrap text-justify>The Organizing Committee welcomes you to Quito, and hopes you will enjoy all the activities prepared as part of the
+          IEEE PES ISGT-LA 2017.</p>
+        <!-- <img *ngIf="small" alt="INER Ecuador" src="assets/img/lineas_investigacion_vertical.png" class="slide-image" />
+        <img *ngIf="!small" alt="INER Ecuador" src="assets/img/lineas_investigacion_horizontal.png" class="slide-image" /> -->
+        <h2>ORGANIZING COMMITTEE</h2>
+        <ion-grid>
           <ion-row>
-            <ion-col>
-              <a target="_blank" href="https://www.youtube.com/channel/UCOGPbqL4SSAuVGoURUBqJ_Q">
-                <button ion-button large icon-only clear icon-only color="google">
-                  <ion-icon name="logo-google"></ion-icon>
-                </button>
-              </a>
+            <ion-col col-sm-6>
+              Gabriel Argüello
+              <p>CONFERENCE CHAIR</p>
+              <p>ISGT-LA 2017</p>
             </ion-col>
-            <ion-col>
-              <a target="_blank" href="https://www.facebook.com/INEREcuador/">
-                <button ion-button large icon-only clear icon-only color="facebook">
-                  <ion-icon name="logo-facebook"></ion-icon>
-                </button>
-              </a>
-            </ion-col>
-            <ion-col>
-              <a target="_blank" href="https://twitter.com/INER_EC">
-                <button ion-button large icon-only clear icon-only color="twitter">
-                  <ion-icon name="logo-twitter"></ion-icon>
-                </button>
-              </a>
+            <ion-col col-sm-6>
+              Claudio Cañizares
+              <p>TECHNICAL COMMITTEE CHAIR</p>
+              <p>ISGT-LA 2017</p>
             </ion-col>
           </ion-row>
-        </div> -->
-      </ion-content>
-    </ion-slide>
-    <ion-slide>
-      <ion-content>
-        <h2>Ámbitos de Acción</h2>
-        <img *ngIf="small" alt="INER Ecuador" src="assets/img/ambitos_accion_vertical.png" class="slide-image" />
-        <img *ngIf="!small" alt="INER Ecuador" src="assets/img/ambitos_accion_horizontal.png" class="slide-image" />
-      </ion-content>
-    </ion-slide>
-    <ion-slide>
-      <ion-content>
-        <h2>Líneas de Investigación</h2>
-        <img *ngIf="small" alt="INER Ecuador" src="assets/img/lineas_investigacion_vertical.png" class="slide-image" />
-        <img *ngIf="!small" alt="INER Ecuador" src="assets/img/lineas_investigacion_horizontal.png" class="slide-image" />
+          <ion-row>
+            <ion-col col-sm-6>
+              Carlos Monsalve
+              <p>CHAIR</p>
+              <p>IEEE ECUADOR SECTION </p>
+            </ion-col>
+            <ion-col col-sm-6>
+              Jaime Cepeda
+              <p>CHAIR</p>
+              <p>IEEE PES ECUADOR CHAPTER</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-sm-6>
+              Diego Echeverría
+              <p>TREASURER</p>
+              <p>IEEE PES ECUADOR CHAPTER </p>
+            </ion-col>
+            <ion-col col-sm-6>
+              Hugo Arcos
+              <p>PUBLICATION COMMITTEE CHAIR</p>
+              <p>ISGT-LA 2017</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-sm-6>
+              Paúl Vásquez
+              <p>SECRETARY</p>
+              <p>IEEE PES ECUADOR CHAPTER</p>
+            </ion-col>
+            <ion-col col-sm-6>
+              Verónica Cárdenas
+              <p>ADVERTISING AND MARKETING COMMITTEE CHAIR</p>
+              <p>ISGT-LA 2017</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-sm-6>
+              Franklin Quilumba
+              <p>REGISTRATION CHAIR</p>
+              <p>ISGT-LA 2017</p>
+            </ion-col>
+            <ion-col col-sm-6>
+              Fabián Pérez
+              <p>STUDENT TRAVEL AWARD CHAIR</p>
+              <p>ISGT-LA 2017</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-sm-6>
+              David Elizondo
+              <p>EEE PES REGION 9 CONFERENCES</p>
+              <p> STEERING COMMITTEE CHAIR</p>
+            </ion-col>
+            <ion-col>
+              <p></p>
+              <p></p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-content>
     </ion-slide>
     <ion-slide text-wrap>
       <ion-content>
-        <div style="max-width: 600px; margin: 0 auto; padding-top: 5%;">
+        <div style="max-width: 800px; margin: 0 auto; padding-top: 5%;">
+          <img src="assets/img/iner_idi.png" class="slide-image" />
+          <p text-justify>El Instituto Nacional de Eficiencia Energética y Energías Renovables (INER), cumpliendo con sus funciones, creó,
+            planificó, organizó y ejecutó en 2013 el primer Congreso Internacional en Sostenibilidad Energética, que tuvo
+            una segunda edición en el 2015. Estos eventos generaron interés en el público académico y en investigadores,
+            por lo que se asumió el compromiso de realizar este evento cada dos años. El Congreso I+D+i en Sostenibilidad
+            Energética, ha ganado prestigio y empieza a ser considerado un evento referencial en la región, por lo que se
+            ha procurado garantizar su continuidad. Esperamos que en esta oportunidad usted pueda sacar el mayor provecho
+            de nuestras ponencias magistrales, eventos especializados y exposición de artículos académicos y posters.</p>
+        </div>
+      </ion-content>
+    </ion-slide>
+    <ion-slide text-wrap>
+      <ion-content>
+        <ion-fab bottom right edge><img src="assets/img/logo_iner.png" class="slide-image"/></ion-fab>
+        <div style="max-width: 800px; margin: 0 auto; padding-top: 5%;">
+          <h2>Ámbitos de Acción</h2>
+          <img *ngIf="small" alt="INER Ecuador" src="assets/img/ambitos_accion_vertical.png" class="slide-image" />
+          <img *ngIf="!small" alt="INER Ecuador" src="assets/img/ambitos_accion_horizontal.png" class="slide-image" />
+        </div>
+      </ion-content>
+    </ion-slide>
+    <ion-slide text-wrap>
+      <ion-content>
+        <ion-fab bottom right edge><img src="assets/img/logo_iner.png" class="slide-image"/></ion-fab>
+        <div style="max-width: 800px; margin: 0 auto; padding-top: 5%;">
+          <h2>Lineas de Investigación</h2>
+          <img *ngIf="small" alt="INER Ecuador" src="assets/img/lineas_investigacion_vertical.png" class="slide-image" />
+          <img *ngIf="!small" alt="INER Ecuador" src="assets/img/lineas_investigacion_horizontal.png" class="slide-image" />
+        </div>
+      </ion-content>
+    </ion-slide>
+    <ion-slide text-wrap>
+      <ion-fab bottom right edge><img src="assets/img/logo_iner.png" class="slide-image"/></ion-fab>
+      <ion-content>
+        <div style="max-width: 800px; margin: 0 auto; padding-top: 5%;">
           <h2>Resultados de Gestión de Conocimiento</h2>
           <ion-list no-lines>
             <ion-item>
@@ -122,18 +222,14 @@
     <ion-slide>
       <ion-content>
         <ion-grid>
-          <ion-item float-end item-end no-lines>
+          <div offset-md-3 col-md-6>
             <!--Timeline Button -->
-            <a float-end href="https://twitter.com/intent/tweet?button_hashtag=INER_EC" class="twitter-hashtag-button" data-show-count="false">Tweet #INER_EC</a>
-          </ion-item>
+            <a href="https://twitter.com/intent/tweet?button_hashtag=INER_EC" class="twitter-hashtag-button" data-show-count="false">Tweet #INER_EC</a>
+          </div>
           <ion-row>
-            <ion-col col-md-6>
+            <ion-col offset-md-3 col-md-6>
               <!--Ultimos Twit from INER_EC -->
               <a class="twitter-timeline" height="600px" tweet-limit="10" href="https://twitter.com/INER_EC">Tweets by INER_EC</a>
-            </ion-col>
-            <ion-col col-md-6 style="max-height: 600px">
-              <!--Ultimos Twit from hasgtag inercongres FIXME: data-tweet-limit=5 en twitter arreglar el contenido cuando me digan el hash del congreso-->
-              <a class="twitter-timeline" data-height="600px" href="https://twitter.com/hashtag/angular4" data-widget-id="887705957941354496">#Iner_EC Tweets</a>
             </ion-col>
           </ion-row>
         </ion-grid>

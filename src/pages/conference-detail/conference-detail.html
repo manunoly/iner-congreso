@@ -2,7 +2,7 @@
   <ion-title>Conferencia Detalles</ion-title>
 </ion-navbar>
 
-<ion-content>
+<ion-content text-wrap>
   <h2 ion-text color="secondary" text-center text-center>Conferencia Detalles</h2>
   <hr>
   <br>
@@ -13,7 +13,7 @@
           <ion-avatar style="width: 100; height: 100;">
             <img [src]="conf.profilePic">
           </ion-avatar>
-          <h2 Text-Capitalize>{{ conf.title }}</h2>
+          <h2 text-wrap>{{ conf.title }}</h2>
           <p>{{ conf.date }}</p>
         </ion-card-header>
         <ion-card-content *ngIf="conf.speakers">
@@ -36,9 +36,9 @@
           </p>
         </ion-card-content>
         <ion-card-content>
-          <p>{{ conf.shortDescription }}</p>
+          <p text-center text-wrap>{{ conf.shortDescription }}</p>
           <br>
-          <p>{{ conf.description }}</p>
+          <p text-center text-wrap>{{ conf.description }}</p>
           <br>
           <div text-center>
             <ion-navbar>

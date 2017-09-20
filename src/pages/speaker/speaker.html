@@ -34,10 +34,10 @@
             <img [src]="speaker.profilePic">
           </ion-avatar>
           <a (click)='goToSpeakerDetail(speaker.$key)'>{{ speaker.name }}</a>
-          <p>{{ speaker.degree }}</p>
+          <p text-wrap>{{ speaker.degree }}</p>
         </ion-card-header>
         <ion-card-content>
-          <p>{{ speaker.shortAbout }}.</p>
+          <p text-wrap>{{ speaker.shortAbout }}.</p>
         </ion-card-content>
       </ion-item>
     </ion-card>

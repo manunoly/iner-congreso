@@ -14,7 +14,7 @@
             <img [src]="speak.profilePic">
           </ion-avatar>
           <h2 Text-Capitalize>{{ speak.name }}</h2>
-          <p>{{ speak.degree }}</p>
+          <p text-wrap>{{ speak.degree }}</p>
         </ion-card-header>
         <ion-card-content *ngIf='speakerConf.length > 0'>
           <h2>Ponencias</h2>

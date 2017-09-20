@@ -10,6 +10,7 @@ import { ConferenceDetailPage } from "./../pages/conference-detail/conference-de
 import { SpeakerDetailPage } from "./../pages/speaker-detail/speaker-detail";
 import { RatePage } from "./../pages/rate/rate";
 import { FilterTopicPage } from "./../pages/filter-topic/filter-topic";
+import { FilterLocationPage } from "./../pages/filter-location/filter-location";
 import { LoginPage } from "./../pages/login/login";
 import { AuthProvider } from "./../providers/auth";
 import { DataProvider } from "./../providers/data";
@@ -37,6 +38,7 @@ const firebaseConfig = {
     RatePage,
     LoginPage,
     FilterTopicPage,
+    FilterLocationPage,
     SpeakerDetailPage
   ],
   imports: [
@@ -53,6 +55,7 @@ const firebaseConfig = {
     RatePage,
     LoginPage,
     FilterTopicPage,
+    FilterLocationPage,
     SpeakerDetailPage
   ],
   providers: [

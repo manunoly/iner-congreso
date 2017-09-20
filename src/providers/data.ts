@@ -255,19 +255,176 @@ export class DataProvider {
     topic = [],
     favorite = false,
     speakerID = "",
-    congreso = ""
+    congreso = "",
+    salon = []
   ) {
     if (!speakerID) {
       let topicLength = topic.length;
+      let salonL = salon.length;
       if (
         !searchTerm &&
         day == 0 &&
         topicLength == 0 &&
         !favorite &&
-        !congreso
+        !congreso &&
+        salonL == 0
       ) {
         console.log("Todas las Confe");
         return this.conferences;
+      } else if (
+        !searchTerm &&
+        day == 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        !congreso &&
+        salonL > 0
+      ) {
+        console.log("Todas las Conf por salon");
+        return this.conferences.map(data =>
+          data.filter(dato =>
+            dato.location.some(
+              elem => elem.locationID === salon[salon.indexOf(elem.locationID)]
+            )
+          )
+        );
+      } else if (
+        !searchTerm &&
+        day > 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        !congreso &&
+        salonL > 0
+      ) {
+        console.log("Todas las Conf por salon y day");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.day === day &&
+              dato.location.some(
+                elem =>
+                  elem.locationID === salon[salon.indexOf(elem.locationID)]
+              )
+          )
+        );
+      } else if (
+        searchTerm &&
+        day == 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        !congreso &&
+        salonL > 0
+      ) {
+        console.log("Todas las Conf por salon y texto");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.location.some(
+                elem =>
+                  elem.locationID === salon[salon.indexOf(elem.locationID)]
+              )
+          )
+        );
+      } else if (
+        searchTerm &&
+        day > 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        !congreso &&
+        salonL > 0
+      ) {
+        console.log("Todas las Conf por salon y texto y day");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.day === day &&
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.location.some(
+                elem =>
+                  elem.locationID === salon[salon.indexOf(elem.locationID)]
+              )
+          )
+        );
+      } else if (
+        !searchTerm &&
+        day == 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        congreso &&
+        salonL > 0
+      ) {
+        console.log("Todas las Conf por salon y evento");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.congreso == congreso &&
+              dato.location.some(
+                elem =>
+                  elem.locationID === salon[salon.indexOf(elem.locationID)]
+              )
+          )
+        );
+      } else if (
+        !searchTerm &&
+        day > 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        congreso &&
+        salonL > 0
+      ) {
+        console.log("Todas las Conf por salon y evento y dia");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.day === day &&
+              dato.congreso == congreso &&
+              dato.location.some(
+                elem =>
+                  elem.locationID === salon[salon.indexOf(elem.locationID)]
+              )
+          )
+        );
+      } else if (
+        searchTerm &&
+        day == 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        congreso &&
+        salonL > 0
+      ) {
+        console.log("Todas las Conf por salon y evento y texto");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.congreso == congreso &&
+              dato.location.some(
+                elem =>
+                  elem.locationID === salon[salon.indexOf(elem.locationID)]
+              )
+          )
+        );
+      } else if (
+        searchTerm &&
+        day > 0 &&
+        topicLength == 0 &&
+        !favorite &&
+        congreso &&
+        salonL > 0
+      ) {
+        console.log("Todas las Conf por salon y dia y texto y congreso");
+        return this.conferences.map(data =>
+          data.filter(
+            dato =>
+              dato.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+              dato.congreso == congreso &&
+              dato.day === day &&
+              dato.location.some(
+                elem =>
+                  elem.locationID === salon[salon.indexOf(elem.locationID)]
+              )
+          )
+        );
       } else if (
         !searchTerm &&
         day == 0 &&
@@ -350,10 +507,11 @@ export class DataProvider {
       ) {
         console.log("filtrar solo por tema");
         return this.conferences.map(data =>
-          data.filter(dato =>
+          data.filter(dato =>{
             dato.topic.some(
               elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
             )
+          }
           )
         );
       } else if (
@@ -367,9 +525,10 @@ export class DataProvider {
         return this.conferences.map(data =>
           data.filter(
             dato =>
+              this.favConf.indexOf(dato.$key) != -1 &&
               dato.topic.some(
                 elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
-              ) && this.favConf.indexOf(dato.$key) != -1
+              )
           )
         );
       } else if (
@@ -449,9 +608,10 @@ export class DataProvider {
         return this.conferences.map(data =>
           data.filter(
             dato =>
+              dato.day == day &&
               dato.topic.some(
                 elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
-              ) && dato.day == day
+              )
           )
         );
       } else if (
@@ -465,11 +625,11 @@ export class DataProvider {
         return this.conferences.map(data =>
           data.filter(
             dato =>
-              dato.topic.some(
-                elem => elem.topicID == topic[topic.indexOf(elem.topicID)]
-              ) &&
               dato.day == day &&
-              this.favConf.indexOf(dato.$key) != -1
+              this.favConf.indexOf(dato.$key) != -1 &&
+              dato.topic.some(
+                elem => elem.topicID === topic[topic.indexOf(elem.topicID)]
+              )
           )
         );
       } else if (

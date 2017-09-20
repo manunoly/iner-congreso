@@ -1,4 +1,3 @@
-import { FilterTopicPage } from "./../filter-topic/filter-topic";
 // import { AboutPage } from "./../about/about";
 import { Component } from "@angular/core";
 import {
@@ -13,6 +12,8 @@ import {
 import { FormControl } from "@angular/forms";
 import { ConferenceDetailPage } from "./../conference-detail/conference-detail";
 import { RatePage } from "./../rate/rate";
+import { FilterLocationPage } from "./../filter-location/filter-location";
+import { FilterTopicPage } from "./../filter-topic/filter-topic";
 import "rxjs/add/operator/debounceTime";
 import { AuthProvider } from "./../../providers/auth";
 import { DataProvider } from "./../../providers/data";
@@ -33,6 +34,7 @@ export class ConferencePage {
   congresoControl: FormControl;
   searching: any = false;
   filterTopic = [];
+  filterLocation = [];
   search: boolean = true;
   favConf = [];
   conferencesFavorite: boolean = false;
@@ -97,7 +99,6 @@ export class ConferencePage {
     this.setFilteredConferences();
   }
 
-
   onSearchInput() {
     this.searching = true;
   }
@@ -130,7 +131,9 @@ export class ConferencePage {
   }
 
   openOption(itemSlide: ItemSliding, item: Item) {
-    this.dataS.showNotification("Deslice hacia la Izquierda para mostrar estas opciones");
+    this.dataS.showNotification(
+      "Deslice hacia la Izquierda para mostrar estas opciones"
+    );
     this.activeItemSliding = itemSlide;
     let swipeAmount = 125; //set your required swipe amount
     itemSlide.startSliding(swipeAmount);
@@ -159,14 +162,14 @@ export class ConferencePage {
   }
 
   setFilteredConferences() {
-    console.log(this.congreso);
     this.conferences = this.dataS.filterConferences(
       this.searchTerm,
       this.day,
       this.filterTopic,
       this.conferencesFavorite,
       undefined,
-      this.congreso
+      this.congreso,
+      this.filterLocation
     );
   }
 
@@ -176,7 +179,7 @@ export class ConferencePage {
     });
   }
 
-/*   itemTapped(event, item) {
+  /*   itemTapped(event, item) {
     this.navCtrl.push(AboutPage, {
       item: item
     });
@@ -194,12 +197,25 @@ export class ConferencePage {
       .catch(_ => {});
     modal.onDidDismiss((data: any[]) => {
       if (data) {
-        this.searching = true;
         this.filterTopic = data;
         this.setFilteredConferences();
-        setTimeout(() => {
-          this.searching = false;
-        });
+      }
+    });
+  }
+  popFilterLocation(myEvent) {
+    let modal = this.popoverCtrl.create(FilterLocationPage, {
+      location: this.filterLocation
+    });
+    modal
+      .present({
+        ev: myEvent
+      })
+      .then(_ => {})
+      .catch(_ => {});
+    modal.onDidDismiss((data: any[]) => {
+      if (data) {
+        this.filterLocation = data;
+        this.setFilteredConferences();
       }
     });
   }
